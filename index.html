@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+    <!-- GOOGLE FONTS -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Rubik:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- ION ICONS -->
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+
+    <link rel="stylesheet" href="/style.css">
+    
+    <!-- LEAFLET MAP -->
+    <!-- <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
+      integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
+      crossorigin=""
+    />  -->
+
+    <script
+    defer
+    src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"
+    integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
+    crossorigin=""
+  ></script>
+
+  <script type="module" src="/main.js" defer></script>
+  <title>Trips Ahoy &mdash; Never cook again!</title>
+  </head>
+  <body>
+      <div class="sidebar">
+        <div class="logo_box">
+          <img class="logo_img" src="imgs/globe.svg" alt="Logo"/>
+          <span class="logo__title">Trips Ahoy!</span>
+        </div>
+  
+        <ul class="workouts" role="list">
+          <form class="form hidden">
+            <div class="form__row">
+              <label class="form__label">Title</label>
+              <select class="form__input form__input--type">
+                <option value="running">Running</option>
+                <option value="cycling">Cycling</option>
+              </select>
+            </div>
+            <div class="form__row">
+              <label class="form__label">Distance</label>
+              <input class="form__input form__input--distance" placeholder="km" />
+            </div>
+            <div class="form__row">
+              <label class="form__label">Duration</label>
+              <input
+                class="form__input form__input--duration"
+                placeholder="min"
+              />
+            </div>
+  
+            <div class="form__row">
+              <label class="form__label">Cadence</label>
+              <input
+                class="form__input form__input--cadence"
+                placeholder="step/min"
+              />
+            </div>
+            <div class="form__row form__row--hidden">
+              <label class="form__label">Elev Gain</label>
+              <input
+                class="form__input form__input--elevation"
+                placeholder="meters"
+              />
+            </div>
+            <button class="form__btn">OK</button>
+          </form>
+  
+          <!-- <li class="workout workout--running" data-id="1234567890">
+            <h2 class="workout__title">Running on April 14</h2>
+            <div class="workout__details">
+              <span class="workout__icon">🏃‍♂️</span>
+              <span class="workout__value">5.2</span>
+              <span class="workout__unit">km</span>
+            </div>
+            <div class="workout__details">
+              <span class="workout__icon">⏱</span>
+              <span class="workout__value">24</span>
+              <span class="workout__unit">min</span>
+            </div>
+            <div class="workout__details">
+              <span class="workout__icon">⚡️</span>
+              <span class="workout__value">4.6</span>
+              <span class="workout__unit">min/km</span>
+            </div>
+            <div class="workout__details">
+              <span class="workout__icon">🦶🏼</span>
+              <span class="workout__value">178</span>
+              <span class="workout__unit">spm</span>
+            </div>
+          </li>
+  
+          <li class="workout workout--cycling" data-id="1234567891">
+            <h2 class="workout__title">Cycling on April 5</h2>
+            <div class="workout__details">
+              <span class="workout__icon">🚴‍♀️</span>
+              <span class="workout__value">27</span>
+              <span class="workout__unit">km</span>
+            </div>
+            <div class="workout__details">
+              <span class="workout__icon">⏱</span>
+              <span class="workout__value">95</span>
+              <span class="workout__unit">min</span>
+            </div>
+            <div class="workout__details">
+              <span class="workout__icon">⚡️</span>
+              <span class="workout__value">16</span>
+              <span class="workout__unit">km/h</span>
+            </div>
+            <div class="workout__details">
+              <span class="workout__icon">⛰</span>
+              <span class="workout__value">223</span>
+              <span class="workout__unit">m</span>
+            </div>
+          </li> -->
+  
+          <!-- <div class="dropdown">
+            <button onclick="myFunction()" class="dropbtn">Dropdown</button>
+            <div id="myDropdown" class="dropdown-contentt">
+              <a href="#">Edit</a>
+              <a href="#">Delete</a>
+              <a href="#">Sort</a>
+            </div>
+          </div> -->
+        </ul>
+  
+        <!-- <p class="copyright">
+          &copy; Copyright by
+          <a
+            class="twitter-link"
+            target="_blank"
+            href="https://ikeronx.github.io/portfolio-v2/"
+            >Keron Williams</a
+          >
+        </p> -->
+      </div>
+  
+      <div id="map" class="map"></div>
+  </body>
+</html>
