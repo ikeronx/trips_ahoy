@@ -81,13 +81,12 @@ body {
 
   background: #1F1C2C;  
   background: -webkit-linear-gradient(to bottom, #928DAB, #1F1C2C);  
-  background: linear-gradient(to bottom, #928DAB, #1F1C2C); 
+  background: linear-gradient(to right, #928DAB, #1F1C2C); 
     
 
   background: #134E5E; 
   background: -webkit-linear-gradient(to bottom, #71B280, #134E5E);  
-  background: linear-gradient(to bottom, #73A580, #134E5E);  
-
+  background: linear-gradient(to right, #588a63, #134E5E);  
 }
 
 /* A elements that don't have a class get default styles */
@@ -126,28 +125,74 @@ html:focus-within {
   flex-basis: 55rem;
   background-color: var(--clr-dark--1);
   padding: 3rem 3rem 4rem 3rem;
-  border-bottom-left-radius: 1rem;
   border-top-left-radius: 1rem;
+  border-bottom-left-radius: 1rem;
   display: flex;
   flex-direction: column;
+  position: relative;
+  overflow-x: hidden;
 }
 
 .logo_box {
   display: flex;
+  justify-content: space-between;
   align-items: center;
   gap: 1rem;
-  /* align-self: center; */
   margin-bottom: 4rem;
 }
 
 .logo_img{
+  display: inline-block;
   height: 5.2rem;
 }
 
 .logo__title{
-  color: #dedfdf;
+  vertical-align: middle;
+  color: #E6FFFA;
   font-size:  2.4rem;
-  font-weight: var(--fw-700)
+  font-weight: var(--fw-700);
+}
+
+.cta-form{
+  display: grid;
+  place-items: center;
+  width: 17.5rem;
+  padding: 1.2rem 2.4rem;
+  border-top-left-radius: 0.5rem;
+  border-bottom-left-radius: 0.5rem;
+  box-shadow:inset 0 0 0 0.2rem #319795;
+  background-color: #319795;
+  position: absolute;
+  right: 0; 
+  transform: translateX(83.5%);
+  transition: all 0.3s ease-in;
+}
+
+.cta-form:hover{
+  transform: translateX(0);
+}
+
+.cta-form select{
+  width: 100%;
+  text-transform: uppercase;
+  letter-spacing: 0.1rem;
+  font-size: 1.4rem;
+  font-family: inherit;
+  font-weight: var(--fw-700);
+  color: #fff;
+  border: none;
+  background-color: transparent;
+  border-radius: 0.5rem;
+  box-shadow: inset 0 1px 2px rgba(0,0,0,0.1);
+}
+
+.cta-form select:focus{
+  outline: none;  
+}
+
+.cta-text{
+  display: flex;
+  justify-content: space-between;
 }
 
 /**************************/
@@ -171,7 +216,6 @@ html:focus-within {
 /**************************/
 /* CARD COMPONENT */
 /**************************/
-
 .card{
   background: #2c3438; 
   display: flex;
@@ -179,6 +223,7 @@ html:focus-within {
   text-align: center;
   padding-bottom: 3.6rem;
   margin: 0;
+  border: transparent;
 }
 
 @media screen and (min-width: 60em) {
@@ -202,7 +247,7 @@ html:focus-within {
       position: relative;
       padding-bottom: 100%;
       aspect-ratio: 6/9;
-       /* width: 375px;
+      /* width: 375px;
       height: 211px;  */
       width: 18rem; 
       height: 10.125rem;  
@@ -412,7 +457,7 @@ html:focus-within {
   padding-top: 10px;
   color: transparent;  
   text-shadow: 0 0 0 #4FD1C5;
-  /* text-shadow: 0 0 0 #ffa41c; */
+  /* text-shadow: 0 0 0 #ffa41c; #F6AD55*/
 }
 
 @media screen and (min-width: 40em) {
@@ -485,13 +530,14 @@ html:focus-within {
   font-size: 1.4rem;
   border: none;
   border-radius: 3px;
-  background-color: var(--clr-light--3);
+  background-color: #282b2e;
   transition: all 0.2s;
+  color: #cacccd;
 }
 
 .form__input:focus {
   outline: none;
-  box-shadow: 0 0 0 0.2rem  rgba(129, 230, 217, 0.5);
+  box-shadow: inset 0 0 0 0.1rem  #4FD1C5;
 }
 
 .form__btn {
@@ -522,7 +568,6 @@ html:focus-within {
   color: var(--clr-light--2);
 }
 
-
 /**************************/
 /* MAP */
 /**************************/
@@ -533,6 +578,11 @@ html:focus-within {
     /* background-color: var(--clr-light--1); */
     border-bottom-right-radius: 1rem;
     border-top-right-radius: 1rem;
+
+    /* background-image: url(imgs/dark-map.png);
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-attachment: fixed; */
 }
 
 /*

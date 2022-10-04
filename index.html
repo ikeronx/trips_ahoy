@@ -45,17 +45,25 @@
 
   <link rel="stylesheet" href="/style.css">
   <script type="module" src="/main.js" defer></script>
-  <title>Trips Ahoy &mdash; Never cook again!</title>
+  <title>Trips Ahoy! &mdash; Where have you been?</title>
   </head>
   <body>
       <div class="sidebar">
         <div class="logo_box">
-          <img class="logo_img" src="imgs/globe.svg" alt="Logo"/>
-          <span class="logo__title">Trips Ahoy!</span>
+          <div>
+            <img class="logo_img" src="imgs/globe.svg" alt="Logo"/>
+            <span class="logo__title">Trips Ahoy!</span>
+          </div>
+          <div class="cta-form">
+            <select name="countries-menu" class="countries-menu" placeholder="Book flight">
+              <!-- <option disabled selected value>Book Flight</option>  -->
+              
+            </select>
+          </div>
         </div>
   
         <ul class="cards" role="list">
-          <form class="form">
+          <form class="form hidden">
             <div class="form__row">
               <label class="form__label">Title</label>
               <input class="form__input form__input--title" 
@@ -67,7 +75,7 @@
               <label class="form__label">Rating</label>
               <input class="form__input form__input--rating" 
               type='number' 
-               min='1' max="5" 
+              min='1' max="5" 
               placeholder="1 - 5" 
               required/>
             </div>
@@ -97,7 +105,7 @@
                 placeholder="write a short description..."
                 cols="30"
                 rows="3"
-                maxlength="185"
+                maxlength="107"
                 required
               ></textarea>
             </div>
@@ -117,7 +125,7 @@
                         <img class="card__map-marker" src='./imgs/map-marker.svg' alt="map marker icon" />
                         <p class="card__country">IT</p>  
                         <p class="card__flag">🇮🇹</p>
-                        <div class="card__weather-icon-div card__country">CAP
+                        <div class="card__weather-icon-div card__country">Lago di Braies 
                             <img class="card__weather-icon" src='https://openweathermap.org/img/wn/02d@2x.png'/>
                         </div>
                     </div>
@@ -133,12 +141,86 @@
                 <div class="card__body">
                     <div class = 'card__date-rating-box'>
                         <p class="card__date">Mar 12, 2022 - June 01, 2022</p>
-                        <p  class="card__rating">⭐️⭐️⭐️⭐️☆</p>
+                        <p  class="card__rating">⭐️⭐️⭐️☆☆</p>
                     </div>
                     <p class="card__description">Lago di Braies is a beautiful lake surrounded by green mountains 😍. The tiny borghi at the lakeside make</p>
                 </div>
             </header>
         </li>
+
+        <li class="card card-box " id=${i}>
+          <aside class="card__aside">
+              <figure class="card__figure">
+                  <img class="card__image" src='https://images.unsplash.com/photo-1624483275193-33b8acc6e32f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1674&q=80  https://images.unsplash.com/photo-1592945843838-c69fc7dacb08?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2940&q=80 https://images.unsplash.com/photo-1626292730004-0b3373283151?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2864&q=80 ' alt="picture of lago di braies" />                        
+              </figure>
+          </aside>
+          <header class="card__header card-textbox">
+              <div class="card-textbox__location-box">
+                  <di class="card-textbox__country">
+                      <img class="card__map-marker" src='./imgs/map-marker.svg' alt="map marker icon" />
+                      <p class="card__country">JM</p>  
+                      <p class="card__flag">🇯🇲</p>
+                      <div class="card__weather-icon-div card__country">Montego Bay
+                          <img class="card__weather-icon" src='https://openweathermap.org/img/wn/01d@2x.png'/>
+                      </div>
+                  </di>
+                  <div>
+                      <ion-icon class="card__drop-down--icon" data-bs-toggle="dropdown" type="div" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" name="ellipsis-horizontal"></ion-icon>
+                      <div class="card__dropdown-menu--styling  dropdown-menu" aria-labelledby="dropdownMenuButton">
+                          <div class="dropdown-item card__dropdown-item--styling" onClick= "editTask(this)" data-bs-toggle="modal" data-bs-target="#editTripForm" ><ion-icon name="create-outline"></ion-icon>Edit</div>
+                          <div class="dropdown-item card__dropdown-item--styling" onClick= "deleteTask(this);createTasks()" ><ion-icon name="trash-outline"></ion-icon>Delete</div>
+                      </div>
+                  </div>
+              </div>
+              <h2 class="card__title">Bottoms Up In Mo'Bay</h2>
+              <div class="card__body">
+                  <div class = 'card__date-rating-box'>
+                      <p class="card__date">Mar 12, 2022 - June 01, 2022</p>
+                      <p  class="card__rating">⭐️⭐️⭐️⭐️⭐️</p>
+                  </div>
+                  <p class="card__description"> Montego Bay has excellent duty-free shopping, vibrant nightlife, and calm waters. I can't wait to return! 💃🏻</p>
+              </div>
+          </header>
+      </li>
+
+
+      <li class="card card-box " id=${i}>
+        <aside class="card__aside">
+            <figure class="card__figure">
+                <img class="card__image" src='https://images.unsplash.com/photo-1641463594370-68593b56552c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80' alt="picture of lago di braies" />                        
+            </figure>
+        </aside>
+        <header class="card__header card-textbox">
+            <div class="card-textbox__location-box">
+                <di class="card-textbox__country">
+                    <img class="card__map-marker" src='./imgs/map-marker.svg' alt="map marker icon" />
+                    <p class="card__country">SK</p>  
+                    <p class="card__flag">🇰🇷</p>
+                    <div class="card__weather-icon-div card__country">SEOUL
+                        <img class="card__weather-icon" src='http://openweathermap.org/img/wn/11d@2x.png'/>
+                    </div>
+                </di>
+                <div>
+                    <ion-icon class="card__drop-down--icon" data-bs-toggle="dropdown" type="div" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" name="ellipsis-horizontal"></ion-icon>
+                    <div class="card__dropdown-menu--styling  dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <div class="dropdown-item card__dropdown-item--styling" onClick= "editTask(this)" data-bs-toggle="modal" data-bs-target="#editTripForm" ><ion-icon name="create-outline"></ion-icon>Edit</div>
+                        <div class="dropdown-item card__dropdown-item--styling" onClick= "deleteTask(this);createTasks()" ><ion-icon name="trash-outline"></ion-icon>Delete</div>
+                    </div>
+                </div>
+            </div>
+            <h2 class="card__title">Bon Voyage  🛫</h2>
+            <div class="card__body">
+                <div class = 'card__date-rating-box'>
+                    <p class="card__date">Mar 12, 2022 - June 01, 2022</p>
+                    <p  class="card__rating">⭐️⭐️⭐️⭐️☆</p>
+                </div>
+                <p class="card__description"> Montego Bay has excellent duty-free shopping, vibrant nightlife, and calm waters. I can't wait to return!</p>
+            </div>
+        </header>
+    </li>
+
+
+
         </ul>
   
         <p class="copyright">
