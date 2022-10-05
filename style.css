@@ -86,7 +86,7 @@ body {
 
   background: #134E5E; 
   background: -webkit-linear-gradient(to bottom, #71B280, #134E5E);  
-  background: linear-gradient(to right, #588a63, #134E5E);  
+  background: linear-gradient(to right, #476d4f, #134E5E);  
 }
 
 /* A elements that don't have a class get default styles */
@@ -148,7 +148,7 @@ html:focus-within {
 
 .logo__title{
   vertical-align: middle;
-  color: #E6FFFA;
+  color: #fff;
   font-size:  2.4rem;
   font-weight: var(--fw-700);
 }
@@ -161,7 +161,7 @@ html:focus-within {
   border-top-left-radius: 0.5rem;
   border-bottom-left-radius: 0.5rem;
   box-shadow:inset 0 0 0 0.2rem #319795;
-  background-color: #319795;
+  background-color: transparent;
   position: absolute;
   right: 0; 
   transform: translateX(83.5%);
@@ -170,6 +170,7 @@ html:focus-within {
 
 .cta-form:hover{
   transform: translateX(0);
+  background-color: #319795;
 }
 
 .cta-form select{
@@ -247,8 +248,6 @@ html:focus-within {
       position: relative;
       padding-bottom: 100%;
       aspect-ratio: 6/9;
-      /* width: 375px;
-      height: 211px;  */
       width: 18rem; 
       height: 10.125rem;  
   } 
@@ -272,7 +271,6 @@ html:focus-within {
   padding: 10px 30px 20px 30px;
   border-radius: 0 0 5px 5px;
   width: 100%;
-  /* border-bottom: 5px solid #38B2AC; */
 }
 
 @media screen and (min-width: 40em) {
@@ -537,7 +535,7 @@ html:focus-within {
 
 .form__input:focus {
   outline: none;
-  box-shadow: inset 0 0 0 0.1rem  #4FD1C5;
+  box-shadow: inset 0 0 0 0.1rem  #319795;
 }
 
 .form__btn {
@@ -584,6 +582,7 @@ html:focus-within {
             background-repeat: no-repeat;
             background-attachment: fixed; */
 }
+
 
 /*
 SPACING SYSTEM (px)

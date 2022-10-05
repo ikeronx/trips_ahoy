@@ -18,10 +18,12 @@ const loadMap = async () => {
             
     const coords = [lat, lng];
 
-    map = L.map('map').setView(coords, 12);
-
+    map = L.map('map', {zoomControl: false}).setView(coords, 12)
+    
+    L.control.zoom({ position: 'bottomright' }).addTo(map);
+    
     // L.tileLayer('https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png', {}, 
-    // ).addTo(map); 
+    // ).addTo(map);
 
   } catch (err) {
     console.error(`${err} 💥 💥 💥`);
@@ -36,26 +38,26 @@ const getCountriesName = async () => {
       if (!res.ok) throw new Error(`Problem getting country data`);
       const data = await res.json();
 
-      const capital = data.map(country => {
-          console.log( `${country.capital}`)
-      })
-
-      console.log(capital);
-      
       const countryNames = data.map(country => {
           return `${country.flag} ${country.name.common}`;
       }).sort()
 
-      let output = '<option disabled selected value>Book Flight</option>';
-      countryNames.forEach((country) => {
-          output += `<option value="${country.slice(5, -1)}">${country}</option>`;
-        bookFlightMenu.innerHTML = output;
-        // bookFlightMenu.insertAdjacentHTML('afterend', output);
-      });
+      let output = '<option disabled selected value>Reserve Flight</option>';
+    countryNames.forEach((country) => {
+      console.log( country.slice(5, country.length).trim().toLowerCase())
+      // https://www.kiwi.com/en/search/tiles/spain/anywhere
+      // output += `<option value="">${country.slice(5, -1)} ${country}</option>`;
+      output += `<option value="https://www.kiwi.com/en/search/tiles/${country.slice(5, country.length).trim().toLowerCase()}/anywhere">${country}</option>`;
+      bookFlightMenu.innerHTML = output;
+      
+    });
+    
   }
   catch (err) {
       console.error(`${err} 💥 💥 💥`);
       // renderError(`💥 ${err.message}`);
   }
 };
-getCountriesName()
+getCountriesName();
+
+

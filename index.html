@@ -55,13 +55,12 @@
             <span class="logo__title">Trips Ahoy!</span>
           </div>
           <div class="cta-form">
-            <select name="countries-menu" class="countries-menu" placeholder="Book flight">
-              <!-- <option disabled selected value>Book Flight</option>  -->
-              
+            <select onChange="window.location.href = this.value, '_blank'" name="countries-menu" class="countries-menu" placeholder="Book flight">
+              <option disabled selected value>Reserve Flight</option>
             </select>
           </div>
         </div>
-  
+    
         <ul class="cards" role="list">
           <form class="form hidden">
             <div class="form__row">
