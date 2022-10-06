@@ -86,7 +86,8 @@ body {
 
   background: #134E5E; 
   background: -webkit-linear-gradient(to bottom, #71B280, #134E5E);  
-  background: linear-gradient(to right, #476d4f, #134E5E);  
+  background: linear-gradient(to right, #38B2AC, #134E5E);  
+
 }
 
 /* A elements that don't have a class get default styles */
@@ -156,21 +157,26 @@ html:focus-within {
 .cta-form{
   display: grid;
   place-items: center;
-  width: 17.5rem;
+  width: 21.5rem;
   padding: 1.2rem 2.4rem;
   border-top-left-radius: 0.5rem;
   border-bottom-left-radius: 0.5rem;
   box-shadow:inset 0 0 0 0.2rem #319795;
   background-color: transparent;
+  /* background-color: #319795; */
   position: absolute;
   right: 0; 
-  transform: translateX(83.5%);
+  transform: translateX(86.5%);
   transition: all 0.3s ease-in;
 }
 
 .cta-form:hover{
   transform: translateX(0);
   background-color: #319795;
+}
+
+.cta-form, .cta-form select{
+  cursor: pointer;
 }
 
 .cta-form select{
@@ -187,6 +193,10 @@ html:focus-within {
   box-shadow: inset 0 1px 2px rgba(0,0,0,0.1);
 }
 
+.cta-form select:first-child{
+  letter-spacing: 0.5rem;
+}
+
 .cta-form select:focus{
   outline: none;  
 }
@@ -199,7 +209,7 @@ html:focus-within {
 /**************************/
 /* CARDS */
 /**************************/
-.cards {
+.trips {
   list-style: none;
   height: 77vh;
   overflow-y: scroll;
@@ -210,7 +220,7 @@ html:focus-within {
   align-items: center;
 }
 
-.cards::-webkit-scrollbar {
+.trips::-webkit-scrollbar {
   width: 0;
 }
 
@@ -526,11 +536,16 @@ html:focus-within {
   padding: 0.3rem 1.1rem;
   font-family: inherit;
   font-size: 1.4rem;
+  font-weight: var(--fw-500);
   border: none;
   border-radius: 3px;
   background-color: #282b2e;
   transition: all 0.2s;
-  color: #cacccd;
+  color: #eee;
+}
+
+.form__input--desc{
+ padding-block:  1rem ;
 }
 
 .form__input:focus {
@@ -583,6 +598,25 @@ html:focus-within {
             background-attachment: fixed; */
 }
 
+/* Popup width is defined in JS using options */
+.leaflet-popup .leaflet-popup-content-wrapper {
+  background-color: var(--clr-dark--1);
+  color: var(--clr-light--2);
+  border-radius: 5px;
+  padding-right: 0.6rem;
+}
+
+.leaflet-popup .leaflet-popup-content {
+  font-size: 1.5rem;
+}
+
+.leaflet-popup .leaflet-popup-tip {
+  background-color: var(--clr-dark--1);
+}
+
+.trip-popup .leaflet-popup-content-wrapper {
+  border-left: 5px solid #319795;
+}
 
 /*
 SPACING SYSTEM (px)
