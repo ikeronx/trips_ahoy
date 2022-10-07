@@ -1,7 +1,20 @@
 import './style.css'
 import * as utilAsync from './utils/apiCalls'
 import * as utilStr from './utils/formatStr'
-import * as utilUiID from './utils/uniqueId'
+
+(async () => {
+  await utilAsync._renderCFMenu();
+  form.addEventListener('submit', newWorkout)
+})();  
+
+  // Chrome canvas 
+const canvas = document.createElement('canvas').getContext('2d', { willReadFrequently: true });
+  
+
+
+// document.addEventListener('DOMContentLoaded', function() {
+//   alert("Ready!");
+// }, false);
 
 // DOM ELEMENTS
 const form = document.querySelector('.form');
@@ -22,9 +35,7 @@ let trips = [
     endDate: 'June 01, 2022',
     rating: '⭐️⭐️⭐️☆☆',
     desc: 'Lago di Braies is a beautiful lake surrounded by green mountains 😍. The tiny borghi at the lakeside make',
-    coords: [43.12237361329194, 12.412278112024072],
-    country: 'Italy',
-    countryAbbrev: 'IT',
+    countryCode: 'it',
     countryFlag: '🇮🇹',
     city: 'Prague',
     weatherIcon: 'https://openweathermap.org/img/wn/02d@2x.png',
@@ -33,6 +44,12 @@ let trips = [
 ]
 
 // APP
+const showForm = (mapE) => {
+  mapEvent = mapE // reassigned the value that it get from the leaflet map on() method event to the global mapEvent variable hence other functions that outside this fun will get access to that value
+  form.classList.remove('hidden');
+  inputTitle.focus();
+}
+
 const loadMap = async () => {
   try {
     const pos = await utilAsync._getPos();
@@ -40,7 +57,7 @@ const loadMap = async () => {
             
     const coords = [lat, lng];
 
-    map = L.map('map', {zoomControl: false}).setView(coords, 12)
+    map = L.map('map', {zoomControl: false}).setView(coords, 13)
     
     L.control.zoom({ position: 'bottomright' }).addTo(map);
     
@@ -48,21 +65,32 @@ const loadMap = async () => {
       maxZoom: 20,
       subdomains: ['mt0', 'mt1', 'mt2', 'mt3'],
     }).addTo(map);
-    
+
+    L.tileLayer('https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png', {}, // <-- the map title style is set to the OpenStreetMap style
+    ).addTo(map); // <-- the map is added to the map container
+
+    L.marker(coords)
+    .addTo(map)
+    .bindPopup(
+            L.popup({
+                    maxWidth: 250,
+                    minWidth: 100,
+                    autoClose: false,
+                    closeOnClick: false,
+                    className: `trip-popup`,
+            })
+    )
+    .setPopupContent('hi how are you dooing')
+      .openPopup().bindTooltip("my tooltip text")
+
     // Handling clicks on map
     map.on('click', showForm)
 
   } catch (err) {
-    // renderError(`💥 ${err.message}`);
-    return Promise.reject(`${err} 💥 💥 💥`)
+    return Promise.reject(err.message)
   }
 };
-
-const showForm = (mapE) => {
-  mapEvent = mapE // reassigned the value that it get from the leaflet map on() method event to the global mapEvent variable hence other functions that outside this fun will get access to that value
-  form.classList.remove('hidden');
-  inputTitle.focus();
-}
+await loadMap();
 
 const newWorkout = async (e) => {
   e.preventDefault()
@@ -75,9 +103,13 @@ const newWorkout = async (e) => {
   const endDate = utilStr._fd(inputEndDate.value)
   const desc = inputDesc.value
   const { lat, lng } = mapEvent.latlng
-  //💡💡 add async function on the variables here and use the lat, lng for the coords fn parameter above before adding it to the variables trip object below 
-  // e.g const weatherIcon = await getCityCurWeather(lat, lng)
-  console.log(title, rating, startDate, endDate, desc, lat, lng, id);
+  const countryCode = await utilAsync._getCC(lat, lng) 
+  const countryFlag = await utilAsync._getCF(lat, lng) 
+  const city = await utilAsync._getCiNm(lat, lng) || ''
+  const cityCurWeather = await utilAsync._getCiCurWea(lat, lng)
+  // const cityWeaIconPath = cityCurWeather[0] 
+  const cityWeaDesc = cityCurWeather[1] 
+  console.log(lat, lng);
 
   // Check if inputs are valid - the form already checks for valid inputs automatically
   
@@ -90,10 +122,16 @@ const newWorkout = async (e) => {
     endDate: endDate,
     desc: desc,
     coords: [lat, lng],
+    countryCode: countryCode,
+    countryFlag: countryFlag,
+    city: city,
+    // cityWeaIconPath: cityWeaIconPath,
+    cityWeaDesc: cityWeaDesc,
   }
 
   // Then add the trip object to the trips array
   trips.push(trip)
+  console.log(trips);
 
   // Render trip on map as a marker
   const coords = [lat, lng];
@@ -108,23 +146,19 @@ const newWorkout = async (e) => {
                   className: `trip-popup`,
           })
   )
-  .setPopupContent(`🇯🇲 ${startDate}`)
+  .setPopupContent(`${countryFlag}  ${city} ☁️ ... ${cityWeaDesc}`)
     .openPopup().bindTooltip("my tooltip text")
     // .openTooltip();
 
   // Render trip on the list/sidebar
 
   //Hide form & clear input fields
-  // inputTitle.value = inputRating.value = inputStartDate.value = inputEndDate.value = inputDesc.value = ''
   form.reset();
 }
 
 // EVENT LISTENERS
-(async () => {
-  await loadMap();
-  await utilAsync._renderCFMenu();
-  form.addEventListener('submit', newWorkout)
-})();
+
+
 
 
 

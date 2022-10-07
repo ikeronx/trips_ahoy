@@ -11,7 +11,7 @@
 
   --clr-grey-bg: #242424;
 
-  --ff-primary: 'Inter', sans-serif;
+  --ff-primary: 'Comfortaa', sans-serif;
 
   --ff-body: var(--ff-primary);
   --ff-heading: var(--ff-primary);
@@ -344,13 +344,14 @@ html:focus-within {
 
 .card__flag{
   font-size: 1rem;
-  padding-right: 1rem; 
+  /* padding-right: 1rem;  */
   margin-top: 1rem;
 }
 
 @media screen and (min-width: 40em) {
   .card__flag{
       font-size: 1.2rem;
+      margin-left: 1rem;
   }
 }
 
@@ -359,10 +360,8 @@ html:focus-within {
 }
 
 .card__weather-icon{
-  width: 1.5rem;
   height: 1.5rem;
   margin-bottom: 0.35em;
-  margin-right: 0.5em;;
 }
 
 @media screen and (min-width: 40em) {
@@ -373,16 +372,18 @@ html:focus-within {
       align-items: center;
   }    
   .card__weather-icon{
-      width: 2rem;
+      /* width: 2.1rem; */
       height: 2rem;
       margin-bottom: 0.35em;
+      margin-left: 1.2rem;
   }
 }
 
 .card__drop-down--icon{
   color: #ffffffaa;
   cursor: pointer;
-  margin-top: 0.5rem;
+  /* margin-top: 0.5rem; */
+  vertical-align: middle;
 }
 
 .card__drop-down--icon:hover{
@@ -417,7 +418,7 @@ html:focus-within {
 
 .card__title{
   font-weight: 500;
-  font-size: 2rem;
+  font-size: 1.5rem;
   padding-top: 10px;
   padding-bottom: 1rem; 
   color: #edeeee;
@@ -429,6 +430,7 @@ html:focus-within {
       padding-top: 0px;
       /* padding-bottom: 35px; */
       margin-top: -.9rem;
+      font-size: 2rem;
   }
 }
 
@@ -455,13 +457,19 @@ html:focus-within {
 .card__date{
   color: #dcddde;
   font-weight: 700;
-  font-size: 1.2rem;
+  font-size: 1rem;
   line-height: 20px;
   margin-bottom: 0rem;
 }
 
+@media screen and (min-width: 40em) {
+  .card__date{
+      font-size: 1.2rem;
+  }
+}
+
 .card__rating{
-  font-size: 1.5rem;
+  font-size: 1rem;
   padding-top: 10px;
   color: transparent;  
   text-shadow: 0 0 0 #4FD1C5;
@@ -478,10 +486,16 @@ html:focus-within {
 
 .card__description{
   font-weight: 400;
-  font-size: 1.4rem;
+  font-size: 1rem;
   line-height: 1.5; 
   margin-bottom: 0;
   color: #cacccd;
+}
+
+@media screen and (min-width: 40em) {
+  .card__description{
+      font-size: 1.4rem;
+  }
 }
 
 /**************************/
