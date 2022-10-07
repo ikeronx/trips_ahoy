@@ -309,14 +309,14 @@ html:focus-within {
 }
 
 .card__map-marker{
-  width: 1rem;
-  margin-bottom: 0.2rem;
+  font-size: 2rem;
+  margin-top: 1rem;
+  margin-right: -0.5rem;
 }
 
 @media screen and (min-width: 40em) {
   .card__map-marker{
-      /* width: 0.65rem; */
-      width: 1rem;
+    font-size: 1.5rem;
   }
 }
 
@@ -345,14 +345,12 @@ html:focus-within {
 
 .card__flag{
   font-size: 2rem;
-  /* padding-right: 1rem;  */
   margin-top: 1rem;
 }
 
 @media screen and (min-width: 40em) {
   .card__flag{
       font-size: 1.5rem;
-      margin-left: 1rem;
   }
 }
 
