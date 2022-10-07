@@ -4,6 +4,8 @@ const convertRating = (num) => '⭐️'.repeat(num).concat('\u2606'.repeat(5 - n
 
 const convertToStartCase = (words) => words && words.split(' ').map(word => word[0].toUpperCase() + word.slice(1)).join(' ').replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
 
+
+
 const coverToKebabCase = str => str.toLowerCase().trim().replaceAll(' ', '-')
 
 const formatCityStr = (str) => str.length <= 14 ? str : `${str.slice(0, 14)}..`

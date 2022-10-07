@@ -61,7 +61,7 @@ const loadMap = async () => {
       zoomControl: false,
       center: coords,
       doubleClickZoom: false,
-    }).setView(coords, 3)
+    }).setView(coords, 13)
 
     L.control.zoom({ position: 'bottomright'}).addTo(map);
     
@@ -70,101 +70,24 @@ const loadMap = async () => {
       subdomains: ['mt0', 'mt1', 'mt2', 'mt3'],
     }).addTo(map);
 
-    // L.tileLayer('https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png', {}).addTo(map);
+    L.tileLayer('https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png', {}).addTo(map);
 
     // GEO LOCATION MARKER
-    // L.marker(coords)
-    // .addTo(map)
-    // .bindPopup(
-    //         L.popup({
-    //                 maxWidth: 400,
-    //                 minWidth: 280,
-    //                 autoClose: false,
-    //                 closeOnClick: false,
-    //                 className: `trip-popup`,
-    //         })
-    // )
-    // .setPopupContent(`<div class='popup-box'><span>🇺🇸US</span><span>📍West Bridgewater </span><span><img src='https://openweathermap.org/img/wn/02d@2x.png' alt='city current weather icon' class='leaflet-popup-weather-icon'/>...clear sky</span></div>`)
-    // .openPopup()
-    // // .bindTooltip("my tooltip text")
+    L.marker(coords)
+    .addTo(map)
+    .bindPopup(
+            L.popup({
+                    maxWidth: 300,
+                    minWidth: 20,
+                    autoClose: false,
+                    closeOnClick: false,
+                    className: `trip-popup`,
+            })
+    )
+    .setPopupContent(`🇺🇸US\xa0\xa0\xa0📍Lynn Bay\xa0\xa0\xa0☁️ <i>...clear sky</i>`)
+    .openPopup()
+    // .bindTooltip("my tooltip text")
 
-    //ITALY MARKER
-    L.marker([46.694721, 12.084444])
-    .addTo(map)
-    .bindPopup(
-            L.popup({
-                    maxWidth: 300,
-                    minWidth: 30,
-                    autoClose: false,
-                    closeOnClick: false,
-                    className: `trip-popup`,
-            })
-    )
-    .setPopupContent(`🇮🇹IT\xa0\xa0\xa0📍Pragser Wildsee\xa0\xa0\xa0☁️ <i>...few clouds</i>`)
-      .openPopup()
-    
-    // JAMAICA MARKER
-    L.marker([18.476223, -77.893890])
-    .addTo(map)
-    .bindPopup(
-            L.popup({
-                    maxWidth: 300,
-                    minWidth: 30,
-                    autoClose: false,
-                    closeOnClick: false,
-                    className: `trip-popup`,
-            })
-    )
-    .setPopupContent(`🇯🇲JM\xa0\xa0\xa0📍Montego Bay\xa0\xa0\xa0☁️ <i>...clear sky</i>`)
-      .openPopup()
-    
-    // GUINEA MARKER
-    L.marker([9.509167, -13.712222])
-    .addTo(map)
-    .bindPopup(
-            L.popup({
-                    maxWidth: 300,
-                    minWidth: 30,
-                    autoClose: false,
-                    closeOnClick: false,
-                    className: `trip-popup`,
-            })
-    )
-    .setPopupContent(`🇬🇳GN\xa0\xa0\xa0📍Conakry\xa0\xa0\xa0☁️ <i>...thunderstorm</i>`)
-      .openPopup()
-    
-    // BRAZIL MARKER
-    L.marker([-7.1207, -34.8627])
-    .addTo(map)
-    .bindPopup(
-            L.popup({
-                    maxWidth: 300,
-                    minWidth: 30,
-                    autoClose: false,
-                    closeOnClick: false,
-                    className: `trip-popup`,
-            })
-    )
-    .setPopupContent(`🇧🇷BR\xa0\xa0\xa0📍João Pessoa\xa0\xa0\xa0☁️ <i>...mist</i>`)
-      .openPopup()
-    
-    // BOSTON MARKER
-    L.marker([42.361145, -71.057083])
-    .addTo(map)
-    .bindPopup(
-            L.popup({
-                    maxWidth: 300,
-                    minWidth: 30,
-                    autoClose: false,
-                    closeOnClick: false,
-                    className: `trip-popup`,
-            })
-    )
-    .setPopupContent(`🇺🇸US\xa0\xa0\xa0📍Boston\xa0\xa0\xa0☁️ <i>...snow</i>`)
-      .openPopup()
-    
-    
-  
     // Handling clicks on map
     map.on('click', showForm)
 
@@ -179,7 +102,8 @@ const newWorkout = async (e) => {
 
   // Get data from form
   const id = uuid.v4()
-  const title = utilStr._ctsc(inputTitle.value).trim()
+  const inputTitle = inputTitle.value.trim()
+  const title = utilStr._ctsc(inputTitle)
   const rating = utilStr._cr(inputRating.value)
   const startDate = utilStr._fd(inputStartDate.value)
   const endDate = utilStr._fd(inputEndDate.value)
