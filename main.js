@@ -73,14 +73,14 @@ const loadMap = async () => {
     .addTo(map)
     .bindPopup(
             L.popup({
-                    maxWidth: 250,
-                    minWidth: 100,
+                    maxWidth: 400,
+                    minWidth: 280,
                     autoClose: false,
                     closeOnClick: false,
                     className: `trip-popup`,
             })
     )
-    .setPopupContent('hi how are you dooing')
+    .setPopupContent(`<div class='popup-box'><span>🇺🇸US</span><span>📍West Bridgewater </span><span><img src='https://openweathermap.org/img/wn/02d@2x.png' alt='city current weather icon' class='leaflet-popup-weather-icon'/>...clear sky</span></div>`)
       .openPopup().bindTooltip("my tooltip text")
 
     // Handling clicks on map
@@ -97,7 +97,7 @@ const newWorkout = async (e) => {
 
   // Get data from form
   const id = uuid.v4()
-  const title = utilStr._ctsc(inputTitle.value)
+  const title = utilStr._ctsc(inputTitle.value).trim()
   const rating = utilStr._cr(inputRating.value)
   const startDate = utilStr._fd(inputStartDate.value)
   const endDate = utilStr._fd(inputEndDate.value)
@@ -105,11 +105,11 @@ const newWorkout = async (e) => {
   const { lat, lng } = mapEvent.latlng
   const countryCode = await utilAsync._getCC(lat, lng) 
   const countryFlag = await utilAsync._getCF(lat, lng) 
-  const city = await utilAsync._getCiNm(lat, lng) || ''
+  const city = await utilAsync._getCiNm(lat, lng)
   const cityCurWeather = await utilAsync._getCiCurWea(lat, lng)
-  // const cityWeaIconPath = cityCurWeather[0] 
+  const cityWeaIconPath = cityCurWeather[0] 
   const cityWeaDesc = cityCurWeather[1] 
-  console.log(lat, lng);
+  console.log(city);
 
   // Check if inputs are valid - the form already checks for valid inputs automatically
   
@@ -125,7 +125,7 @@ const newWorkout = async (e) => {
     countryCode: countryCode,
     countryFlag: countryFlag,
     city: city,
-    // cityWeaIconPath: cityWeaIconPath,
+    cityWeaIconPath: cityWeaIconPath,
     cityWeaDesc: cityWeaDesc,
   }
 
@@ -139,14 +139,14 @@ const newWorkout = async (e) => {
   .addTo(map)
   .bindPopup(
           L.popup({
-                  maxWidth: 250,
-                  minWidth: 100,
+                  maxWidth: 300,
+                  minWidth: 30,
                   autoClose: false,
                   closeOnClick: false,
                   className: `trip-popup`,
           })
   )
-  .setPopupContent(`${countryFlag}  ${city} ☁️ ... ${cityWeaDesc}`)
+  .setPopupContent(`${countryFlag}${countryCode.toUpperCase()}\xa0\xa0\xa0📍${city}\xa0\xa0\xa0☁️<i>...${cityWeaDesc}</i>`)
     .openPopup().bindTooltip("my tooltip text")
     // .openTooltip();
 

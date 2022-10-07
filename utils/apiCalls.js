@@ -1,4 +1,5 @@
-import {_ctkc} from '/utils/formatStr'
+import * as utilStr from '/utils/formatStr'
+
 
 const bookFlightMenu = document.querySelector('.book-flight-btn__select');
 
@@ -59,7 +60,8 @@ const getCountryFlag = async (lat, lng) => {
 const getCityName = async (lat, lng) => {
     try {
         const location = await getGeoLocationObject(lat, lng)
-        return location.city
+        if (!location.city) return ''// ⛔️🎅🏽 Guard clause 
+        return utilStr._fcs(location.city)
     }
     catch (err) {
         console.log(err.message);
@@ -79,7 +81,7 @@ const getCityCurWeather = async (lat, lng) => {
         const dataWeather = await resWeather.json();
         if (!dataWeather) return
 
-        return [`https://openweathermap.org/img/wn/${dataWeather.current.weather[0].icon}@2x.png`, ` ${dataWeather.current.weather[0].description}`]
+        return [`https://openweathermap.org/img/wn/${dataWeather.current.weather[0].icon}@2x.png`, `${dataWeather.current.weather[0].description}`]
     }
     catch (err) {
         console.log(err.message);
@@ -111,9 +113,9 @@ const renderCheckFlightMenu = async () => {
             return `${country.flag} ${country.name.common}`;
         }).sort()
 
-        let output = '<option disabled selected value>Book Flight</option>';
+        let output = '<option disabled selected value>LOOKUP Flights</option>';
         countryNames.forEach((country) => {
-        output += `<option value="https://www.kiwi.com/en/search/tiles/${_ctkc(locationCountryName)}/${_ctkc(country.slice(5, country.length).trim().toLowerCase())}">${country}</option>`;
+        output += `<option value="https://www.kiwi.com/en/search/tiles/${utilStr._ctkc(locationCountryName)}/${utilStr._ctkc(country.slice(5, country.length).trim().toLowerCase())}">${country}</option>`;
         bookFlightMenu.innerHTML = output;
         });
     }

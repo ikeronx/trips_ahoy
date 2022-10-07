@@ -154,10 +154,10 @@ html:focus-within {
   font-weight: var(--fw-700);
 }
 
-.cta-form{
+.cta{
   display: grid;
   place-items: center;
-  width: 21.5rem;
+  width: 26.5rem;
   padding: 1.2rem 2.4rem;
   border-top-left-radius: 0.5rem;
   border-bottom-left-radius: 0.5rem;
@@ -166,20 +166,20 @@ html:focus-within {
   /* background-color: #319795; */
   position: absolute;
   right: 0; 
-  transform: translateX(86.5%);
+  transform: translateX(88.9%);
   transition: all 0.3s ease-in;
 }
 
-.cta-form:hover{
+.cta:hover{
   transform: translateX(0);
   background-color: #319795;
 }
 
-.cta-form, .cta-form select{
+.cta, .cta-btn select{
   cursor: pointer;
 }
 
-.cta-form select{
+.cta select{
   width: 100%;
   text-transform: uppercase;
   letter-spacing: 0.1rem;
@@ -193,11 +193,11 @@ html:focus-within {
   box-shadow: inset 0 1px 2px rgba(0,0,0,0.1);
 }
 
-.cta-form select:first-child{
+.cta select:first-child{
   letter-spacing: 0.5rem;
 }
 
-.cta-form select:focus{
+.cta select:focus{
   outline: none;  
 }
 
@@ -309,13 +309,14 @@ html:focus-within {
 }
 
 .card__map-marker{
-  width: 0.5rem;
+  width: 1rem;
   margin-bottom: 0.2rem;
 }
 
 @media screen and (min-width: 40em) {
   .card__map-marker{
-      width: 0.65rem;
+      /* width: 0.65rem; */
+      width: 1rem;
   }
 }
 
@@ -324,7 +325,7 @@ html:focus-within {
   align-items: center;
   justify-content: space-between;
   font-weight: 400;
-  font-size: 0.5rem;
+  font-size: 1.2rem;
 }
 
 @media screen and (min-width: 40em) {
@@ -343,14 +344,14 @@ html:focus-within {
 }
 
 .card__flag{
-  font-size: 1rem;
+  font-size: 2rem;
   /* padding-right: 1rem;  */
   margin-top: 1rem;
 }
 
 @media screen and (min-width: 40em) {
   .card__flag{
-      font-size: 1.2rem;
+      font-size: 1.5rem;
       margin-left: 1rem;
   }
 }
@@ -360,7 +361,7 @@ html:focus-within {
 }
 
 .card__weather-icon{
-  height: 1.5rem;
+  height:2.5rem;
   margin-bottom: 0.35em;
 }
 
@@ -373,7 +374,7 @@ html:focus-within {
   }    
   .card__weather-icon{
       /* width: 2.1rem; */
-      height: 2rem;
+      height: 2.4rem;
       margin-bottom: 0.35em;
       margin-left: 1.2rem;
   }
@@ -418,7 +419,7 @@ html:focus-within {
 
 .card__title{
   font-weight: 500;
-  font-size: 1.5rem;
+  font-size: 2.5rem;
   padding-top: 10px;
   padding-bottom: 1rem; 
   color: #edeeee;
@@ -457,7 +458,7 @@ html:focus-within {
 .card__date{
   color: #dcddde;
   font-weight: 700;
-  font-size: 1rem;
+  font-size: 1.4rem;
   line-height: 20px;
   margin-bottom: 0rem;
 }
@@ -469,7 +470,7 @@ html:focus-within {
 }
 
 .card__rating{
-  font-size: 1rem;
+  font-size: 1.4rem;
   padding-top: 10px;
   color: transparent;  
   text-shadow: 0 0 0 #4FD1C5;
@@ -486,7 +487,7 @@ html:focus-within {
 
 .card__description{
   font-weight: 400;
-  font-size: 1rem;
+  font-size: 1.4rem;
   line-height: 1.5; 
   margin-bottom: 0;
   color: #cacccd;
@@ -632,6 +633,15 @@ html:focus-within {
   border-left: 5px solid #319795;
 }
 
+.leaflet-popup-weather-icon{
+  display: inline;
+  height: 2.4rem;
+}
+
+.popup-box{
+  display: flex;
+  justify-content: space-around;
+}
 /*
 SPACING SYSTEM (px)
 2 / 4 / 8 / 12 / 16 / 24 / 32 / 48 / 64 / 80 / 96 / 128
