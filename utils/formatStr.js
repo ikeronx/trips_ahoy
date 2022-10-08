@@ -2,11 +2,9 @@ const validInputs = (...inputs) => inputs.every((inp) => inp !== '');
 
 const convertToStartCase = (words) => words && words.split(' ').map(word => word[0].toUpperCase() + word.slice(1)).join(' ').replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
 
-
-
 const coverToKebabCase = str => str.toLowerCase().trim().replaceAll(' ', '-')
 
-const formatCityStr = (str) => str.length <= 14 ? str : `${str.slice(0, 14)}..`
+const formatCityStr = (str) => str.length <= 12 ? str : `${str.slice(0, 12)}..`
 
 const formatDateOnEdit = (date) => new Date(date).toISOString().slice(0, 10);
 
