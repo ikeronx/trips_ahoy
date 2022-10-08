@@ -1,5 +1,5 @@
 import * as utilStr from '/utils/formatStr'
-
+import * as utilNum from '/utils/numericConversion'
 
 const bookFlightMenu = document.querySelector('.book-flight-btn__select');
 
@@ -19,7 +19,7 @@ const getGeoLocationObject = async (lat, lng) => {
         if (!resGeo.ok) throw new Error(`Problem getting location data`);
         const dataGeo = await resGeo.json();
 
-        return dataGeo.results[0] // returns object
+        return dataGeo.results[0] // returns an object
 
     } catch (err) {
         console.log(err.message);
@@ -88,8 +88,6 @@ const getCityCurWeather = async (lat, lng) => {
         return ''
     }
 }
- // return an array43.12237361329194, 12.412278112024072
-// 37.5665, 126.9780
 
 // COUNTRIES LOOKUP FLIGHT MENU
 const renderCheckFlightMenu = async () => {
@@ -125,6 +123,28 @@ const renderCheckFlightMenu = async () => {
     }
 };
 
-export { getPosition as _getPos, getCountryCode as _getCC,  getCountryFlag as _getCF, getCityName as _getCiNm, getCityCurWeather as _getCiCurWea, renderCheckFlightMenu as _renderCFMenu};
+// UNSPLASH RANDOM IMAGE
+const getRndUnsplashImg = async () => {
+    try {
+        const accessKey = '92MhZXBYZ32qrYaz6K9ZS_7x6HjAo7TrqHWgSvFNc4U' 
+        
+        const res = await fetch(`https://api.unsplash.com/collections/nOMRmitGW64/photos/?per_page=30&client_id=${accessKey}`)
+        if (!res.ok) throw new Error(`Problem getting image data`);
+        const data = await res.json();
 
-// TRIP IMAGE
+        const rndIndex = utilNum._rndInt(0, 29)
+        const imgPath = data[rndIndex].urls.full
+
+        console.log(data[rndIndex].urls.full);
+        
+        return imgPath 
+
+    } catch (err) {
+        console.log(err.message);
+            return Promise.reject(err.message); 
+        }
+}
+
+export { getPosition as _getPos, getCountryCode as _getCC,  getCountryFlag as _getCF, getCityName as _getCiNm, getCityCurWeather as _getCiCurWea, renderCheckFlightMenu as _renderCFMenu, getRndUnsplashImg as _getUnSplashImg};
+
+

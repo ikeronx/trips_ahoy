@@ -1,7 +1,5 @@
 const validInputs = (...inputs) => inputs.every((inp) => inp !== '');
 
-const convertRating = (num) => '⭐️'.repeat(num).concat('\u2606'.repeat(5 - num));
-
 const convertToStartCase = (words) => words && words.split(' ').map(word => word[0].toUpperCase() + word.slice(1)).join(' ').replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
 
 
@@ -23,7 +21,7 @@ const formatDate = (dateInputValue) => {
     return new Intl.DateTimeFormat(locale, options).format(date)
 };
 
-export { validInputs as _vi, convertRating as _cr, convertToStartCase as _ctsc, coverToKebabCase as _ctkc, formatCityStr as _fcs, formatDate as _fd, formatDateOnEdit as _fdoe };
+export { validInputs as _vi,convertToStartCase as _ctsc, coverToKebabCase as _ctkc, formatCityStr as _fcs, formatDate as _fd, formatDateOnEdit as _fdoe };
  
 
 
