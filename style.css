@@ -313,6 +313,7 @@ html:focus-within {
   font-size: 2rem;
   margin-top: 1rem;
   margin-right: -0.5rem;
+  margin-left: 0.5rem;
 }
 
 @media screen and (min-width: 40em) {

@@ -4,10 +4,14 @@ import * as utilStr from './utils/formatStr'
 import * as utilNum from './utils/numericConversion'
 
 (async () => {
-  await utilAsync._renderCFMenu();
-  form.addEventListener('submit', newWorkout)
-  // Chrome canvas 
-  document.createElement('canvas').getContext('2d', { willReadFrequently: true });
+  try {
+    await utilAsync._renderCFMenu();
+    form.addEventListener('submit', newWorkout);
+    // Chrome canvas 
+    document.createElement('canvas').getContext('2d', { willReadFrequently: true });
+  } catch (err) {
+    console.log(`${err.message}`);
+  }
 })();  
 
 
@@ -36,6 +40,7 @@ let trips = [
     city: 'Pragser Wildsee',
     cityWeaIconPath: 'https://openweathermap.org/img/wn/02d@2x.png',
     cityWeaDesc: 'few clouds',
+    tripImg: 'https://images.unsplash.com/photo-1536323760109-ca8c07450053?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=930&q=80'
   },
   {
     id: 'coki45#2!',
@@ -50,6 +55,7 @@ let trips = [
     city: 'Montego Bay',
     cityWeaIconPath: 'https://openweathermap.org/img/wn/01d@2x.png',
     cityWeaDesc: 'clear sky',
+    tripImg: 'https://images.unsplash.com/photo-1655471290295-68ab70e1942b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxjb2xsZWN0aW9uLXBhZ2V8OXxuT01SbWl0R1c2NHx8ZW58MHx8fHw%3D&auto=format&fit=crop&w=800&q=60'
   },
   {
     id: '658#@#45#2!',
@@ -64,6 +70,7 @@ let trips = [
     city: 'Seoul',
     cityWeaIconPath: 'http://openweathermap.org/img/wn/11d@2x.png',
     cityWeaDesc: 'light rain',
+    tripImg: 'https://images.unsplash.com/photo-1641463594370-68593b56552c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80'
   },
 
 ]
@@ -110,6 +117,13 @@ const loadMap = async () => {
     L.tileLayer('https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png', {}).addTo(map);
 
     // GEO LOCATION MARKER
+    /*const curCountry = await utilAsync._getCNm(lat, lng)
+    const curCity = await utilAsync._getCiNm(lat, lng)
+    const curWeather = await utilAsync._getCiCurWea(lat, lng)
+    const weaDesc = curWeather[1]
+    console.log(curCity);
+
+
     L.marker(coords)
     .addTo(map)
     .bindPopup(
@@ -121,9 +135,19 @@ const loadMap = async () => {
                     className: `trip-popup`,
             })
     )
-    .setPopupContent(`🇺🇸US\xa0\xa0\xa0📍Lynn Bay\xa0\xa0\xa0☁️ <i>...clear sky</i>`)
+      .setPopupContent(`👋 Hey, you can add a trip simply by clicking on the map. <br><br>
+    
+      📍Your location.. <br>
+      🇺🇸 ${curCountry} <br>
+      🌆 ${curCity} <br>
+       ☁️ ...${weaDesc} <br><br>
+
+      🧙‍♂️ click me and I will vanish 
+
+      `)
     .openPopup()
-    // .bindTooltip("my tooltip text")
+    // .bindTooltip(``)
+    */
 
     // Handling clicks on map
     map.on('click', showForm)

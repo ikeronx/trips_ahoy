@@ -23,9 +23,27 @@ const getGeoLocationObject = async (lat, lng) => {
 
     } catch (err) {
         console.log(err.message);
-            return Promise.reject(err.message); 
+            return ''
         }
 }
+
+// COUNTRY NAME
+const getCountryName = async (lat, lng) => {
+    try {
+        const location = await getGeoLocationObject(lat, lng);
+        
+        const res = await fetch(`https://restcountries.com/v3.1/alpha/${location.country_code}`);
+        if (!res.ok) throw new Error(`Problem getting country data`);
+        const data = await res.json();
+        return data[0].name.common
+    }
+    catch (err) {
+        console.log(err.message);
+        return ''
+    }
+}
+
+await getCountryName(48.864716, 2.349014)
 
 // COUNTRY ABBREV
 const getCountryCode = async (lat, lng) => {
@@ -35,7 +53,7 @@ const getCountryCode = async (lat, lng) => {
     }
     catch (err) {
         console.log(err.message);
-        return Promise.reject(err.message); 
+        return ''
     }
 }
 
@@ -52,7 +70,7 @@ const getCountryFlag = async (lat, lng) => {
     }
     catch (err) {
         console.log(err.message);
-        return Promise.reject(err.message);
+        return ''
     }
 }
 
@@ -65,7 +83,7 @@ const getCityName = async (lat, lng) => {
     }
     catch (err) {
         console.log(err.message);
-        return Promise.reject(err.message); 
+        return ''
     }
 }
 
@@ -119,7 +137,7 @@ const renderCheckFlightMenu = async () => {
     }
     catch (err) {
         console.log(err.message);
-        return Promise.reject(err.message); 
+        return ''
     }
 };
 
@@ -141,10 +159,10 @@ const getRndUnsplashImg = async () => {
 
     } catch (err) {
         console.log(err.message);
-            return Promise.reject(err.message); 
+            return ''
         }
 }
 
-export { getPosition as _getPos, getCountryCode as _getCC,  getCountryFlag as _getCF, getCityName as _getCiNm, getCityCurWeather as _getCiCurWea, renderCheckFlightMenu as _renderCFMenu, getRndUnsplashImg as _getUnSplashImg};
+export { getPosition as _getPos, getCountryName as _getCNm, getCountryCode as _getCC,  getCountryFlag as _getCF, getCityName as _getCiNm, getCityCurWeather as _getCiCurWea, renderCheckFlightMenu as _renderCFMenu, getRndUnsplashImg as _getUnSplashImg};
 
 
