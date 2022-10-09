@@ -676,6 +676,20 @@ li:nth-child(2) {
   background-color: var(--clr-dark--1);
 }
 
+.leaflet-tooltip{
+  background-color: #464c4f;
+  border-color: #464c4f;
+  color: #fff;
+}
+
+.leaflet-tooltip-top:before, 
+.leaflet-tooltip-bottom:before, 
+.leaflet-tooltip-left:before, 
+.leaflet-tooltip-right:before {
+    border-right-color: #464c4f !important;
+}
+
+
 .trip-popup .leaflet-popup-content-wrapper {
   border-left: 5px solid #319795;
 }

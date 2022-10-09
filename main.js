@@ -6,9 +6,6 @@ import * as utilNum from './utils/numericConversion'
 (async () => {
   try {
     await utilAsync._renderCFMenu();
-    form.addEventListener('submit', newWorkout);
-    // Chrome canvas 
-    document.createElement('canvas').getContext('2d', { willReadFrequently: true });
   } catch (err) {
     console.log(`${err.message}`);
   }
@@ -117,7 +114,7 @@ const loadMap = async () => {
     L.tileLayer('https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png', {}).addTo(map);
 
     // GEO LOCATION MARKER
-    /*const curCountry = await utilAsync._getCNm(lat, lng)
+    const curCountry = await utilAsync._getCNm(lat, lng)
     const curCity = await utilAsync._getCiNm(lat, lng)
     const curWeather = await utilAsync._getCiCurWea(lat, lng)
     const weaDesc = curWeather[1]
@@ -131,26 +128,24 @@ const loadMap = async () => {
                     maxWidth: 300,
                     minWidth: 20,
                     autoClose: false,
-                    closeOnClick: false,
+                    closeOnClick: true,
                     className: `trip-popup`,
             })
     )
-      .setPopupContent(`👋 Hey, you can add a trip simply by clicking on the map. <br><br>
-    
-      📍Your location.. <br>
-      🇺🇸 ${curCountry} <br>
-      🌆 ${curCity} <br>
-       ☁️ ...${weaDesc} <br><br>
-
-      🧙‍♂️ click me and I will vanish 
+      .setPopupContent(`
+      🧙‍♂️ The current weather in your area is <br> 🪄 <i>...${/*weaDesc*/''}</i> ☁️ <br><br> 👨‍🏫 Hi, I'm Ms. Frizzle. You can add a trip by clicking \xa0\xa0\xa0\xa0\xa0on the map.
 
       `)
-    .openPopup()
-    // .bindTooltip(``)
-    */
+    // .openPopup()
+      .bindTooltip(`🧙‍♂️ Hey there, I'm Dumbledore, and this is your current position.</strong>. <br> Click me, and I will perform a different magic trick for you.`, {
+        // permanent: true,
+        interactive: true,
+      })
+    
 
     // Handling clicks on map
     map.on('click', showForm)
+
 
   } catch (err) {
     return Promise.reject(err.message)
@@ -275,8 +270,8 @@ const newWorkout = async (e) => {
 
 }
 // EVENT LISTENERS
-
-
+form.addEventListener('submit', newWorkout);
+document.createElement('canvas').getContext('2d', { willReadFrequently: true });
 
 
 
