@@ -139,7 +139,9 @@ html:focus-within {
 /**************************/
 .sidebar {
   flex-basis: 55rem;
-  background-color: var(--clr-dark--1);
+  /* background-color: var(--clr-dark--1); */
+  background-color: #272a2c; /* 50% shade */
+  background-color:#1f2223; /* 60% shade */
   padding: 3rem 3rem 4rem 3rem;
   border-top-left-radius: 1rem;
   border-top-right-radius: 1rem;
@@ -672,11 +674,21 @@ li:nth-child(2) {
   font-size: 1.5rem;
 }
 
+
+.trip-popup .leaflet-popup-content-wrapper {
+  border-left: 5px solid #319795;
+}
+
+/* Leaflet marker icon color change */
+img.hueChange { filter: invert(0) sepia(94%) saturate(288%) hue-rotate(130deg) brightness(90%) contrast(91%);
+
+ /* Leaflet tooltip tip style */
 .leaflet-popup .leaflet-popup-tip {
   background-color: var(--clr-dark--1);
 }
 
-.leaflet-tooltip{
+.leaflet-tooltip {
+  font-size: 0.7rem;
   background-color: #464c4f;
   border-color: #464c4f;
   color: #fff;
@@ -687,21 +699,6 @@ li:nth-child(2) {
 .leaflet-tooltip-left:before, 
 .leaflet-tooltip-right:before {
     border-right-color: #464c4f !important;
-}
-
-
-.trip-popup .leaflet-popup-content-wrapper {
-  border-left: 5px solid #319795;
-}
-
-.leaflet-popup-weather-icon{
-  display: inline;
-  height: 2.4rem;
-}
-
-.popup-box{
-  display: flex;
-  justify-content: space-around;
 }
 /*
 SPACING SYSTEM (px)

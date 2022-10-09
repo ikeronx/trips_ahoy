@@ -2,4 +2,4 @@
 const uniqueID = () => Date.now().toString(36) + Math.random().toString(36).slice(2);
 const uniqueIDVer2 = () => +`${Date.now()}`.slice(-10);
 
-export {uniqueID as _v1, uniqueIDVer2 as _v2}
+export { uniqueID as _v1, uniqueIDVer2 as _v2 };

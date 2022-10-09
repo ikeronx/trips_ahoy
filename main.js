@@ -52,7 +52,7 @@ let trips = [
     city: 'Montego Bay',
     cityWeaIconPath: 'https://openweathermap.org/img/wn/01d@2x.png',
     cityWeaDesc: 'clear sky',
-    tripImg: 'https://images.unsplash.com/photo-1655471290295-68ab70e1942b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxjb2xsZWN0aW9uLXBhZ2V8OXxuT01SbWl0R1c2NHx8ZW58MHx8fHw%3D&auto=format&fit=crop&w=800&q=60'
+    tripImg: 'https://images.unsplash.com/photo-1624483275193-33b8acc6e32f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1674&q=80%20%20https://images.unsplash.com/photo-1592945843838-c69fc7dacb08?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2940&q=80%20https://images.unsplash.com/photo-1626292730004-0b3373283151?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2864&q=80'
   },
   {
     id: '658#@#45#2!',
@@ -113,6 +113,18 @@ const loadMap = async () => {
 
     L.tileLayer('https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png', {}).addTo(map);
 
+    L.tileLayer(
+      "https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}",
+      {
+        maxZoom: 18,
+        id: "mapbox/dark-v10",
+        tileSize: 512,
+        zoomOffset: -1,
+        accessToken:
+          "pk.eyJ1IjoiYmxhY2tib3gxMSIsImEiOiJjbDF3OGxkYWIwMzcwM2pwOHQwMXQ2OGM0In0.6KQYul7J6Vbh4edRpmgIaA",
+      }
+    ).addTo(map);
+
     // GEO LOCATION MARKER
     const curCountry = await utilAsync._getCNm(lat, lng)
     const curCity = await utilAsync._getCiNm(lat, lng)
@@ -120,27 +132,27 @@ const loadMap = async () => {
     const weaDesc = curWeather[1]
     console.log(curCity);
 
-
+    // Map's default marker
     L.marker(coords)
     .addTo(map)
     .bindPopup(
             L.popup({
                     maxWidth: 300,
                     minWidth: 20,
-                    autoClose: false,
+                    autoClose: true,
                     closeOnClick: true,
                     className: `trip-popup`,
             })
     )
       .setPopupContent(`
-      🧙‍♂️ The current weather in your area is <br> 🪄 <i>...${/*weaDesc*/''}</i> ☁️ <br><br> 👨‍🏫 Hi, I'm Ms. Frizzle. You can add a trip by clicking \xa0\xa0\xa0\xa0\xa0on the map.
+      🧙‍♂️ The current weather in your area is <br> 🪄 <i>...'{ weaDesc}'</i> ☁️ <br><br> 👩‍🏫 Hi, I'm Ms. Frizzle. You can add a trip by  \xa0\xa0\xa0\xa0\xa0clicking on the map.
 
       `)
     // .openPopup()
-      .bindTooltip(`🧙‍♂️ Hey there, I'm Dumbledore, and this is your current position.</strong>. <br> Click me, and I will perform a different magic trick for you.`, {
+      .bindTooltip(`🧙‍♂️ Hey there, I'm Dumbledore, and this is your current position.</strong><br>\xa0\xa0\xa0\xa0\xa0Click me, and I will perform a different magic trick for you.`, {
         // permanent: true,
         interactive: true,
-      })
+      })._icon.classList.add("hueChange")// changes Leaflet default icon color
     
 
     // Handling clicks on map
