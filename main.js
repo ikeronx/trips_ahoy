@@ -101,7 +101,6 @@ const loadMap = async () => {
     map = L.map('map', {
       zoomControl: false,
       center: coords,
-      doubleClickZoom: false,
     }).setView(coords, 13)
 
     L.control.zoom({ position: 'bottomright'}).addTo(map);
@@ -126,14 +125,23 @@ const loadMap = async () => {
     ).addTo(map);
 
     // GEO LOCATION MARKER
-    const curCountry = await utilAsync._getCNm(lat, lng)
-    const curCity = await utilAsync._getCiNm(lat, lng)
-    const curWeather = await utilAsync._getCiCurWea(lat, lng)
+    const geoData = await utilAsync._getGeoData(coords[0], coords[1])
+
+    const curWeather = await utilAsync._getCiCurWea(coords[0], coords[1])
     const weaDesc = curWeather[1]
-    console.log(curCity);
 
     // Map's default marker
-    L.marker(coords)
+
+    L.marker(coords, {
+      icon:
+      L.icon.pulse({
+      iconUrl: 'https://unpkg.com/leaflet@1.0.3/dist/images/marker-icon.png',
+        // className: 'hueChange'
+        iconSize: [20, 20],
+        color: '#319795',
+        fillColor: '#319795',
+      })
+    })
     .addTo(map)
     .bindPopup(
             L.popup({
@@ -145,15 +153,14 @@ const loadMap = async () => {
             })
     )
       .setPopupContent(`
-      🧙‍♂️ The current weather in your area is <br> 🪄 <i>...'{ weaDesc}'</i> ☁️ <br><br> 👩‍🏫 Hi, I'm Ms. Frizzle. You can add a trip by  \xa0\xa0\xa0\xa0\xa0clicking on the map.
+      🧙🏻‍♂️ The current weather in your area is <br> 🪄 <i>...{weaDesc}</i> ☁️ <br><br> 👩🏼‍🏫 Hi, I'm Ms. Frizzle. You can add a trip by  \xa0\xa0\xa0\xa0\xa0clicking on the map.
 
       `)
     // .openPopup()
-      .bindTooltip(`🧙‍♂️ Hey there, I'm Dumbledore, and this is your current position.</strong><br>\xa0\xa0\xa0\xa0\xa0Click me, and I will perform a different magic trick for you.`, {
+      .bindTooltip(`🧙🏻‍♂️ Hey there, I'm Dumbledore, and this is your current position.</strong><br>\xa0\xa0\xa0\xa0\xa0Click me, and I will perform a different magic trick for you.`, {
         // permanent: true,
         interactive: true,
-      })._icon.classList.add("hueChange")// changes Leaflet default icon color
-    
+      })
 
     // Handling clicks on map
     map.on('click', showForm)
@@ -178,8 +185,8 @@ const renderTripMarker = (trip) => {
       })
     )
     .setPopupContent(`${trip.countryFlag}${trip.countryCode.toUpperCase()}\xa0\xa0\xa0📍${trip.city}\xa0\xa0\xa0☁️<i>...${trip.cityWeaDesc}</i>`)
-    .openPopup().bindTooltip("my tooltip text")
-    .openTooltip();
+    .openPopup()
+    ._icon.classList.add("hueChange");
 }
 
 const renderTrip = (trip) => {
@@ -228,20 +235,22 @@ const newWorkout = async (e) => {
 
     // Get data from form
     const id = uuid.v4()
-    const titleInput = inputTitle.value.trim()
-    const title = utilStr._ctsc(titleInput)
+    const titleValue = utilStr._trimStr(inputTitle.value)
+    const title = utilStr._ctsc(titleValue)
     const rating = utilNum._cr(inputRating.value)
     const startDate = utilStr._fd(inputStartDate.value)
     const endDate = utilStr._fd(inputEndDate.value)
     const desc = inputDesc.value
     const { lat, lng } = mapEvent.latlng
-    const countryCode = await utilAsync._getCC(lat, lng) 
-    const countryFlag = await utilAsync._getCF(lat, lng) 
-    const city = await utilAsync._getCiNm(lat, lng)
+    const geoData = await utilAsync._getGeoData(lat, lng)
+    const countryCode = geoData.countryAbbrev
+    const countryFlag = geoData.flag
+    const city = utilStr._fcs(geoData.city)
     const cityCurWeather = await utilAsync._getCiCurWea(lat, lng)
     const cityWeaIconPath = cityCurWeather[0] 
     const cityWeaDesc = cityCurWeather[1]
-    const tripImg = await utilAsync._getUnSplashImg()
+    const tripImgPath = await utilAsync._getUnSplashImg()
+    const tripImg =  tripImgPath
 
     // Check if data is valid - the form already checks for valid inputs automatically
     
@@ -264,6 +273,7 @@ const newWorkout = async (e) => {
 
     // Add new trip object to trips array
     trips.push(trip)
+    console.log(trips);
 
     // Render trip on map as marker
     renderTripMarker(trip)

@@ -1,5 +1,7 @@
 const validInputs = (...inputs) => inputs.every((inp) => inp !== '');
 
+const trimStr = (str) => str.trim()
+
 const convertToStartCase = (words) => words && words.split(' ').map(word => word[0].toUpperCase() + word.slice(1)).join(' ').replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
 
 const coverToKebabCase = str => str.toLowerCase().trim().replaceAll(' ', '-')
@@ -19,8 +21,4 @@ const formatDate = (dateInputValue) => {
     return new Intl.DateTimeFormat(locale, options).format(date)
 };
 
-export { validInputs as _vi,convertToStartCase as _ctsc, coverToKebabCase as _ctkc, formatCityStr as _fcs, formatDate as _fd, formatDateOnEdit as _fdoe };
- 
-
-
-
+export { validInputs as _vi, trimStr as _trimStr, convertToStartCase as _ctsc, coverToKebabCase as _ctkc, formatCityStr as _fcs, formatDate as _fd, formatDateOnEdit as _fdoe };
