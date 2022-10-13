@@ -236,7 +236,8 @@ html:focus-within {
 /* FORM */
 /**************************/
 .form {
-  background-color: var(--clr-dark--2); 
+  /* background-color: var(--clr-dark--2);  */
+  background-color: #3e4346;
   border-radius: 5px;
   padding: 1.5rem 2.75rem;
   margin-bottom: 1.75rem;
@@ -392,7 +393,8 @@ li:nth-child(2) {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  background-color: #4e5458;
+  background-color: #4e5458; 
+  background-color: #373b3e; 
   padding: 10px 30px 20px 30px;
   border-radius: 0 0 10px 10px;
   width: 100%;
@@ -519,6 +521,7 @@ li:nth-child(2) {
 
 .card__dropdown-menu--styling {
   background: #3e4346;
+  background-color: #1f2223;
 }
 
 .card__dropdown-item--styling{
@@ -611,7 +614,8 @@ li:nth-child(2) {
   font-size: 1.4rem;
   line-height: 1.5; 
   margin-bottom: 0.5rem;
-  color: #b8bbbc;
+  /* color: #b8bbbc; */
+  color: #a7aaac;
 }
 
 @media screen and (min-width: 40em) {
@@ -726,10 +730,10 @@ color: #fff;
   margin-top: auto;
   font-size: 1.3rem;
   text-align: center;
-  color: #969a9c;
+  color: #969a9c; 
   padding: 1.6rem 1.6rem;
   border-radius: 0.5rem;
-  background-color: #40464a;
+  background-color: #363839;
 }
 
 .portfolio-link:link,

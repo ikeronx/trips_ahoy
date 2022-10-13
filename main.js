@@ -1,5 +1,5 @@
 import './style.css'
-import * as utilAsync from './utils/apiCalls'
+import * as utilAsync from './api'
 import * as utilStr from './utils/formatStr'
 import * as utilNum from './utils/numericConversion'
 
@@ -21,8 +21,10 @@ const inputStartDate = document.querySelector('.form__input--start-date');
 const inputEndDate = document.querySelector('.form__input--end-date');
 const inputDesc = document.querySelector('.form__input--desc');
 
+
 let map 
 let mapEvent
+const zoomLevel = 13
 let trips = [
   {
     id: 'thgj79845#2!',
@@ -45,7 +47,7 @@ let trips = [
     rating: '⭐️⭐️⭐️⭐️⭐️',
     startDate: 'Mar 12, 2022',
     endDate: 'June 01, 2022',
-    desc: 'Montego Bay has duty-free shopping, vibrant nightlife, & calm waters. I can\'t wait to return! 💃🏻',
+    desc: 'Montego Bay has duty-free shopping, vibrant nightlife, & calm waters. I can\'t wait to return💃🏻',
     coords: [18.476223, -77.893890],
     countryCode: 'JM',
     countryFlag: '🇯🇲',
@@ -91,6 +93,77 @@ const hideForm = () => {
   setTimeout(() => (form.style.display = 'grid'), 1000);
 }
 
+const renderTripMarker = (trip) => {
+  L.marker(trip.coords)
+    .addTo(map)
+    .bindPopup(
+      L.popup({
+        maxWidth: 300,
+        minWidth: 30,
+        autoClose: false,
+        closeOnClick: false,
+        className: `trip-popup`,
+      })
+    )
+    .setPopupContent(`${trip.countryFlag}${trip.countryCode.toUpperCase()}\xa0\xa0\xa0📍${trip.city}\xa0\xa0\xa0☁️<i>...${trip.cityWeaDesc}</i>`)
+    .openPopup()
+    ._icon.classList.add("hueChange");
+
+}
+
+const renderTrip = (trip) => {
+  let html = `
+  <li class="trip card card-box" data-id='${trip.id}'>
+  <aside class="card__aside">
+      <figure class="card__figure">
+          <img class="card__image" src='${trip.tripImg}' alt="picture of a hand holding a beer outstretched towards a lake" />
+      </figure>
+  </aside>
+  <header class="card__header card-textbox">
+      <div class="card-textbox__location-box">
+          <div class="card-textbox__country">
+              <p class="card__flag">${trip.countryFlag}</p>
+              <p class="card__country">${trip.countryCode}</p>  
+              <p class="card__map-marker">📍</p>
+              <div class="card__weather-icon-div card__country">${trip.city}
+                  <img class="card__weather-icon" src='${trip.cityWeaIconPath}'/>
+              </div>
+          </div>
+          <div>
+              <ion-icon class="card__drop-down--icon" data-bs-toggle="dropdown" type="div" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" name="ellipsis-horizontal"></ion-icon>
+              <div class="card__dropdown-menu--styling  dropdown-menu" aria-labelledby="dropdownMenuButton">
+                  <div class="dropdown-item card__dropdown-item--styling editBtn"><ion-icon name="create-outline"></ion-icon>Edit</div>
+                  <div class="dropdown-item card__dropdown-item--styling deleteBtn"><ion-icon name="trash-outline"></ion-icon>Delete</div>
+              </div>
+          </div>
+      </div>
+      <h2 class="card__title">${trip.title}</h2>
+      <div class="card__body">
+          <div class = 'card__date-rating-box'>
+              <p class="card__date">${trip.startDate} - ${trip.endDate}</p>
+              <p  class="card__rating">${trip.rating}</p>
+          </div>
+          <p class="card__description">${trip.desc}</p>
+      </div>
+  </header>
+</li>
+`
+form.insertAdjacentHTML('afterend', html);
+}
+
+const getLocalStorage = ()=> {
+  const data = JSON.parse(localStorage.getItem('trips'))
+
+  if (!data) return
+
+  trips = data
+
+  trips.forEach((trip) => {
+    renderTrip(trip)
+    renderTripMarker(trip)
+  })
+}
+
 const loadMap = async () => {
   try {
     const pos = await utilAsync._getPos();
@@ -101,7 +174,7 @@ const loadMap = async () => {
     map = L.map('map', {
       zoomControl: false,
       center: coords,
-    }).setView(coords, 13)
+    }).setView(coords, zoomLevel)
 
     L.control.zoom({ position: 'bottomright'}).addTo(map);
     
@@ -131,7 +204,6 @@ const loadMap = async () => {
     const weaDesc = curWeather[1]
 
     // Map's default marker
-
     L.marker(coords, {
       icon:
       L.icon.pulse({
@@ -165,6 +237,8 @@ const loadMap = async () => {
     // Handling clicks on map
     map.on('click', showForm)
 
+     // Loading Workouts List and Markers from localstorage
+    map.whenReady(getLocalStorage);
 
   } catch (err) {
     return Promise.reject(err.message)
@@ -172,61 +246,48 @@ const loadMap = async () => {
 };
 await loadMap();
 
-const renderTripMarker = (trip) => {
-  L.marker(trip.coords)
-    .addTo(map)
-    .bindPopup(
-      L.popup({
-        maxWidth: 300,
-        minWidth: 30,
-        autoClose: false,
-        closeOnClick: false,
-        className: `trip-popup`,
-      })
-    )
-    .setPopupContent(`${trip.countryFlag}${trip.countryCode.toUpperCase()}\xa0\xa0\xa0📍${trip.city}\xa0\xa0\xa0☁️<i>...${trip.cityWeaDesc}</i>`)
-    .openPopup()
-    ._icon.classList.add("hueChange");
+const findTrip = (e) => {
+  if (!map) return;
+
+  // DOM TRAVERSING
+  const tripEl = e.target.closest('.trip')
+
+  if (!tripEl) return; // ⛔️🎅🏽 Guard clause
+
+  return trips.find((trip) => trip.id === tripEl.dataset.id) // returns a trip object
 }
 
-const renderTrip = (trip) => {
-  let html = `
-  <li class="card card-box" data-id='${trip.id}'>
-  <aside class="card__aside">
-      <figure class="card__figure">
-          <img class="card__image" src='${trip.tripImg}' alt="picture of a hand holding a beer outstretched towards a lake" />
-      </figure>
-  </aside>
-  <header class="card__header card-textbox">
-      <div class="card-textbox__location-box">
-          <div class="card-textbox__country">
-              <p class="card__flag">${trip.countryFlag}</p>
-              <p class="card__country">${trip.countryCode}</p>  
-              <p class="card__map-marker">📍</p>
-              <div class="card__weather-icon-div card__country">${trip.city}
-                  <img class="card__weather-icon" src='${trip.cityWeaIconPath}'/>
-              </div>
-          </div>
-          <div>
-              <ion-icon class="card__drop-down--icon" data-bs-toggle="dropdown" type="div" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" name="ellipsis-horizontal"></ion-icon>
-              <div class="card__dropdown-menu--styling  dropdown-menu" aria-labelledby="dropdownMenuButton">
-                  <div class="dropdown-item card__dropdown-item--styling" onClick= "editTask(this)" data-bs-toggle="modal" data-bs-target="#editTripForm" ><ion-icon name="create-outline"></ion-icon>Edit</div>
-                  <div class="dropdown-item card__dropdown-item--styling" onClick= "deleteTask(this);createTasks()" ><ion-icon name="trash-outline"></ion-icon>Delete</div>
-              </div>
-          </div>
-      </div>
-      <h2 class="card__title">${trip.title}</h2>
-      <div class="card__body">
-          <div class = 'card__date-rating-box'>
-              <p class="card__date">${trip.startDate} - ${trip.endDate}</p>
-              <p  class="card__rating">${trip.rating}</p>
-          </div>
-          <p class="card__description">${trip.desc}</p>
-      </div>
-  </header>
-</li>
-`
-form.insertAdjacentHTML('afterend', html);
+const deleteTrip = (e) => {
+  // Add an event listener to each delete btn from the card drop down menu
+  const deleteBtns = document.querySelectorAll('.deleteBtn')
+  deleteBtns.forEach((btn) => {
+    btn.addEventListener('click', (e) => {
+
+      // find the trip to delete
+      const deleteTrip = findTrip(e)
+
+      // return the the trips arr with all the trips that does not match the delete trip id
+      trips = trips.filter((trip) => trip.id !== deleteTrip.id)
+
+      // set local storage
+      setLocalStorage()
+      
+      //refresh / reload the page
+      location.reload()
+    })
+  })
+}
+deleteTrip()
+
+const moveToPopup = (e) => {
+  const tripEl = findTrip(e)
+  map.flyTo(tripEl.coords, zoomLevel)
+}
+
+
+
+const setLocalStorage = () => {
+  localStorage.setItem('trips', JSON.stringify(trips))
 }
 
 const newWorkout = async (e) => {
@@ -285,15 +346,22 @@ const newWorkout = async (e) => {
     hideForm()
 
     // Set local storage to all trips
+    setLocalStorage()
 
 } catch (err) {
   console.error(err);
+  }
 }
 
-}
 // EVENT LISTENERS
-form.addEventListener('submit', newWorkout);
-document.createElement('canvas').getContext('2d', { willReadFrequently: true });
+(() => {
+  form.addEventListener('submit', newWorkout);
+  document.createElement('canvas').getContext('2d', { willReadFrequently: true });
+  containerTrips.addEventListener('click', moveToPopup)
+})()
+
+
+
 
 
 

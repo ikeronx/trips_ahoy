@@ -45,7 +45,7 @@ const getGeoLocationJSON = async (lat, lng) => {
 // CITY CUR WEATHER
 const getCityCurWeather = async (lat, lng) => {
     try {
-       const geoData = await getGeoLocationJSON(lat, lng);
+        const geoData = await getGeoLocationJSON(lat, lng);
 
         const myKey = '1db6ec5257aa7458bd25e359a7102c19'
 
@@ -62,7 +62,7 @@ const getCityCurWeather = async (lat, lng) => {
     }
 }
 
-// LOOKUP FLIGHTS TO OTHER COUNTRIES FROM THE USER CUR POS MENU 
+// LOOKUP FLIGHTS TO OTHER COUNTRIES BASED ON THE USER CUR POS 
 const renderCheckFlightMenu = async () => {
     try {
         const pos = await getPosition()
