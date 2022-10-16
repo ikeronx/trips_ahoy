@@ -45,7 +45,7 @@
     <!-- UNIQUE ID -->
     <script defer src="https://cdnjs.cloudflare.com/ajax/libs/uuid/8.3.2/uuid.min.js"></script>
 
-    <!-- MY SCRIPT & CSS -->
+    <!--    MY SCRIPT & CSS -->
     <link rel="stylesheet" href="/style.css">
     <script type="module" src="/main.js" defer></script>
     <title>Trips Ahoy! &mdash; Where have you been?</title>
@@ -59,7 +59,7 @@
           </div>
           <div class="cta">
             <select onChange="window.location.href = this.value, '_blank'" name="countries-menu" class="book-flight-btn__select" placeholder="Lookup flights">
-              <option disabled selected value>Lookup flights</option>
+              <option disabled selected value>Book trip</option>
             </select>
           </div>
         </div>
@@ -113,114 +113,80 @@
             <button class="form__btn">OK</button>
           </form>
 
-          <!-- <li class="trip card card-box " id=${i}>
+          <li class="trip card card-box" data-id='${trip.id}'>
             <aside class="card__aside">
                 <figure class="card__figure">
-                    <img class="card__image" src='https://images.unsplash.com/photo-1536323760109-ca8c07450053?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=930&q=80' alt="picture of lago di braies" />
+                    <img class="card__image" src='https://images.unsplash.com/photo-1624483275193-33b8acc6e32f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1674&q=80%20%20https://images.unsplash.com/photo-1592945843838-c69fc7dacb08?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2940&q=80%20https://images.unsplash.com/photo-1626292730004-0b3373283151?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2864&q=80' alt="picture of a hand holding a beer outstretched towards a lake" />
                 </figure>
             </aside>
             <header class="card__header card-textbox">
                 <div class="card-textbox__location-box">
                     <div class="card-textbox__country">
-                        <p class="card__flag">🇮🇹</p>
-                        <p class="card__country">IT</p>  
-                        <p class="card__map-marker">📍</p>
-                        <div class="card__weather-icon-div card__country">Pragser Wilds..
-                            <img class="card__weather-icon" src='https://openweathermap.org/img/wn/02d@2x.png'/>
-                        </div>
-                    </div>
-                    <div>
-                        <ion-icon class="card__drop-down--icon" data-bs-toggle="dropdown" type="div" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" name="ellipsis-horizontal"></ion-icon>
-                        <div class="card__dropdown-menu--styling  dropdown-menu" aria-labelledby="dropdownMenuButton">
-                            <div class="dropdown-item card__dropdown-item--styling" onClick= "editTask(this)" data-bs-toggle="modal" data-bs-target="#editTripForm" ><ion-icon name="create-outline"></ion-icon>Edit</div>
-                            <div class="dropdown-item card__dropdown-item--styling" onClick= "deleteTask(this);createTasks()" ><ion-icon name="trash-outline"></ion-icon>Delete</div>
-                        </div>
-                    </div>
-                </div>
-                <h2 class="card__title">Majestic Views </h2>
-                <div class="card__body">
-                    <div class = 'card__date-rating-box'>
-                        <p class="card__date">Mar 12, 2022 - June 01, 2022</p>
-                        <p  class="card__rating">⭐️⭐️⭐️☆☆</p>
-                    </div>
-                    <p class="card__description">Lago di Braies is a beautiful lake surrounded by green mountains 😍. I had an amazing time.</p>
-                </div>
-            </header>
-          </li>
-
-          <li class="trip card card-box" data-id=${i}>
-            <aside class="card__aside">
-                <figure class="card__figure">
-                    <img class="card__image" src='https://images.unsplash.com/photo-1624483275193-33b8acc6e32f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1674&q=80%20%20https://images.unsplash.com/photo-1592945843838-c69fc7dacb08?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2940&q=80%20https://images.unsplash.com/photo-1626292730004-0b3373283151?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2864&q=80' alt="picture of lago di braies" />                        
-                </figure>
-            </aside>
-            <header class="card__header card-textbox">
-                <div class="card-textbox__location-box">
-                    <di class="card-textbox__country">
                         <p class="card__flag">🇯🇲</p>
                         <p class="card__country">JM</p>  
                         <p class="card__map-marker">📍</p>
                         <div class="card__weather-icon-div card__country">Montego Bay
                             <img class="card__weather-icon" src='https://openweathermap.org/img/wn/01d@2x.png'/>
                         </div>
-                    </di>
+                    </div>
                     <div>
                         <ion-icon class="card__drop-down--icon" data-bs-toggle="dropdown" type="div" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" name="ellipsis-horizontal"></ion-icon>
                         <div class="card__dropdown-menu--styling  dropdown-menu" aria-labelledby="dropdownMenuButton">
-                            <div class="dropdown-item card__dropdown-item--styling" onClick= "editTask(this)" data-bs-toggle="modal" data-bs-target="#editTripForm" ><ion-icon name="create-outline"></ion-icon>Edit</div>
-                            <div class="dropdown-item card__dropdown-item--styling" onClick= "deleteTask(this);createTasks()" ><ion-icon name="trash-outline"></ion-icon>Delete</div>
+                            <div class="dropdown-item card__dropdown-item--styling editBtn"><ion-icon name="create-outline"></ion-icon>Edit</div>
+                            <div class="dropdown-item card__dropdown-item--styling deleteBtn"><ion-icon name="trash-outline"></ion-icon>Delete</div>
                         </div>
                     </div>
                 </div>
                 <h2 class="card__title">Bottoms Up In Mo'Bay</h2>
                 <div class="card__body">
                     <div class = 'card__date-rating-box'>
-                        <p class="card__date">June 12, 2023 - June 01, 2025</p>
+                        <p class="card__date">Mar 13, 2022 - May 15, 2022</p>
                         <p  class="card__rating">⭐️⭐️⭐️⭐️⭐️</p>
                     </div>
-                    <p class="card__description"> Montego Bay has duty-free shopping, vibrant nightlife, & calm waters. I can't wait to return!</p>
+                    <p class="card__description">Montego Bay has duty-free shopping, vibrant nightlife, & calm waters. I can't wait to return!</p>
                 </div>
             </header>
           </li>
 
-          <li class="trip card card-box " id=${i}>
+
+          <li class="trip card card-box" data-id='${trip.id}'>
             <aside class="card__aside">
                 <figure class="card__figure">
-                    <img class="card__image" src='https://images.unsplash.com/photo-1641463594370-68593b56552c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80' alt="picture of lago di braies" />                        
+                    <img class="card__image" src='https://images.unsplash.com/photo-1641463594370-68593b56552c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80' alt="picture of a hand holding a beer outstretched towards a lake" />
                 </figure>
             </aside>
             <header class="card__header card-textbox">
                 <div class="card-textbox__location-box">
                     <div class="card-textbox__country">
-                      <p class="card__flag">🇰🇷</p>
-                      <p class="card__country">SK</p>  
-                      <p class="card__map-marker">📍</p>
-                      <div class="card__weather-icon-div card__country">SEOUL
-                          <img class="card__weather-icon" src='http://openweathermap.org/img/wn/11d@2x.png'/>
-                      </div>
+                        <p class="card__flag">🇰🇷</p>
+                        <p class="card__country">SK</p>  
+                        <p class="card__map-marker">📍</p>
+                        <div class="card__weather-icon-div card__country">Seoul
+                            <img class="card__weather-icon" src='http://openweathermap.org/img/wn/11d@2x.png'/>
+                        </div>
                     </div>
                     <div>
                         <ion-icon class="card__drop-down--icon" data-bs-toggle="dropdown" type="div" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" name="ellipsis-horizontal"></ion-icon>
                         <div class="card__dropdown-menu--styling  dropdown-menu" aria-labelledby="dropdownMenuButton">
-                            <div class="dropdown-item card__dropdown-item--styling" onClick= "editTask(this)" data-bs-toggle="modal" data-bs-target="#editTripForm" ><ion-icon name="create-outline"></ion-icon>Edit</div>
-                            <div class="dropdown-item card__dropdown-item--styling" onClick= "deleteTask(this);createTasks()" ><ion-icon name="trash-outline"></ion-icon>Delete</div>
+                            <div class="dropdown-item card__dropdown-item--styling editBtn"><ion-icon name="create-outline"></ion-icon>Edit</div>
+                            <div class="dropdown-item card__dropdown-item--styling deleteBtn"><ion-icon name="trash-outline"></ion-icon>Delete</div>
                         </div>
                     </div>
                 </div>
-                <h2 class="card__title">Bon Voyage  🛫</h2>
+                <h2 class="card__title">Bon Voyage 🛩</h2>
                 <div class="card__body">
                     <div class = 'card__date-rating-box'>
-                        <p class="card__date">Feb 12, 2026 - June 01, 2028</p>
+                        <p class="card__date">Feb 21, 2023 - July 29, 2023</p>
                         <p  class="card__rating">⭐️⭐️⭐️⭐️☆</p>
                     </div>
-                    <p class="card__description"> From modern skyscrapers to neon lights, palaces, Seoul is a fascinating mix of old and new.</p>
+                    <p class="card__description">From modern skyscrapers to neon lights, palaces, Seoul is a fascinating mix of old and new.</p>
                 </div>
             </header>
-          </li> -->
+          </li>
         </ul>
   
         <p class="copyright">
-          HTML, CSS, and JavaScript code by
+          Coded and designed by
           <a
             class="portfolio-link"
             target="_blank"

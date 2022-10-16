@@ -21,25 +21,41 @@ const inputStartDate = document.querySelector('.form__input--start-date');
 const inputEndDate = document.querySelector('.form__input--end-date');
 const inputDesc = document.querySelector('.form__input--desc');
 
-
 let map 
 let mapEvent
 const zoomLevel = 13
+
+// DATA
 let trips = [
   {
-    id: 'thgj79845#2!',
-    title: 'Majestic Views',
-    rating: '⭐️⭐️⭐️☆☆',
-    startDate: 'Jan 22, 2023',
-    endDate: 'Feb 01, 2023',
-    desc: 'Lago di Braies is a beautiful lake surrounded by green mountains 😍. I had an amazing time.',
-    coords: [46.694721, 12.084444],
-    countryCode: 'IT',
-    countryFlag: '🇮🇹',
-    city: 'Pragser Wildsee',
-    cityWeaIconPath: 'https://openweathermap.org/img/wn/02d@2x.png',
-    cityWeaDesc: 'few clouds',
-    tripImg: 'https://images.unsplash.com/photo-1536323760109-ca8c07450053?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=930&q=80'
+      id: 'thgj79845#2!',
+      title: 'Majestic Views',
+      rating: '⭐️⭐️⭐️☆☆',
+      startDate: 'Jan 22, 2023',
+      endDate: 'Feb 01, 2023',
+      desc: 'Lago di Braies is a beautiful lake surrounded by green mountains 😍. I had an amazing time.',
+      coords: [46.694721, 12.084444],
+      countryCode: 'IT',
+      countryFlag: '🇮🇹',
+      city: 'Pragser Wildsee',
+      cityWeaIconPath: 'https://openweathermap.org/img/wn/02d@2x.png',
+      cityWeaDesc: 'few clouds',
+      tripImg: 'https://images.unsplash.com/photo-1536323760109-ca8c07450053?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=930&q=80'
+      },
+      {
+      id: '658#@#45#2!',
+      title: 'Bon Voyage 🛩',
+      rating: '⭐️⭐️⭐️⭐️☆',
+      startDate: 'Oct 23, 2027',
+      endDate: 'Dec 14, 2029',
+      desc: 'From modern skyscrapers to neon lights, palaces, Seoul is a fascinating mix of old and new.',
+      coords: [37.532600, 127.024612],
+      countryCode: 'SK',
+      countryFlag: '🇰🇷',
+      city: 'Seoul',
+      cityWeaIconPath: 'http://openweathermap.org/img/wn/11d@2x.png',
+      cityWeaDesc: 'light rain',
+      tripImg: 'https://images.unsplash.com/photo-1641463594370-68593b56552c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80'
   },
   {
     id: 'coki45#2!',
@@ -47,31 +63,16 @@ let trips = [
     rating: '⭐️⭐️⭐️⭐️⭐️',
     startDate: 'Mar 12, 2022',
     endDate: 'June 01, 2022',
-    desc: 'Montego Bay has duty-free shopping, vibrant nightlife, & calm waters. I can\'t wait to return💃🏻',
-    coords: [18.476223, -77.893890],
+    desc: 'Montego Bay has duty-free shopping, vibrant nightlife, & calm waters. I can\'t wait to return!',
+    coords: [18.47163118420902
+      , -77.92087554931642],
     countryCode: 'JM',
     countryFlag: '🇯🇲',
     city: 'Montego Bay',
     cityWeaIconPath: 'https://openweathermap.org/img/wn/01d@2x.png',
     cityWeaDesc: 'clear sky',
     tripImg: 'https://images.unsplash.com/photo-1624483275193-33b8acc6e32f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1674&q=80%20%20https://images.unsplash.com/photo-1592945843838-c69fc7dacb08?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2940&q=80%20https://images.unsplash.com/photo-1626292730004-0b3373283151?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2864&q=80'
-  },
-  {
-    id: '658#@#45#2!',
-    title: 'Bon Voyage 🛩',
-    rating: '⭐️⭐️⭐️⭐️☆',
-    startDate: 'Oct 23, 2027',
-    endDate: 'Dec 14, 2029',
-    desc: 'From modern skyscrapers to neon lights, palaces, Seoul is a fascinating mix of old and new.',
-    coords: [37.532600, 127.024612],
-    countryCode: 'SK',
-    countryFlag: '🇰🇷',
-    city: 'Seoul',
-    cityWeaIconPath: 'http://openweathermap.org/img/wn/11d@2x.png',
-    cityWeaDesc: 'light rain',
-    tripImg: 'https://images.unsplash.com/photo-1641463594370-68593b56552c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80'
-  },
-
+},
 ]
 
 // APP
@@ -148,7 +149,7 @@ const renderTrip = (trip) => {
   </header>
 </li>
 `
-form.insertAdjacentHTML('afterend', html);
+  form.insertAdjacentHTML('afterend', html);
 }
 
 const getLocalStorage = ()=> {
@@ -178,12 +179,12 @@ const loadMap = async () => {
 
     L.control.zoom({ position: 'bottomright'}).addTo(map);
     
-    L.tileLayer('http://{s}.google.com/vt/lyrs=m&x={x}&y={y}&z={z}', {
-      maxZoom: 20,
-      subdomains: ['mt0', 'mt1', 'mt2', 'mt3'],
-    }).addTo(map);
+    // L.tileLayer('http://{s}.google.com/vt/lyrs=m&x={x}&y={y}&z={z}', {
+      // maxZoom: 20,
+      // subdomains: ['mt0', 'mt1', 'mt2', 'mt3'],
+    // }).addTo(map);
 
-    L.tileLayer('https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png', {}).addTo(map);
+    // L.tileLayer('https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png', {}).addTo(map);
 
     L.tileLayer(
       "https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}",
@@ -212,6 +213,7 @@ const loadMap = async () => {
         iconSize: [20, 20],
         color: '#319795',
         fillColor: '#319795',
+      
       })
     })
     .addTo(map)
@@ -258,8 +260,8 @@ const findTrip = (e) => {
 }
 
 const deleteTrip = (e) => {
-  // Add an event listener to each delete btn from the card drop down menu
   const deleteBtns = document.querySelectorAll('.deleteBtn')
+  // Add an event listener to each delete btn from the card drop down menu
   deleteBtns.forEach((btn) => {
     btn.addEventListener('click', (e) => {
 
@@ -279,12 +281,54 @@ const deleteTrip = (e) => {
 }
 deleteTrip()
 
+const editTrip = (e) => {
+  const editBtns = document.querySelectorAll('.editBtn')
+  editBtns.forEach((btn) => {
+    btn.addEventListener('click', (e) => {
+
+    const selectedTrip = findTrip(e)
+    console.log(selectedTrip);
+
+    // CONVERT WORKOUT COORDS ARRAY TO OBJECT TO FIT MAP EVENT FORMAT
+    const coords = selectedTrip.coords;
+    const objCoords = {
+      latlng: {
+        lat: coords[0],
+        lng: coords[1],
+      },
+    };
+      
+    showForm(objCoords)
+
+    inputTitle.value = selectedTrip.title
+    inputRating.value = utilNum._croe(selectedTrip.rating);
+    inputStartDate.value = utilStr._fdoe(selectedTrip.startDate)
+    inputEndDate.value = utilStr._fdoe(selectedTrip.endDate)
+    inputDesc.value = selectedTrip.desc
+      
+
+    const trip = {
+      countryCode: selectedTrip.countryCode,
+      countryFlag: selectedTrip.countryFlag,
+      cityWeaIconPath: selectedTrip.cityWeaIconPath,
+      cityWeaDesc: selectedTrip.cityWeaDesc,
+      tripImg: selectedTrip.tripImg,
+    }
+      console.log(objCoords, trip.tripImg);
+      console.log();
+      
+      if (e.key === 'Enter') newWorkout(trip)
+  
+
+    })
+  })
+}
+editTrip()
+
 const moveToPopup = (e) => {
   const tripEl = findTrip(e)
   map.flyTo(tripEl.coords, zoomLevel)
 }
-
-
 
 const setLocalStorage = () => {
   localStorage.setItem('trips', JSON.stringify(trips))
@@ -348,20 +392,17 @@ const newWorkout = async (e) => {
     // Set local storage to all trips
     setLocalStorage()
 
+    // location.reload()
+
 } catch (err) {
   console.error(err);
   }
 }
 
+
 // EVENT LISTENERS
 (() => {
   form.addEventListener('submit', newWorkout);
-  document.createElement('canvas').getContext('2d', { willReadFrequently: true });
   containerTrips.addEventListener('click', moveToPopup)
+  document.createElement('canvas').getContext('2d', { willReadFrequently: true });
 })()
-
-
-
-
-
-

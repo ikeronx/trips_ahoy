@@ -183,23 +183,27 @@ html:focus-within {
 .cta{
   display: grid;
   place-items: center;
-  width: 26.5rem;
+  width: 19.5rem;
   padding: 1.2rem 2.4rem;
   border-top-left-radius: 0.5rem;
   border-bottom-left-radius: 0.5rem;
   box-shadow:inset 0 0 0 0.2rem #319795;
   background-color: transparent;
-  /* background-color: #319795; */
   position: absolute;
   right: 0; 
-  transform: translateX(88.9%);
+  transform: translateX(100%);
   transition: all 0.3s ease-in;
 }
 
-.cta:hover{
+.sidebar:hover .cta{
+  right: 2.9rem;
+}
+
+.sidebar:hover .cta:hover{
+  right: 0;
   transform: translateX(0);
   background-color: #319795;
-}
+} 
 
 .cta, .cta-btn select{
   cursor: pointer;
@@ -663,7 +667,7 @@ border-left: 5px solid #319795;
 }
 
 /* Leaflet marker icon color change */
-img.hueChange { filter: invert(0) sepia(94%) saturate(288%) hue-rotate(130deg) brightness(90%) contrast(91%)};
+img.hueChange { filter: invert(0) sepia(94%) saturate(288%) hue-rotate(130deg) brightness(90%) contrast(91%)}
 
 /* Leaflet tooltip tip style */
 .leaflet-popup .leaflet-popup-tip {

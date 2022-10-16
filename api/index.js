@@ -81,7 +81,7 @@ const renderCheckFlightMenu = async () => {
             return `${country.flag} ${country.name.common}`;
         }).sort()
 
-        let output = '<option disabled selected value>LOOKUP Flights</option>';
+        let output = '<option disabled selected value>book trip</option>';
         countryNames.forEach((country) => {
         output += `<option value="https://www.kiwi.com/en/search/tiles/${utilStr._ctkc(posCountryName)}/${utilStr._ctkc(country.slice(5, country.length).trim().toLowerCase())}">${country}</option>`;
         bookFlightMenu.innerHTML = output;
@@ -104,8 +104,6 @@ const getRndUnsplashImg = async () => {
 
         const rndIndex = utilNum._rndInt(0, 29)
         const imgPath = data[rndIndex].urls.full
-
-        console.log(data[rndIndex].urls.full);
         
         return imgPath 
 
