@@ -742,7 +742,9 @@ ul{
 }
 
 /* Leaflet marker icon color change */
-img.hueChange { filter: invert(0) sepia(94%) saturate(288%) hue-rotate(130deg) brightness(90%) contrast(91%)}
+img.hueChange { 
+  filter: invert(0) sepia(94%) saturate(288%) hue-rotate(130deg) brightness(90%) contrast(91%)
+}
 
 /* Leaflet tooltip tip style */
 .leaflet-popup .leaflet-popup-tip {
@@ -805,11 +807,36 @@ background-color: var(--clr-dark--1);
 /* Leaflet icon classes */
 img.hueChangeTeal { filter: invert(0) sepia(94%) saturate(288%) hue-rotate(130deg) brightness(90%) contrast(91%)} 
 
-
 .tealCircleIcon{
   border-radius: 100%;
-  background: rgba(255,255,255,1);
-  box-shadow: inset 0px 0px 10px 2px #38b2ac, 0px 0px 10px 2px  rgb(49, 151, 149);
+  background: #38b2ac;
+  /* box-shadow: inset 0px 0px 10px 2px #38b2ac, 0px 0px 10px 2px  rgb(49, 151, 149); */
+}
+
+/* search result pulse class class */
+.gps_ring {
+  border: 3px solid yellow;
+  -webkit-border-radius: 40px;
+  height: 50px;
+  width: 50px;
+  -webkit-animation: pulsate 1s ease-out;
+  -webkit-animation-iteration-count: infinite;
+  margin-top: -19px;
+  margin-left: -14px;
+}
+
+@-webkit-keyframes pulsate {
+  0% {
+    -webkit-transform: scale(0.1, 0.1);
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    -webkit-transform: scale(1.2, 1.2);
+    opacity: 0;
+  }
 }
 
 /* Zoom control */
@@ -879,3 +906,4 @@ SPACING SYSTEM (px)
 FONT SIZE SYSTEM (px)
 10 / 12 / 14 / 16 / 18 / 20 / 24 / 30 / 36 / 44 / 52 / 62 / 74 / 86 / 98
 */
+

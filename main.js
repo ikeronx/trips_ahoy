@@ -109,13 +109,13 @@ const renderTripMarker = (trip) => {
       L.popup({
         maxWidth: 300,
         minWidth: 30,
-        autoClose: false,
+        autoClose: true,
         closeOnClick: false,
         className: `trip-popup`,
       })
     )
     .setPopupContent(`${trip.countryFlag}${trip.countryCode.toUpperCase()}\xa0\xa0\xa0📍${trip.city}\xa0\xa0\xa0☁️<i>...${trip.cityWeaDesc}</i>`)
-    // .openPopup()
+    .openPopup()
     // ._icon.classList.add("hueChange");
 }
 
@@ -240,7 +240,8 @@ const loadMap = async () => {
 
     L.marker(coords, {
       icon:
-      L.icon.pulse({
+        L.icon.pulse({
+        iconUrl: 'https://unpkg.com/leaflet@1.9.2/dist/images/marker-icon-2x.png',
         // iconSize: [20, 20],
         color: 'yellow',
         fillColor: 'yellow',
@@ -282,7 +283,7 @@ const loadMap = async () => {
   // create the geocoding control and add it to the map      
   const searchControl = L.esri.Geocoding.geosearch({
     position: 'topright',
-    placeholder: 'Find address or place...',
+    placeholder: '🔍 Find address or place...',
     useMapBounds: false,
     
     // Set the providers to arcgisOnlineProvider in order to access the       geocoding service. 
@@ -299,7 +300,10 @@ const loadMap = async () => {
 
   // Display the results of the search using a Marker and Popup
   // 1. Add a LayerGroup to the map to contain the geocoding results.
-  const results = L.layerGroup().addTo(map)
+    const results = L.layerGroup().addTo(map)
+    
+
+    console.log(L.esri);
 
   // 2. Create an event handler to access the data from the search results. Call the clearLayers method to remove the previous data from the LayerGroup.
   searchControl.on('results', async (data)=> {
@@ -313,12 +317,35 @@ const loadMap = async () => {
 
     // 3. Create a loop that adds the coordinates of a selected search       results to a Marker.
     for (let i = data.results.length - 1; i >= 0; i--) {
-    const marker = L.marker(data.results[i].latlng, {
-    }).on('click', function () {
+
+      const markerIcon = {
+        icon: L.icon({
+        iconSize: [25, 41],
+        iconAnchor: [10, 41],
+        popupAnchor: [2, -40],
+         // specify the path here
+        iconUrl:
+            "https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-yellow.png",
+        // shadowUrl:
+            // "https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png"
+      })
+    };
+  
+    const animatedCircleIcon = {
+      icon: L.divIcon({
+      className: "css-icon",
+      html: '<div class="gps_ring"></div>',
+      iconSize: [18, 22]
+      })
+    };
+
+    const marker = L.marker(data.results[i].latlng, markerIcon)
+      .on('click', function () {
       this.bounce(2);
       flyToLocation(coords, 16)
-      }
-  )
+    })
+
+    const pulseMarker = L.marker(data.results[i].latlng, animatedCircleIcon)
 
     // 4. Add a lngLatString variable that stores the rounded search result   coordinates. Append the bindPopup method to the marker to display the     coordinates and address of the result.
     const lngLatString = `${Math.round(data.results[i].latlng.lng * 100000) / 100000}, ${
@@ -326,8 +353,11 @@ const loadMap = async () => {
     }`;
       marker.bindPopup(`<p>${data.results[i].properties.LongLabel}<br>☁️ ...<i>${weaDesc}</i></p>
       `);
-    results.addLayer(marker);
-    marker.openPopup().bounce(3)._icon.classList.add("hueChangeTeal");
+      results.addLayer(pulseMarker);
+      results.addLayer(marker);
+      
+      marker.openPopup().bounce(3)
+        // ._icon.classList.add("hueChangeTeal");
     }
   });
     
@@ -344,7 +374,7 @@ const loadMap = async () => {
 
     // MAP LAYER CONTROLS
     L.control.layers(baseMaps, null, {
-      // position: 'bottomright',
+      // position: 'topleft',
     })
       .addTo(map)
     L.control.zoom({ position: 'bottomright' })
