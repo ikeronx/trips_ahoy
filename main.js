@@ -1,4 +1,5 @@
 import './style.css'
+import 'leaflet.smooth_marker_bouncing'
 import * as utilAsync from './api'
 import * as utilStr from './utils/formatStr'
 import * as utilNum from './utils/numericConversion'
@@ -7,10 +8,9 @@ import * as utilNum from './utils/numericConversion'
   try {
     await utilAsync._renderCFMenu();
   } catch (err) {
-    console.log(`${err.message}`);
+    return `${err.message}`
   }
 })();  
-
 
 // DOM ELEMENTS
 const form = document.querySelector('.form');
@@ -23,7 +23,7 @@ const inputDesc = document.querySelector('.form__input--desc');
 
 let map 
 let mapEvent
-const zoomLevel = 13
+const zoomLevel = 3
 
 // DATA
 let trips = [
@@ -80,8 +80,8 @@ const showForm = (mapE) => {
   form.classList.remove('hidden');
   inputTitle.focus();
 
-   // mapE = EVENT TO GET LOCATION FROM LEAFLET MAP
-   mapEvent = mapE // reassigned the value that is received from leaflet map.on() method that assigned to the global 'mapEvent' variable.. hence other functions will will get access to that value (latLng / coords)
+   // mapE = MP EVENT TO GET LOCATION FROM LEAFLET MAP
+   mapEvent = mapE // reassigns the value that is received from leaflet map.on() method to the global 'mapEvent' variable.. other functions will will get access to that value (latLng / coords)
 }
 
 const hideForm = () => {
@@ -94,8 +94,15 @@ const hideForm = () => {
   setTimeout(() => (form.style.display = 'grid'), 1000);
 }
 
+const flyToLocation = (coords, zoomlevel) => map.flyTo(coords, zoomlevel)
+
 const renderTripMarker = (trip) => {
-  L.marker(trip.coords)
+  const div_circle = L.divIcon({ className: 'tealCircleIcon'})
+
+  L.marker(trip.coords, { icon: div_circle })
+    .on('click', (e) => {
+  }
+  )
     .addTo(map)
     .bindPopup(
       L.popup({
@@ -107,9 +114,8 @@ const renderTripMarker = (trip) => {
       })
     )
     .setPopupContent(`${trip.countryFlag}${trip.countryCode.toUpperCase()}\xa0\xa0\xa0📍${trip.city}\xa0\xa0\xa0☁️<i>...${trip.cityWeaDesc}</i>`)
-    .openPopup()
-    ._icon.classList.add("hueChange");
-
+    // .openPopup()
+    // ._icon.classList.add("hueChange");
 }
 
 const renderTrip = (trip) => {
@@ -172,21 +178,8 @@ const loadMap = async () => {
             
     const coords = [lat, lng];
 
-    map = L.map('map', {
-      zoomControl: false,
-      center: coords,
-    }).setView(coords, zoomLevel)
-
-    L.control.zoom({ position: 'bottomright'}).addTo(map);
-    
-    // L.tileLayer('http://{s}.google.com/vt/lyrs=m&x={x}&y={y}&z={z}', {
-      // maxZoom: 20,
-      // subdomains: ['mt0', 'mt1', 'mt2', 'mt3'],
-    // }).addTo(map);
-
-    // L.tileLayer('https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png', {}).addTo(map);
-
-    L.tileLayer(
+    // Map Base layers
+    const mapboxDrk =  L.tileLayer(
       "https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}",
       {
         maxZoom: 18,
@@ -196,26 +189,82 @@ const loadMap = async () => {
         accessToken:
           "pk.eyJ1IjoiYmxhY2tib3gxMSIsImEiOiJjbDF3OGxkYWIwMzcwM2pwOHQwMXQ2OGM0In0.6KQYul7J6Vbh4edRpmgIaA",
       }
-    ).addTo(map);
+    )
 
-    // GEO LOCATION MARKER
+    const mapboxLight =  L.tileLayer(
+      "https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}",
+      {
+        maxZoom: 18,
+        id: "mapbox/light-v10",
+        tileSize: 512,
+        zoomOffset: -1,
+        accessToken:
+          "pk.eyJ1IjoiYmxhY2tib3gxMSIsImEiOiJjbDF3OGxkYWIwMzcwM2pwOHQwMXQ2OGM0In0.6KQYul7J6Vbh4edRpmgIaA",
+      }
+    )
+
+    const mapboxStreet =  L.tileLayer(
+      "https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}",
+      {
+        maxZoom: 18,
+        id: "mapbox/streets-v11",
+        tileSize: 512,
+        zoomOffset: -1,
+        accessToken:
+          "pk.eyJ1IjoiYmxhY2tib3gxMSIsImEiOiJjbDF3OGxkYWIwMzcwM2pwOHQwMXQ2OGM0In0.6KQYul7J6Vbh4edRpmgIaA",
+      }
+    )
+
+    // Map overlays
+    // const littleton = L.marker([39.61, -105.02]).bindPopup('This is Littleton, CO.'),
+    // denver    = L.marker([39.74, -104.99]).bindPopup('This is Denver, CO.'),
+    // aurora    = L.marker([39.73, -104.8]).bindPopup('This is Aurora, CO.'),
+    // golden    = L.marker([39.77, -105.23]).bindPopup('This is Golden, CO.');
+
+    // const cities = L.layerGroup([littleton, denver, aurora, golden])
+
+    // L is a global leaflet map object that has a bunch of methods and properties e.g on(), addMarker(), tileLayer() etc 
+    map = L.map('map', {
+      zoomControl: false,
+      center: coords,
+      layers: [mapboxStreet,mapboxLight, mapboxDrk],
+    }).setView(coords, zoomLevel)
+
+    // Base layers and overlay(s) objects
+    const baseMaps = {
+      'Street': mapboxStreet,
+      'Light': mapboxLight,
+      "Dark":  mapboxDrk,
+    }
+
+    // const overlayMaps = {
+    //   "Cities": cities
+    // }
+
+    // MAP LAYER CONTROLS
+    L.control.layers(baseMaps, null, {
+      // position: 'bottomright',
+    }).addTo(map)
+    L.control.zoom({ position: 'bottomright' }).addTo(map);
+
+    // MAP DEFAULT MARKER
     const geoData = await utilAsync._getGeoData(coords[0], coords[1])
 
     const curWeather = await utilAsync._getCiCurWea(coords[0], coords[1])
     const weaDesc = curWeather[1]
 
-    // Map's default marker
     L.marker(coords, {
       icon:
       L.icon.pulse({
-      iconUrl: 'https://unpkg.com/leaflet@1.0.3/dist/images/marker-icon.png',
-        // className: 'hueChange'
-        iconSize: [20, 20],
-        color: '#319795',
-        fillColor: '#319795',
-      
+        // iconSize: [20, 20],
+        color: 'yellow',
+        fillColor: 'yellow',
       })
-    })
+    }).on('click', function () {
+      // this.toggleBouncing();
+      flyToLocation(coords, 13)
+      }
+  )
     .addTo(map)
     .bindPopup(
             L.popup({
@@ -227,20 +276,83 @@ const loadMap = async () => {
             })
     )
       .setPopupContent(`
-      🧙🏻‍♂️ The current weather in your area is <br> 🪄 <i>...{weaDesc}</i> ☁️ <br><br> 👩🏼‍🏫 Hi, I'm Ms. Frizzle. You can add a trip by  \xa0\xa0\xa0\xa0\xa0clicking on the map.
-
+      🧙🏽 The current weather in your area is <br> 🪄 <i>...{weaDesc}</i><br><br> 👩🏼‍🏫 Trips Ahoy! main features are: <br>
+      📌 Add trip(s) by clicking on the map. <br>
+      📌 Find a place by using the search box. <br>
+      📌 Find places near an area searched. <br>
+      📌 Find a route and directions. <br>
+      📌 Update trip(s) <br>
+      📌 Delete trip(s) <br>
+      \xa0\xa0\xa0\xa0\xa0
       `)
     // .openPopup()
-      .bindTooltip(`🧙🏻‍♂️ Hey there, I'm Dumbledore, and this is your current position.</strong><br>\xa0\xa0\xa0\xa0\xa0Click me, and I will perform a different magic trick for you.`, {
+      .bindTooltip(`👨🏽‍💻 Hey there, I'm Keron, and this is your current position.</strong><br>\xa0\xa0\xa0\xa0\xa0Click the pulse and I will perform a magic trick for you.`, {
         // permanent: true,
         interactive: true,
       })
+    
+  /***********************************/
+  /* ESRI LEAFLET SEARCH FOR PLACES */
+  /***********************************/
+  const apiKey = "AAPKdec506a2a45242168858f4b1bdd8bc83U3L-BFCyxIRNCMccr-A9Ww_dzna7wRD9H-Ap3GNvX8ZF6RBh9hXKqMgBFezUMC7a";
+  // create the geocoding control and add it to the map      
+  const searchControl = L.esri.Geocoding.geosearch({
+    position: 'topright',
+    placeholder: 'Find address or place',
+    useMapBounds: false,
+    
+    // Set the providers to arcgisOnlineProvider in order to access the       geocoding service. 
+    providers:[
+    L.esri.Geocoding.arcgisOnlineProvider({
+    apikey: apiKey,
+    nearby: {
+    lat: coords[0],
+    lng:  coords[1],
+    }
+  })
+  ]  
+  }).addTo(map)
 
-    // Handling clicks on map
-    map.on('click', showForm)
+  // Display the results of the search using a Marker and Popup
+  // 1. Add a LayerGroup to the map to contain the geocoding results.
+  const results = L.layerGroup().addTo(map)
 
-     // Loading Workouts List and Markers from localstorage
-    map.whenReady(getLocalStorage);
+  // 2. Create an event handler to access the data from the search results. Call the clearLayers method to remove the previous data from the LayerGroup.
+  searchControl.on('results', async (data)=> {
+    results.clearLayers()
+    console.log(data.results[0].latlng);
+
+    const coords = [data.results[0].latlng.lat, data.results[0].latlng.lng]
+    
+    const curWeather = await utilAsync._getCiCurWea(coords[0], coords[1])
+    const weaDesc = curWeather[1]
+
+    // 3. Create a loop that adds the coordinates of a selected search       results to a Marker.
+    for (let i = data.results.length - 1; i >= 0; i--) {
+    const marker = L.marker(data.results[i].latlng, {
+    }).on('click', function () {
+      this.bounce(2);
+      flyToLocation(coords, 16)
+      }
+  )
+
+    // 4. Add a lngLatString variable that stores the rounded search result   coordinates. Append the bindPopup method to the marker to display the     coordinates and address of the result.
+    const lngLatString = `${Math.round(data.results[i].latlng.lng * 100000) / 100000}, ${
+      Math.round(data.results[i].latlng.lat * 100000) / 100000
+    }`;
+      marker.bindPopup(`<p>${data.results[i].properties.LongLabel}<br>☁️ ...<i>${weaDesc}</i></p>
+      `);
+    results.addLayer(marker);
+    marker.openPopup().bounce(3)._icon.classList.add("hueChangeTeal");
+    }
+    });
+
+  // Handling clicks on map
+  map.on('click', showForm)
+
+  // Load Workouts List and Markers from local storage
+  // map.whenReady(getLocalStorage);
+  getLocalStorage()
 
   } catch (err) {
     return Promise.reject(err.message)
@@ -305,7 +417,6 @@ const editTrip = (e) => {
     inputStartDate.value = utilStr._fdoe(selectedTrip.startDate)
     inputEndDate.value = utilStr._fdoe(selectedTrip.endDate)
     inputDesc.value = selectedTrip.desc
-      
 
     const trip = {
       countryCode: selectedTrip.countryCode,
@@ -315,7 +426,6 @@ const editTrip = (e) => {
       tripImg: selectedTrip.tripImg,
     }
       console.log(objCoords, trip.tripImg);
-      console.log();
       
       if (e.key === 'Enter') newWorkout(trip)
   
@@ -327,7 +437,7 @@ editTrip()
 
 const moveToPopup = (e) => {
   const tripEl = findTrip(e)
-  map.flyTo(tripEl.coords, zoomLevel)
+  map.flyTo(tripEl.coords, 13)
 }
 
 const setLocalStorage = () => {
@@ -378,7 +488,6 @@ const newWorkout = async (e) => {
 
     // Add new trip object to trips array
     trips.push(trip)
-    console.log(trips);
 
     // Render trip on map as marker
     renderTripMarker(trip)
@@ -392,13 +501,13 @@ const newWorkout = async (e) => {
     // Set local storage to all trips
     setLocalStorage()
 
-    // location.reload()
+    // Reload page
+    location.reload()
 
 } catch (err) {
   console.error(err);
   }
 }
-
 
 // EVENT LISTENERS
 (() => {

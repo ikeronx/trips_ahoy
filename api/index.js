@@ -22,7 +22,7 @@ const getGeoLocationJSON = async (lat, lng) => {
         // Country code
         const country_code  = dataGeo.results[0]?.country_code ?? 'Unavailable';
 
-        // Fetch location data: country name, city, flag etc
+        // Fetch location data and create an object with the data then return it 
         const res = await fetch(`https://restcountries.com/v3.1/alpha/${country_code}`);
         if (!res.ok) throw new Error(`Problem getting country data`);
         const data = await res.json();
@@ -35,8 +35,8 @@ const getGeoLocationJSON = async (lat, lng) => {
         const longitude  = lng 
 
         return {countryAbbrev, countryName, city, flag, latitude, longitude}; // returns an object
-
-    } catch (err) {
+    }
+    catch (err) {
             console.log(err.message);
             return ''
         }
@@ -62,7 +62,7 @@ const getCityCurWeather = async (lat, lng) => {
     }
 }
 
-// LOOKUP FLIGHTS TO OTHER COUNTRIES BASED ON THE USER CUR POS 
+// BOOK TRIP MENU
 const renderCheckFlightMenu = async () => {
     try {
         const pos = await getPosition()
@@ -72,7 +72,7 @@ const renderCheckFlightMenu = async () => {
 
         const posCountryName = geoData.countryName
 
-        // Get all the countries names and create a selection menu then render it on the ui
+        // Get all the countries names, sort them alphabetically then create a selection menu and render it
         const res = await fetch(`https://restcountries.com/v3.1/all`);
         if (!res.ok) throw new Error(`Problem getting country data`);
         const data = await res.json();
@@ -93,7 +93,7 @@ const renderCheckFlightMenu = async () => {
     }
 };
 
-// UNSPLASH RANDOM IMAGE
+// GENERATE RANDOM UNSPLASH IMAGE FROM MY UNSPLASH TRIP'S COLLECTION
 const getRndUnsplashImg = async () => {
     try {
         const accessKey = '92MhZXBYZ32qrYaz6K9ZS_7x6HjAo7TrqHWgSvFNc4U' 
