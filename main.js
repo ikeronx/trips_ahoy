@@ -100,9 +100,10 @@ const renderTripMarker = (trip) => {
   const div_circle = L.divIcon({ className: 'tealCircleIcon'})
 
   L.marker(trip.coords, { icon: div_circle })
-    .on('click', (e) => {
-  }
-  )
+  .on('click', function () {
+    flyToLocation(trip.coords, 13)
+    }
+)
     .addTo(map)
     .bindPopup(
       L.popup({
@@ -230,23 +231,7 @@ const loadMap = async () => {
       layers: [mapboxStreet,mapboxLight, mapboxDrk],
     }).setView(coords, zoomLevel)
 
-    // Base layers and overlay(s) objects
-    const baseMaps = {
-      'Street': mapboxStreet,
-      'Light': mapboxLight,
-      "Dark":  mapboxDrk,
-    }
-
-    // const overlayMaps = {
-    //   "Cities": cities
-    // }
-
-    // MAP LAYER CONTROLS
-    L.control.layers(baseMaps, null, {
-      // position: 'bottomright',
-    }).addTo(map)
-    L.control.zoom({ position: 'bottomright' }).addTo(map);
-
+  
     // MAP DEFAULT MARKER
     const geoData = await utilAsync._getGeoData(coords[0], coords[1])
 
@@ -262,7 +247,7 @@ const loadMap = async () => {
       })
     }).on('click', function () {
       // this.toggleBouncing();
-      flyToLocation(coords, 13)
+      flyToLocation(coords, 14)
       }
   )
     .addTo(map)
@@ -276,14 +261,13 @@ const loadMap = async () => {
             })
     )
       .setPopupContent(`
-      🧙🏽 The current weather in your area is <br> 🪄 <i>...{weaDesc}</i><br><br> 👩🏼‍🏫 Trips Ahoy! main features are: <br>
+      🧙🏽 The current weather in your area is <br> 🪄 <i>...{weaDesc}</i><br><br> 👨🏽‍🏫 Trips Ahoy! main features: <br>
       📌 Add trip(s) by clicking on the map. <br>
       📌 Find a place by using the search box. <br>
       📌 Find places near an area searched. <br>
       📌 Find a route and directions. <br>
       📌 Update trip(s) <br>
       📌 Delete trip(s) <br>
-      \xa0\xa0\xa0\xa0\xa0
       `)
     // .openPopup()
       .bindTooltip(`👨🏽‍💻 Hey there, I'm Keron, and this is your current position.</strong><br>\xa0\xa0\xa0\xa0\xa0Click the pulse and I will perform a magic trick for you.`, {
@@ -298,7 +282,7 @@ const loadMap = async () => {
   // create the geocoding control and add it to the map      
   const searchControl = L.esri.Geocoding.geosearch({
     position: 'topright',
-    placeholder: 'Find address or place',
+    placeholder: 'Find address or place...',
     useMapBounds: false,
     
     // Set the providers to arcgisOnlineProvider in order to access the       geocoding service. 
@@ -345,7 +329,27 @@ const loadMap = async () => {
     results.addLayer(marker);
     marker.openPopup().bounce(3)._icon.classList.add("hueChangeTeal");
     }
-    });
+  });
+    
+    // Base layers and overlay(s) objects
+    const baseMaps = {
+      'Street': mapboxStreet,
+      'Light': mapboxLight,
+      "Dark":  mapboxDrk,
+    }
+
+    // const overlayMaps = {
+    //   "Cities": cities
+    // }
+
+    // MAP LAYER CONTROLS
+    L.control.layers(baseMaps, null, {
+      // position: 'bottomright',
+    })
+      .addTo(map)
+    L.control.zoom({ position: 'bottomright' })
+      .addTo(map);
+
 
   // Handling clicks on map
   map.on('click', showForm)

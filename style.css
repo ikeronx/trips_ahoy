@@ -45,6 +45,14 @@
   /* font: inherit; */
 }
 
+*:focus{
+  outline: none;
+}
+
+*::placeholder{
+  color: #777;
+}
+
 /* Remove list styles on ul, ol elements with a list role, which suggests default styling will be removed */
 ul[role='list'],
 ol[role='list'] {
@@ -634,10 +642,8 @@ li:nth-child(2) {
   flex: 1;
   height: 100%;
   background-color: #444;
-  /* background-color: var(--clr-light--1); */
-  /* border-bottom-right-radius: 1rem;
-  border-top-right-radius: 1rem; */
   border-bottom-left-radius: 1.2rem;
+  position: relative;
 }
 
 @media screen and (min-width: 40em) {
@@ -661,7 +667,78 @@ font-size: 1.5rem;
 }
 
 .trip-popup .leaflet-popup-content-wrapper {
-border-left: 5px solid rgb(49, 151, 149);
+border-left: 5px solid #319795;
+}
+
+/* Leaflet search box */
+.leaflet-control-container{
+  /* position: relative; */
+}
+
+.geocoder-control-input.leaflet-bar{
+  /* position: relative; */
+  border: 5px solid #ffffff;
+}
+
+.geocoder-control-input.leaflet-bar{
+  /* position: absolute; */
+  /* right: 0;
+  bottom: 0;
+  transform: translate(-420%, 100%); */
+
+  
+  /* transition: all 0.3s;
+  background-color: red;
+  /* padding: 2.4rem 4rem; 
+  color: white; */
+}
+
+/* .geocoder-control-input.leaflet-bar::placeholder{
+  color: white;
+} */
+
+.leaflet-touch .leaflet-bar {
+  background-clip: border-box;
+  background-color: #202223;
+  box-shadow: none;
+  border-radius: .5rem;
+  padding:1.2rem 2.4rem;
+  width: 200px;
+  font-size: 1.2rem;
+  font-family: inherit;
+  color: #aaa;
+  border: none;
+  text-align: left;
+  border-radius: .6rem;
+  box-shadow:inset 0 0 0 .1rem #319795;
+  transform: translate(7%, 0); 
+  transition: all 0.3s ease-in;
+}
+
+.leaflet-touch .leaflet-bar:hover {
+  /* transform: translateX(-100%);  */
+  /* background-color: red; */
+}
+
+ul{
+  list-style-type: none;
+  /* background-color: #fff; */
+}
+
+/* leaflet zoom control */
+.leaflet-control-zoom.leaflet-bar{
+  background-color: transparent;
+  padding: 0;
+}
+
+.leaflet-control-zoom.leaflet-bar{
+  box-shadow: none;
+  transform: translateX(85%);
+}
+
+.leaflet-bar a{
+  background-color: #002244;
+  border: 1px solid rgba(0,0,0,.15); 
 }
 
 /* Leaflet marker icon color change */
@@ -673,10 +750,10 @@ background-color: var(--clr-dark--1);
 }
 
 .leaflet-tooltip {
-font-size: 1.4rem;
-background-color: #2c3438;
-border-color: #464c4f;
-color: #fff;
+  font-size: 1.4rem;
+  background-color: #2c3438;
+  border-color: #464c4f;
+  color: #fff;
 }
 
 .leaflet-tooltip-top:before, 
