@@ -667,7 +667,11 @@ font-size: 1.5rem;
 }
 
 .trip-popup .leaflet-popup-content-wrapper {
-border-left: 5px solid #319795;
+  border-left: 5px solid #319795;
+}
+
+.search-popup .leaflet-popup-content-wrapper {
+  border-left: 5px solid yellow;
 }
 
 /* Leaflet search box */
@@ -739,11 +743,6 @@ ul{
 .leaflet-bar a{
   background-color: #002244;
   border: 1px solid rgba(0,0,0,.15); 
-}
-
-/* Leaflet marker icon color change */
-img.hueChange { 
-  filter: invert(0) sepia(94%) saturate(288%) hue-rotate(130deg) brightness(90%) contrast(91%)
 }
 
 /* Leaflet tooltip tip style */

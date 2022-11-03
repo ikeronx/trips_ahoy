@@ -114,7 +114,7 @@ const renderTripMarker = (trip) => {
         className: `trip-popup`,
       })
     )
-    .setPopupContent(`${trip.countryFlag}${trip.countryCode.toUpperCase()}\xa0\xa0\xa0📍${trip.city}\xa0\xa0\xa0☁️<i>...${trip.cityWeaDesc}</i>`)
+    .setPopupContent(`${trip.countryFlag}${trip.countryCode.toUpperCase()}\xa0\xa0\xa0📍${trip.city}`)
     .openPopup()
     // ._icon.classList.add("hueChange");
 }
@@ -327,7 +327,7 @@ const loadMap = async () => {
         iconUrl:
             "https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-yellow.png",
         // shadowUrl:
-            // "https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png"
+          //  "https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png"
       })
     };
   
@@ -349,16 +349,15 @@ const loadMap = async () => {
 
     // 4. Add a lngLatString variable that stores the rounded search result   coordinates. Append the bindPopup method to the marker to display the     coordinates and address of the result.
     const lngLatString = `${Math.round(data.results[i].latlng.lng * 100000) / 100000}, ${
-      Math.round(data.results[i].latlng.lat * 100000) / 100000
-    }`;
-      marker.bindPopup(`<p>${data.results[i].properties.LongLabel}<br>☁️ ...<i>${weaDesc}</i></p>
-      `);
-      results.addLayer(pulseMarker);
-      results.addLayer(marker);
-      
-      marker.openPopup().bounce(3)
+      Math.round(data.results[i].latlng.lat * 100000) / 100000}`;
+      marker.bindPopup(L.popup({
+        className: `search-popup`,
+        })).setPopupContent(`<p>${data.results[i].properties.LongLabel}<br>☁️ ...<i>${weaDesc}</i></p>`)
+        results.addLayer(pulseMarker);
+        results.addLayer(marker);
+        marker.openPopup().bounce(3)
         // ._icon.classList.add("hueChangeTeal");
-    }
+      }
   });
     
     // Base layers and overlay(s) objects
