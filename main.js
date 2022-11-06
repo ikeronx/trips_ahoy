@@ -97,9 +97,9 @@ const hideForm = () => {
 const flyToLocation = (coords, zoomlevel) => map.flyTo(coords, zoomlevel);
 
 const renderTripMarker = (trip) => {
-        const div_circle = L.divIcon({ className: 'tealCircleIcon' });
+        const divCircle = L.divIcon({ className: 'tealCircleIcon' });
 
-        L.marker(trip.coords, { icon: div_circle })
+        L.marker(trip.coords, { icon: divCircle })
                 .on('click', () => {
                         flyToLocation(trip.coords, 13);
                 })
@@ -178,7 +178,7 @@ const loadMap = async () => {
 
                 const coords = [lat, lng];
 
-                // Map Base layers
+                // MAP BASE LAYERS
                 const mapboxDrk = L.tileLayer(
                         'https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}',
                         {
@@ -215,25 +215,14 @@ const loadMap = async () => {
                         }
                 );
 
-                // Map overlays
-                // const littleton = L.marker([39.61, -105.02]).bindPopup('This is Littleton, CO.'),
-                // denver    = L.marker([39.74, -104.99]).bindPopup('This is Denver, CO.'),
-                // aurora    = L.marker([39.73, -104.8]).bindPopup('This is Aurora, CO.'),
-                // golden    = L.marker([39.77, -105.23]).bindPopup('This is Golden, CO.');
-
-                // const cities = L.layerGroup([littleton, denver, aurora, golden])
-
-                // L is a global leaflet map object that has a bunch of methods and properties e.g on(), addMarker(), tileLayer() etc
+                // CREATE MAP
                 map = L.map('map', {
-                        // fullscreenControl: true,
                         zoomControl: false,
                         center: coords,
                         layers: [mapboxStreet, mapboxNavigation, mapboxDrk],
                 }).setView(coords, zoomLevel);
 
-                // MAP DEFAULT MARKER
-                const geoData = await utilAsync._getGeoData(coords[0], coords[1]);
-
+                // CREATE MAP'S DEFAULT MARKER @ USER POSITION
                 const curWeather = await utilAsync._getCiCurWea(coords[0], coords[1]);
                 const weaDesc = curWeather[1];
 
@@ -244,10 +233,7 @@ const loadMap = async () => {
                                 fillColor: 'yellow',
                         }),
                 })
-                        .on('click', () => {
-                                // this.toggleBouncing();
-                                flyToLocation(coords, 14);
-                        })
+                        .on('click', () => flyToLocation(coords, 14))
                         .addTo(map)
                         .bindPopup(
                                 L.popup({
@@ -260,15 +246,16 @@ const loadMap = async () => {
                         )
                         .setPopupContent(
                                 `
-                                🧙🏽 The current weather in your area is <br> 🪄 <i>...{weaDesc}</i><br><br> 👨🏽‍🏫 Trips Ahoy! main features: <br>
+                                🧙🏽 The current weather in your area is <br> 🪄 <i>...{weaDesc}</i><br><br> 👨🏽‍🏫 Trips Ahoy! key features: <br>
                                 📌 Find a place by using the search box. <br>
                                 📌 Get current weather for place searched. <br>
                                 📌 Find places near an area searched. <br>
                                 📌 Find a route and directions. <br>
                                 📌 Change map style. <br>
-                                📌 Add trip(s) by clicking on the map. <br>
+                                📌 Add trip(s). <br>
                                 📌 Update trip(s) <br>
                                 📌 Delete trip(s) <br>
+                                📌 Rate trip(s) <br>
                                 `
                         )
                         // .openPopup()
@@ -286,14 +273,14 @@ const loadMap = async () => {
                 /** ******************************** */
                 const apiKey =
                         'AAPKdec506a2a45242168858f4b1bdd8bc83U3L-BFCyxIRNCMccr-A9Ww_dzna7wRD9H-Ap3GNvX8ZF6RBh9hXKqMgBFezUMC7a';
+
                 // create the geocoding control and add it to the map
                 const searchControl = L.esri.Geocoding.geosearch({
                         position: 'topright',
                         placeholder: 'Find address or place...',
                         useMapBounds: false,
-                        errorMessage: 'no location found',
 
-                        // Set the providers to arcgisOnlineProvider in order to access the       geocoding service.
+                        // Set the providers to arcgisOnlineProvider in order to access the geocoding service.
                         providers: [
                                 L.esri.Geocoding.arcgisOnlineProvider({
                                         apikey: apiKey,
@@ -303,7 +290,7 @@ const loadMap = async () => {
                                         },
                                 }),
                         ],
-                })
+                });
 
                 // Display the results of the search using a Marker and Popup
                 // 1. Add a LayerGroup to the map to contain the geocoding results.
@@ -312,8 +299,6 @@ const loadMap = async () => {
                 // 2. Create an event handler to access the data from the search results. Call the clearLayers method to remove the previous data from the LayerGroup.
                 searchControl.on('results', async (data) => {
                         results.clearLayers();
-
-                        console.log(data.results);
 
                         const resultCoords = [data.results[0].latlng.lat, data.results[0].latlng.lng];
 
@@ -364,18 +349,14 @@ const loadMap = async () => {
                         }
                 });
 
-                // Base layers and overlay(s) objects
+                // MAP BASE LAYERS OBJECT
                 const baseMaps = {
                         Street: mapboxStreet,
                         Navigation: mapboxNavigation,
                         Dark: mapboxDrk,
                 };
 
-                // const overlayMaps = {
-                //   "Cities": cities
-                // }
-
-                // MAP LAYER CONTROLS
+                // MAP CONTROLS
                 L.control.layers(baseMaps, null, { position: 'bottomright' }).addTo(map);
 
                 map.addControl(new L.Control.Fullscreen({ position: 'topright' }));
@@ -384,11 +365,100 @@ const loadMap = async () => {
 
                 searchControl.addTo(map);
 
-                // Handling clicks on map
+                L.Control.PlacesSelect = L.Control.extend({
+                        onAdd(map) {
+                                const placeCategories = [
+                                        ['', 'Find places nearby'],
+                                        ['Coffee shop', 'Coffee shop'],
+                                        ['Airport', 'Airport'],
+                                        ['Nightlife Spot', 'Nightlife Spot'],
+                                        ['Arts and Entertainment', 'Arts and Entertainment'],
+                                        ['Shops and Service', 'Shops and Service'],
+                                        ['Gas station', 'Gas station'],
+                                        ['Travel and Transport', 'Travel and Transport'],
+                                        ['Train station', 'Train station'],
+                                        ['Food', 'Food'],
+                                        ['Hotel', 'Hotel'],
+                                        ['Parks and Outdoors', 'Parks and Outdoors'],
+                                        ['Hospital', 'Hospital'],
+                                ];
+
+                                const select = L.DomUtil.create('select', '');
+                                select.setAttribute('id', 'optionsSelect');
+                                select.setAttribute('class', 'btn');
+                                select.setAttribute('style', 'padding:16px 0px;text-align:center;max-width: 150px;');
+                                // select.setAttribute("style", "font-size: 18px;color:white;font-family:Josefin Sans;padding:4px 8px;background-color:#7B341E;");
+
+                                placeCategories.forEach((category) => {
+                                        const option = L.DomUtil.create('option');
+                                        option.value = category[0];
+                                        option.innerHTML = category[1];
+                                        select.appendChild(option);
+                                });
+                                return select;
+                        },
+
+                        onRemove(map) {
+                                // Nothing to do here
+                        },
+                });
+
+                L.control.placesSelect = function (opts) {
+                        return new L.Control.PlacesSelect(opts);
+                };
+
+                L.control
+                        .placesSelect({
+                                position: 'topright',
+                        })
+                        .addTo(map);
+
+                const layerGroup = L.layerGroup().addTo(map);
+
+                const showPlaces = function (category) {
+                        L.esri.Geocoding.geocode({
+                                apikey: apiKey,
+                        })
+                                .category(category)
+                                .nearby(map.getCenter(), 10)
+                                .run((error, response) => {
+                                        if (error) {
+                                                return;
+                                        }
+                                        layerGroup.clearLayers();
+                                        response.results.forEach((searchResult) => {
+                                                L.marker(searchResult.latlng, {
+                                                        bounceOnAdd: true,
+                                                        // icon:
+                                                        // L.icon({
+                                                        //     iconUrl: 'https://unpkg.com/leaflet@1.0.3/dist/images/marker-icon.png',
+                                                        //     // className: 'hueChange',
+                                                        //     iconSize: [30, 30],
+                                                        // })
+                                                })
+                                                        .addTo(layerGroup)
+                                                        .bindPopup(
+                                                                `<b>${searchResult.properties.PlaceName}</b></br>${searchResult.properties.Place_addr}`
+                                                        );
+                                        });
+                                });
+                };
+
+                const select = document.getElementById('optionsSelect');
+                select.addEventListener('change', (e) => {
+                        if (select.value !== '') {
+                                showPlaces(select.value);
+                        }
+                });
+
+                // STOPS EVENT FROM BUBBLING UP TO THE PARENT ELEMENT (#MAP) WHICH TRIGGERS ITS CLICK EVENT CAUSING THE SELECT MENU TO CLOSE
+                select.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                });
+
+                // HANDLING CLICKS ON MAP
                 map.on('click', showForm);
 
-                // Load Workouts List and Markers from local storage
-                // map.whenReady(getLocalStorage);
                 getLocalStorage();
         } catch (err) {
                 return Promise.reject(err.message);
@@ -407,16 +477,16 @@ const findTrip = (e) => {
         return trips.find((trip) => trip.id === tripEl.dataset.id); // returns a trip object
 };
 
-const deleteTrip = (e) => {
+const deleteTrip = () => {
         const deleteBtns = document.querySelectorAll('.deleteBtn');
         // Add an event listener to each delete btn from the card drop down menu
         deleteBtns.forEach((btn) => {
                 btn.addEventListener('click', (e) => {
                         // find the trip to delete
-                        const deleteTrip = findTrip(e);
+                        const deleteSelectedTrip = findTrip(e);
 
                         // return the the trips arr with all the trips that does not match the delete trip id
-                        trips = trips.filter((trip) => trip.id !== deleteTrip.id);
+                        trips = trips.filter((trip) => trip.id !== deleteSelectedTrip.id);
 
                         // set local storage
                         setLocalStorage();
@@ -428,12 +498,18 @@ const deleteTrip = (e) => {
 };
 deleteTrip();
 
-const editTrip = (e) => {
+const editTrip = () => {
         const editBtns = document.querySelectorAll('.editBtn');
         editBtns.forEach((btn) => {
                 btn.addEventListener('click', (e) => {
                         const selectedTrip = findTrip(e);
-                        console.log(selectedTrip);
+                        // delete trip you want to edit
+                        trips = trips.filter((trip) => trip.id !== selectedTrip.id);
+
+                        // set local storage
+                        setLocalStorage();
+
+                        // create a new trip with the old trip (deleted trip) values
 
                         // CONVERT WORKOUT COORDS ARRAY TO OBJECT TO FIT MAP EVENT FORMAT
                         const { coords } = selectedTrip;
@@ -473,9 +549,7 @@ const moveToPopup = (e) => {
         map.flyTo(tripEl.coords, 13);
 };
 
-const setLocalStorage = () => {
-        localStorage.setItem('trips', JSON.stringify(trips));
-};
+const setLocalStorage = () => localStorage.setItem('trips', JSON.stringify(trips));
 
 const newWorkout = async (e) => {
         try {

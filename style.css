@@ -410,6 +410,7 @@ li:nth-child(2) {
   padding: 10px 30px 20px 30px;
   border-radius: 0 0 10px 10px;
   width: 100%;
+  cursor: pointer;
 }
 
 @media screen and (min-width: 40em) {
@@ -839,6 +840,14 @@ img.hueChangeTeal { filter: invert(0) sepia(94%) saturate(288%) hue-rotate(130de
 .leaflet-control-attribution.leaflet-control.esri-truncated-attribution{
   display: none;
 }
+
+/* select#optionsSelect{
+  transition: none;
+}
+select.leaflet-control {
+    -webkit-transition: none;
+    transition: none;
+} */
 /**************************/
 /* COPYRIGHT  */
 /**************************/
@@ -870,4 +879,3 @@ SPACING SYSTEM (px)
 FONT SIZE SYSTEM (px)
 10 / 12 / 14 / 16 / 18 / 20 / 24 / 30 / 36 / 44 / 52 / 62 / 74 / 86 / 98
 */
-
