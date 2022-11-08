@@ -672,7 +672,11 @@ font-size: 1.5rem;
 }
 
 .search-popup .leaflet-popup-content-wrapper {
-  border-left: 5px solid yellow;
+  border-left: 5px solid #D68C45;
+}
+
+.search-popupTint .leaflet-popup-content-wrapper {
+  border-left: 5px solid #e2af7d;
 }
 
 /* Leaflet tooltip tip style */
@@ -685,7 +689,7 @@ font-size: 1.5rem;
     background-color: #2c3438;
     border-color: #464c4f;
     color: #fff;
-    border-right:  5px solid yellow;
+    border-right:  5px solid #D68C45;
   }
   
   .leaflet-tooltip-top:before, 
@@ -814,9 +818,9 @@ a.leaflet-control-layers-toggle {
 img.hueChangeTeal { filter: brightness(0) saturate(100%) invert(49%) sepia(10%) saturate(2348%) hue-rotate(130deg) brightness(101%) contrast(88%)} 
 
 /* changes Leaflet default marker icon color change */
-img.hueChangeYellow { filter: brightness(0) saturate(100%) invert(86%) sepia(20%) saturate(2665%) hue-rotate(10deg) brightness(113%) contrast(113%);} 
+img.hueChangeOrange { filter: brightness(0) saturate(100%) invert(87%) sepia(20%) saturate(6034%) hue-rotate(325deg) brightness(88%) contrast(88%);} 
 
-img.hueChangeBlue { filter: brightness(0) saturate(100%) invert(21%) sepia(72%) saturate(425%) hue-rotate(175deg) brightness(92%) contrast(91%);} 
+img.hueChangeOrangeTint { filter: brightness(0) saturate(100%) invert(77%) sepia(16%) saturate(976%) hue-rotate(346deg) brightness(94%) contrast(88%);} 
 
 .tealCircleIcon{
   border-radius: 100%;
@@ -826,7 +830,7 @@ img.hueChangeBlue { filter: brightness(0) saturate(100%) invert(21%) sepia(72%) 
 
 /* search result pulse class class */
 .gps_ring {
-  border: 3px solid yellow;
+  border: 3px solid #D68C45;
   -webkit-border-radius: 40px;
   height: 50px;
   width: 50px;

@@ -226,8 +226,8 @@ const loadMap = async () => {
                 L.marker(coords, {
                         icon: L.icon.pulse({
                                 iconUrl: 'https://unpkg.com/leaflet@1.9.2/dist/images/marker-icon-2x.png',
-                                color: 'yellow',
-                                fillColor: 'yellow',
+                                color: '#D68C45',
+                                fillColor: '#D68C45',
                         }),
                 })
                         .on('click', () => flyToLocation(coords, 14))
@@ -238,7 +238,7 @@ const loadMap = async () => {
                                         minWidth: 20,
                                         autoClose: true,
                                         closeOnClick: true,
-                                        className: `trip-popup`,
+                                        className: `search-popup`,
                                 })
                         )
                         .setPopupContent(
@@ -340,7 +340,7 @@ const loadMap = async () => {
                                 );
                                 results.addLayer(pulseMarker);
                                 results.addLayer(marker);
-                                marker.openPopup().bounce(2)._icon.classList.add('hueChangeYellow');
+                                marker.openPopup().bounce(2)._icon.classList.add('hueChangeOrange');
                         }
                 });
 
@@ -434,7 +434,7 @@ const loadMap = async () => {
                                                                         minWidth: 30,
                                                                         autoClose: true,
                                                                         closeOnClick: true,
-                                                                        className: 'trip-popup',
+                                                                        className: 'search-popupTint',
                                                                 })
                                                         )
                                                         .setPopupContent(
@@ -442,7 +442,7 @@ const loadMap = async () => {
                                                         )
                                                         .openPopup()
                                                         .bounce(1)
-                                                        ._icon.classList.add('hueChangeTeal');
+                                                        ._icon.classList.add('hueChangeOrangeTint');
                                         });
                                 });
                 };
@@ -453,6 +453,9 @@ const loadMap = async () => {
                                 showPlaces(select.value);
                         }
                 });
+
+                // disables the first option from the find places select dropdown menu
+                document.querySelector('#optionsSelect option').disabled = true;
 
                 // STOPS EVENT FROM BUBBLING UP TO THE PARENT ELEMENT (#MAP) WHICH TRIGGERS ITS CLICK EVENT CAUSING THE SELECT MENU TO CLOSE
                 select.addEventListener('click', (e) => {
