@@ -349,6 +349,7 @@ html:focus-within {
   padding-bottom: 3.6rem;
   margin: 0;
   border: transparent;
+  cursor: pointer;
 }
 
 @media screen and (min-width: 60em) {
@@ -410,7 +411,6 @@ li:nth-child(2) {
   padding: 10px 30px 20px 30px;
   border-radius: 0 0 10px 10px;
   width: 100%;
-  cursor: pointer;
 }
 
 @media screen and (min-width: 40em) {
@@ -685,6 +685,7 @@ font-size: 1.5rem;
     background-color: #2c3438;
     border-color: #464c4f;
     color: #fff;
+    border-right:  5px solid yellow;
   }
   
   .leaflet-tooltip-top:before, 
@@ -692,7 +693,7 @@ font-size: 1.5rem;
   .leaflet-tooltip-left:before, 
   .leaflet-tooltip-right:before {
     border-right-color: #464c4f !important;
-    border-left-color: #464c4f !important;
+    /* border-left-color: #464c4f !important; */
   }
 
 /* leaflet search bar */
@@ -711,19 +712,28 @@ font-size: 1.5rem;
   /* border-radius: .5rem; */
   box-shadow: 0 1px 2px rgba(0,0,0,0.1);
   /* filter: invert(0) sepia(0%) saturate(0%) hue-rotate(130deg) brightness(90%) contrast(91%) */
-  filter: invert(90%);
+  filter: invert(100%);
+
+
 }
 
 /* Base layer control */
-.leaflet-control-layers-toggle {
-  background-color: #111;
-  filter: invert(0%) sepia(0%) saturate(0%) hue-rotate(252deg) brightness(92%) contrast(87%);
-  height:10px;
-}
-
 .leaflet-control-layers.leaflet-control{
   border: 2px solid hsl(0deg 0% 0% / 20%);
   background-clip: padding-box;
+  /* transform: translateX(-50%); */
+  /* left: -80%; */
+  font-size: 1.6rem;
+
+  transform: translateX(18%) scale(0.7, 0.7);
+}
+
+a.leaflet-control-layers-toggle {
+  background-color: #000;
+  filter: invert(0%) sepia(0%) saturate(0%) hue-rotate(252deg) brightness(92%) contrast(87%);
+  height:100px;
+
+  /* position: absolute; */
 }
 
 .leaflet-touch .leaflet-control-layers{
@@ -801,7 +811,12 @@ font-size: 1.5rem;
 }
 
 /* Leaflet icon classes */
-img.hueChangeTeal { filter: invert(0) sepia(94%) saturate(288%) hue-rotate(130deg) brightness(90%) contrast(91%)} 
+img.hueChangeTeal { filter: brightness(0) saturate(100%) invert(49%) sepia(10%) saturate(2348%) hue-rotate(130deg) brightness(101%) contrast(88%)} 
+
+/* changes Leaflet default marker icon color change */
+img.hueChangeYellow { filter: brightness(0) saturate(100%) invert(86%) sepia(20%) saturate(2665%) hue-rotate(10deg) brightness(113%) contrast(113%);} 
+
+img.hueChangeBlue { filter: brightness(0) saturate(100%) invert(21%) sepia(72%) saturate(425%) hue-rotate(175deg) brightness(92%) contrast(91%);} 
 
 .tealCircleIcon{
   border-radius: 100%;
@@ -812,7 +827,6 @@ img.hueChangeTeal { filter: invert(0) sepia(94%) saturate(288%) hue-rotate(130de
 /* search result pulse class class */
 .gps_ring {
   border: 3px solid yellow;
-  opacity: 0.8;
   -webkit-border-radius: 40px;
   height: 50px;
   width: 50px;
@@ -836,18 +850,41 @@ img.hueChangeTeal { filter: invert(0) sepia(94%) saturate(288%) hue-rotate(130de
   }
 }
 
+select#optionsSelect{
+  display: grid;
+  place-items: center;
+  width: 3.33rem;
+  height: 1rem;
+  color: #ffffff;
+  /* background-color: #000; */
+  margin-top: 2rem;
+}
+
+#optionsSelect{
+  width: 100%;
+  text-transform: uppercase;
+  letter-spacing: 0.1rem;
+  font-size: 1rem;
+  font-family: inherit;
+  font-weight: var(--fw-500);
+  color: #fff;
+  border: none;
+  /* background-color: transparent; */
+  border-radius: 0.3rem;
+
+  appearance: none;
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 2.5em;
+
+  filter: invert(95%);
+}
 
 .leaflet-control-attribution.leaflet-control.esri-truncated-attribution{
   display: none;
 }
 
-/* select#optionsSelect{
-  transition: none;
-}
-select.leaflet-control {
-    -webkit-transition: none;
-    transition: none;
-} */
 /**************************/
 /* COPYRIGHT  */
 /**************************/
@@ -879,3 +916,7 @@ SPACING SYSTEM (px)
 FONT SIZE SYSTEM (px)
 10 / 12 / 14 / 16 / 18 / 20 / 24 / 30 / 36 / 44 / 52 / 62 / 74 / 86 / 98
 */
+
+
+
+  

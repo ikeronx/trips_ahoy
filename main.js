@@ -24,7 +24,7 @@ const inputDesc = document.querySelector('.form__input--desc');
 
 let map;
 let mapEvent;
-const zoomLevel = 3;
+const zoomLevel = 2;
 
 // DATA
 let trips = [
@@ -108,7 +108,7 @@ const renderTripMarker = (trip) => {
                         L.popup({
                                 maxWidth: 300,
                                 minWidth: 30,
-                                autoClose: false,
+                                autoClose: true,
                                 closeOnClick: true,
                                 className: `trip-popup`,
                         })
@@ -223,9 +223,6 @@ const loadMap = async () => {
                 }).setView(coords, zoomLevel);
 
                 // CREATE MAP'S DEFAULT MARKER @ USER POSITION
-                const curWeather = await utilAsync._getCiCurWea(coords[0], coords[1]);
-                const weaDesc = curWeather[1];
-
                 L.marker(coords, {
                         icon: L.icon.pulse({
                                 iconUrl: 'https://unpkg.com/leaflet@1.9.2/dist/images/marker-icon-2x.png',
@@ -246,26 +243,24 @@ const loadMap = async () => {
                         )
                         .setPopupContent(
                                 `
-                                🧙🏽 The current weather in your area is <br> 🪄 <i>...{weaDesc}</i><br><br> 👨🏽‍🏫 Trips Ahoy! key features: <br>
+                                👨🏽‍💻 Hi! I'm Keron, and this is your<br> \xa0\xa0\xa0\xa0\xa0current position.<br><br> ⚙️ Trips Ahoy! key features are: <br>
                                 📌 Find a place by using the search box. <br>
                                 📌 Get current weather for place searched. <br>
                                 📌 Find places near an area searched. <br>
                                 📌 Find a route and directions. <br>
+                                📌 Add a trip by clicking on the map. <br>
+                                📌 Rate trip <br>
+                                📌 Update trip <br>
+                                📌 Delete trip <br>
                                 📌 Change map style. <br>
-                                📌 Add trip(s). <br>
-                                📌 Update trip(s) <br>
-                                📌 Delete trip(s) <br>
-                                📌 Rate trip(s) <br>
                                 `
                         )
                         // .openPopup()
-                        .bindTooltip(
-                                `👨🏽‍💻 Hey there, I'm Keron, and this is your current position.</strong><br>\xa0\xa0\xa0\xa0\xa0Click the pulse and I will perform a magic trick for you.`,
-                                {
-                                        // permanent: true,
-                                        interactive: true,
-                                }
-                        )
+                        .bindTooltip(` Click to learn more about Trips Ahoy!`, {
+                                // permanent: true,
+                                direction: 'right',
+                                interactive: true,
+                        })
                         .toggleTooltip(this);
 
                 /** ******************************** */
@@ -303,7 +298,6 @@ const loadMap = async () => {
                         const resultCoords = [data.results[0].latlng.lat, data.results[0].latlng.lng];
 
                         const resultCurWeather = await utilAsync._getCiCurWea(resultCoords[0], resultCoords[1]);
-                        const resultWeaDesc = resultCurWeather[1];
 
                         // 3. Create a loop that adds the coordinates of a selected search       results to a Marker.
                         for (let i = data.results.length - 1; i >= 0; i--) {
@@ -325,8 +319,8 @@ const loadMap = async () => {
                                 };
 
                                 const marker = L.marker(data.results[i].latlng, markerIcon).on('click', function () {
-                                        this.bounce(2);
-                                        flyToLocation(resultCoords, 16);
+                                        this.bounce(1);
+                                        flyToLocation(resultCoords, 15);
                                 });
 
                                 const pulseMarker = L.marker(data.results[i].latlng, animatedCircleIcon);
@@ -337,15 +331,16 @@ const loadMap = async () => {
                                 }`;
                                 marker.bindPopup(
                                         L.popup({
+                                                autoClose: false,
+                                                closeOnClick: false,
                                                 className: `search-popup`,
                                         })
                                 ).setPopupContent(
-                                        `<p>${data.results[i].properties.LongLabel}<br>☁️ ...<i>${resultWeaDesc}</i></p>`
+                                        `<p>${data.results[i].properties.LongLabel}<br>☁️ ${resultCurWeather[2]}<i> ${resultCurWeather[1]}</i></p>`
                                 );
                                 results.addLayer(pulseMarker);
                                 results.addLayer(marker);
-                                marker.openPopup().bounce(3);
-                                // ._icon.classList.add("hueChangeTeal");
+                                marker.openPopup().bounce(2)._icon.classList.add('hueChangeYellow');
                         }
                 });
 
@@ -357,37 +352,34 @@ const loadMap = async () => {
                 };
 
                 // MAP CONTROLS
-                L.control.layers(baseMaps, null, { position: 'bottomright' }).addTo(map);
-
-                map.addControl(new L.Control.Fullscreen({ position: 'topright' }));
-
-                L.control.zoom({ position: 'topright' }).addTo(map);
-
                 searchControl.addTo(map);
+                L.control.zoom({ position: 'bottomright' }).addTo(map);
+
+                map.addControl(new L.Control.Fullscreen({ position: 'bottomright' }));
+
+                L.control.layers(baseMaps, null, { position: 'bottomright' }).addTo(map);
 
                 L.Control.PlacesSelect = L.Control.extend({
                         onAdd(map) {
                                 const placeCategories = [
-                                        ['', 'Find places nearby'],
-                                        ['Coffee shop', 'Coffee shop'],
-                                        ['Airport', 'Airport'],
-                                        ['Nightlife Spot', 'Nightlife Spot'],
-                                        ['Arts and Entertainment', 'Arts and Entertainment'],
-                                        ['Shops and Service', 'Shops and Service'],
-                                        ['Gas station', 'Gas station'],
+                                        ['', 'Find places nearby...'],
                                         ['Travel and Transport', 'Travel and Transport'],
+                                        ['Airport', 'Airport'],
                                         ['Train station', 'Train station'],
-                                        ['Food', 'Food'],
                                         ['Hotel', 'Hotel'],
+                                        ['Food', 'Food'],
+                                        ['Coffee shop', 'Coffee shop'],
+                                        ['Shops and Service', 'Shops and Service'],
+                                        ['Arts and Entertainment', 'Arts and Entertainment'],
                                         ['Parks and Outdoors', 'Parks and Outdoors'],
+                                        ['Gas station', 'Gas station'],
                                         ['Hospital', 'Hospital'],
+                                        ['Nightlife Spot', 'Nightlife Spot'],
                                 ];
 
                                 const select = L.DomUtil.create('select', '');
                                 select.setAttribute('id', 'optionsSelect');
-                                select.setAttribute('class', 'btn');
                                 select.setAttribute('style', 'padding:16px 0px;text-align:center;max-width: 150px;');
-                                // select.setAttribute("style", "font-size: 18px;color:white;font-family:Josefin Sans;padding:4px 8px;background-color:#7B341E;");
 
                                 placeCategories.forEach((category) => {
                                         const option = L.DomUtil.create('option');
@@ -426,26 +418,37 @@ const loadMap = async () => {
                                                 return;
                                         }
                                         layerGroup.clearLayers();
+
                                         response.results.forEach((searchResult) => {
                                                 L.marker(searchResult.latlng, {
                                                         bounceOnAdd: true,
-                                                        // icon:
-                                                        // L.icon({
-                                                        //     iconUrl: 'https://unpkg.com/leaflet@1.0.3/dist/images/marker-icon.png',
-                                                        //     // className: 'hueChange',
-                                                        //     iconSize: [30, 30],
-                                                        // })
                                                 })
+                                                        .on('click', function () {
+                                                                this.bounce(1);
+                                                                flyToLocation(searchResult.latlng, 15);
+                                                        })
                                                         .addTo(layerGroup)
                                                         .bindPopup(
-                                                                `<b>${searchResult.properties.PlaceName}</b></br>${searchResult.properties.Place_addr}`
-                                                        );
+                                                                L.popup({
+                                                                        maxWidth: 300,
+                                                                        minWidth: 30,
+                                                                        autoClose: true,
+                                                                        closeOnClick: true,
+                                                                        className: 'trip-popup',
+                                                                })
+                                                        )
+                                                        .setPopupContent(
+                                                                `<strong class='places'>${searchResult.properties.PlaceName}</strong></br>${searchResult.properties.Place_addr}`
+                                                        )
+                                                        .openPopup()
+                                                        .bounce(1)
+                                                        ._icon.classList.add('hueChangeTeal');
                                         });
                                 });
                 };
 
                 const select = document.getElementById('optionsSelect');
-                select.addEventListener('change', (e) => {
+                select.addEventListener('change', () => {
                         if (select.value !== '') {
                                 showPlaces(select.value);
                         }

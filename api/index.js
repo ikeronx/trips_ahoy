@@ -56,16 +56,19 @@ const getCityCurWeather = async (lat, lng) => {
                 if (!resWeather.ok) throw new Error(`Problem getting location data`);
                 const dataWeather = await resWeather.json();
                 if (!dataWeather) return;
+                console.log(dataWeather.current.temp);
 
                 return [
                         `https://openweathermap.org/img/wn/${dataWeather.current.weather[0].icon}@2x.png`,
                         `${dataWeather.current.weather[0].description}`,
+                        `${utilNum._ct(dataWeather.current.temp)}°`,
                 ];
         } catch (err) {
                 console.log(err.message);
                 return 'Unavailable';
         }
 };
+getCityCurWeather(42.3633, -71.0582);
 
 // BOOK TRIP MENU
 const renderCheckFlightMenu = async () => {
