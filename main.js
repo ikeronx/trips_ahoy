@@ -108,14 +108,13 @@ const renderTripMarker = (trip) => {
                         L.popup({
                                 maxWidth: 300,
                                 minWidth: 30,
-                                autoClose: true,
-                                closeOnClick: true,
+                                autoClose: false,
+                                closeOnClick: false,
                                 className: `trip-popup`,
                         })
                 )
                 .setPopupContent(`${trip.countryFlag}${trip.countryCode.toUpperCase()}\xa0\xa0\xa0📍${trip.city}`)
                 .openPopup();
-        // ._icon.classList.add("hueChange");
 };
 
 const renderTrip = (trip) => {
@@ -340,7 +339,7 @@ const loadMap = async () => {
                                 );
                                 results.addLayer(pulseMarker);
                                 results.addLayer(marker);
-                                marker.openPopup().bounce(2)._icon.classList.add('hueChangeOrange');
+                                marker.openPopup().bounce(3)._icon.classList.add('hueChangeOrange');
                         }
                 });
 
@@ -424,7 +423,7 @@ const loadMap = async () => {
                                                         bounceOnAdd: true,
                                                 })
                                                         .on('click', function () {
-                                                                this.bounce(1);
+                                                                this.bounce(2);
                                                                 flyToLocation(searchResult.latlng, 15);
                                                         })
                                                         .addTo(layerGroup)
@@ -434,7 +433,7 @@ const loadMap = async () => {
                                                                         minWidth: 30,
                                                                         autoClose: true,
                                                                         closeOnClick: true,
-                                                                        className: 'search-popupTint',
+                                                                        className: 'trip-popup',
                                                                 })
                                                         )
                                                         .setPopupContent(
@@ -442,7 +441,7 @@ const loadMap = async () => {
                                                         )
                                                         .openPopup()
                                                         .bounce(1)
-                                                        ._icon.classList.add('hueChangeOrangeTint');
+                                                        ._icon.classList.add('hueChangeTeal');
                                         });
                                 });
                 };
