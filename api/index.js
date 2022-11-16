@@ -38,7 +38,6 @@ const getGeoLocationJSON = async (lat, lng) => {
 
                 return { countryAbbrev, countryName, city, flag, latitude, longitude }; // returns an object
         } catch (err) {
-                console.log(err.message);
                 return 'Unavailable';
         }
 };
@@ -56,7 +55,6 @@ const getCityCurWeather = async (lat, lng) => {
                 if (!resWeather.ok) throw new Error(`Problem getting location data`);
                 const dataWeather = await resWeather.json();
                 if (!dataWeather) return;
-                console.log(dataWeather.current.temp);
 
                 return [
                         `https://openweathermap.org/img/wn/${dataWeather.current.weather[0].icon}@2x.png`,
@@ -64,11 +62,9 @@ const getCityCurWeather = async (lat, lng) => {
                         `${utilNum._ct(dataWeather.current.temp)}°`,
                 ];
         } catch (err) {
-                console.log(err.message);
                 return 'Unavailable';
         }
 };
-getCityCurWeather(42.3633, -71.0582);
 
 // BOOK TRIP MENU
 const renderCheckFlightMenu = async () => {
@@ -97,7 +93,6 @@ const renderCheckFlightMenu = async () => {
                         bookFlightMenu.innerHTML = output;
                 });
         } catch (err) {
-                console.log(err.message);
                 return 'Unavailable';
         }
 };
@@ -118,7 +113,6 @@ const getRndUnsplashImg = async () => {
 
                 return imgPath;
         } catch (err) {
-                console.log(err.message);
                 return 'Unavailable';
         }
 };

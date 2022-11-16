@@ -24,7 +24,7 @@ const inputDesc = document.querySelector('.form__input--desc');
 
 let map;
 let mapEvent;
-const zoomLevel = 2;
+const zoomLevel = 3;
 
 // DATA
 let trips = [
@@ -303,8 +303,8 @@ const loadMap = async () => {
                                 const markerIcon = {
                                         icon: L.icon({
                                                 iconSize: [25, 41],
-                                                iconAnchor: [10, 41],
-                                                popupAnchor: [2, -40],
+                                                iconAnchor: [12, 41],
+                                                popupAnchor: [1, -34],
                                                 iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-yellow.png',
                                         }),
                                 };
@@ -335,7 +335,7 @@ const loadMap = async () => {
                                                 className: `search-popup`,
                                         })
                                 ).setPopupContent(
-                                        `<p>${data.results[i].properties.LongLabel}<br>☁️ ${resultCurWeather[2]}<i> ${resultCurWeather[1]}</i></p>`
+                                        `<p><strong>${data.results[i].properties.LongLabel}</strong><br>☁️ ${resultCurWeather[2]}<i> ${resultCurWeather[1]}</i></p>`
                                 );
                                 results.addLayer(pulseMarker);
                                 results.addLayer(marker);
@@ -460,6 +460,64 @@ const loadMap = async () => {
                 select.addEventListener('click', (e) => {
                         e.stopPropagation();
                 });
+
+                /** *********************** */
+                /* LEAFLET ROUTING */
+                /** *********************** */
+                L.Routing.control({
+                        position: 'topright',
+                        show: false,
+                        waypoints: [
+                                null,
+                                // L.latLng(42.3606316223, -71.071416656),
+                                // L.latLng(42.350451, -71.0795),
+                        ],
+                        showAlternatives: true,
+                        lineOptions: {
+                                styles: [{ color: '#319795', opacity: 1, weight: 2 }],
+                        },
+                        altLineOptions: {
+                                styles: [
+                                        { color: '#D68C45', opacity: 0.15, weight: 9 },
+                                        { color: 'white', opacity: 0, weight: 3 },
+                                        { color: '#D68C45', opacity: 1, weight: 2 },
+                                ],
+                        },
+                        createMarker: (i, wp) => {
+                                if (i === 0) {
+                                        return L.marker(wp.latLng, {
+                                                icon: L.icon.pulse({
+                                                        iconUrl: 'https://unpkg.com/leaflet@1.9.2/dist/images/marker-icon-2x.png',
+                                                        color: '#319795',
+                                                        fillColor: '#319795',
+                                                }),
+                                                draggable: true,
+                                                bounceOnAdd: false,
+                                                bounceOnAddOptions: {
+                                                        duration: 1000,
+                                                        height: 800,
+                                                },
+                                        });
+                                }
+                                return L.marker(wp.latLng, {
+                                        icon: L.icon({
+                                                iconSize: [25, 41],
+                                                iconAnchor: [12, 41],
+                                                popupAnchor: [1, -34],
+                                                iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png',
+                                                className: 'hueChangeTeal',
+                                        }),
+                                        draggable: true,
+                                        bounceOnAdd: false,
+                                        bounceOnAddOptions: {
+                                                duration: 1000,
+                                                height: 800,
+                                        },
+                                });
+                        },
+                        routeWhileDragging: true,
+                        geocoder: L.Control.Geocoder.nominatim(),
+                }).addTo(map);
 
                 // HANDLING CLICKS ON MAP
                 map.on('click', showForm);
