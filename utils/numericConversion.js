@@ -12,6 +12,4 @@ const convertRatingOnEdit = (str) => {
 
 const randomIntFromInterval = (min, max) => Math.floor(Math.random() * (max - min + 1) + min);
 
-convertTemp(291.78);
-
 export { convertRating as _cr, convertRatingOnEdit as _croe, convertTemp as _ct, randomIntFromInterval as _rndInt };

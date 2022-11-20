@@ -29,21 +29,6 @@ const zoomLevel = 3;
 // DATA
 let trips = [
         {
-                id: '658#@#45#2!',
-                title: 'Bon Voyage 🛩',
-                rating: '⭐️⭐️⭐️⭐️☆',
-                startDate: 'Oct 23, 2027',
-                endDate: 'Dec 14, 2029',
-                desc: 'From modern skyscrapers to neon lights, palaces, Seoul is a fascinating mix of old and new.',
-                coords: [37.5326, 127.024612],
-                countryCode: 'SK',
-                countryFlag: '🇰🇷',
-                city: 'Seoul',
-                cityWeaIconPath: 'http://openweathermap.org/img/wn/11d@2x.png',
-                cityWeaDesc: 'light rain',
-                tripImg: 'https://images.unsplash.com/photo-1641463594370-68593b56552c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80',
-        },
-        {
                 id: 'coki45#2!',
                 title: "Bottoms Up In Mo'Bay",
                 rating: '⭐️⭐️⭐️⭐️⭐️',
@@ -57,6 +42,21 @@ let trips = [
                 cityWeaIconPath: 'https://openweathermap.org/img/wn/01d@2x.png',
                 cityWeaDesc: 'clear sky',
                 tripImg: 'https://images.unsplash.com/photo-1624483275193-33b8acc6e32f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1674&q=80%20%20https://images.unsplash.com/photo-1592945843838-c69fc7dacb08?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2940&q=80%20https://images.unsplash.com/photo-1626292730004-0b3373283151?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2864&q=80',
+        },
+        {
+                id: '658#@#45#2!',
+                title: 'Bon Voyage 🛩',
+                rating: '⭐️⭐️⭐️⭐️☆',
+                startDate: 'Oct 23, 2027',
+                endDate: 'Dec 14, 2029',
+                desc: 'From modern skyscrapers to neon lights, palaces, Seoul is a fascinating mix of old and new.',
+                coords: [37.5326, 127.024612],
+                countryCode: 'SK',
+                countryFlag: '🇰🇷',
+                city: 'Seoul',
+                cityWeaIconPath: 'http://openweathermap.org/img/wn/11d@2x.png',
+                cityWeaDesc: 'light rain',
+                tripImg: 'https://images.unsplash.com/photo-1641463594370-68593b56552c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80',
         },
         {
                 id: 'thgj79845#2!',
@@ -85,7 +85,7 @@ const showForm = (mapE) => {
 };
 
 const hideForm = () => {
-        // Empty inputs
+        // EMPTY INPUTS
         form.reset();
 
         // TRICK TO PREVENT ANIMATION
@@ -154,7 +154,7 @@ const renderTrip = (trip) => {
                 </header>
         </li>
 `;
-        form.insertAdjacentHTML('afterend', html);
+containerTrips.insertAdjacentHTML('beforeend', html);
 };
 
 const getLocalStorage = () => {
@@ -423,8 +423,8 @@ const loadMap = async () => {
                                                         bounceOnAdd: true,
                                                 })
                                                         .on('click', function () {
-                                                                this.bounce(2);
-                                                                flyToLocation(searchResult.latlng, 15);
+                                                                this.bounce(1);
+                                                                flyToLocation(searchResult.latlng, 17);
                                                         })
                                                         .addTo(layerGroup)
                                                         .bindPopup(
@@ -432,7 +432,7 @@ const loadMap = async () => {
                                                                         maxWidth: 300,
                                                                         minWidth: 30,
                                                                         autoClose: true,
-                                                                        closeOnClick: true,
+                                                                        closeOnClick: false,
                                                                         className: 'trip-popup',
                                                                 })
                                                         )
@@ -681,6 +681,9 @@ const newWorkout = async (e) => {
 // EVENT LISTENERS
 (() => {
         form.addEventListener('submit', newWorkout);
+        document.querySelector('.form__btn').addEventListener('click', (e) => {
+                e.stopPropagation();
+        });
         containerTrips.addEventListener('click', moveToPopup);
         document.createElement('canvas').getContext('2d', { willReadFrequently: true });
 })();

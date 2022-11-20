@@ -142,7 +142,7 @@ html:focus-within {
 /* SIDEBAR */
 /**************************/
 .sidebar {
-  flex-basis: 55rem;
+  flex-basis: 40rem;
   /* background-color: var(--clr-dark--1); */
   background-color: #272a2c; /* 50% shade */
   background-color:#1f2223; /* 60% shade  */
@@ -158,6 +158,7 @@ html:focus-within {
 
 @media screen and (min-width: 40em) {
   .sidebar{
+    flex-basis: 55rem;
     border-top-left-radius: 1rem;
     border-top-right-radius: 0;
     border-bottom-left-radius: 1rem;
@@ -200,7 +201,7 @@ html:focus-within {
 }
 
 .sidebar:hover .cta{
-  right: 2.9rem;
+  right: 2.5rem;
 }
 
 .sidebar:hover .cta:hover{
@@ -244,19 +245,26 @@ html:focus-within {
 /* FORM */
 /**************************/
 .form {
-  /* background-color: var(--clr-dark--2);  */
   background-color: #3e4346;
   border-radius: 5px;
   padding: 1.5rem 2.75rem;
   margin-bottom: 1.75rem;
 
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 0.5rem 2.5rem;
+  grid-template-columns: 1fr;
+  gap: 1rem 2.5rem;
 
   /* Match height and activity boxes */
-  height: 18.25rem;
+  height: 31.25rem;
   transition: all 0.5s, transform 1ms; 
+}
+
+@media screen and (min-width: 40em) {
+  .form {
+    grid-template-columns: 1fr 1fr;
+    gap: 0.5rem 2.5rem;
+    height: 21.85rem;
+  }
 }
 
 .form.hidden {
@@ -274,7 +282,14 @@ html:focus-within {
 
 .form__row--desc{
   grid-column: 1 / -1;
+  gap: .3rem;
 }
+
+@media screen and (min-width: 60em) {
+  .form__row--desc{
+        gap: 0;
+      }
+} 
 
 .form__label {
   flex: 0 0 50%;
@@ -296,14 +311,9 @@ html:focus-within {
   font-weight: var(--fw-500);
   border: none;
   border-radius: 3px;
-  /* background-color: #282b2e; */
   background-color:#1f2223;
   transition: all 0.2s;
   color: #eee;
-}
-
-.form__input--desc{
- padding-block:  1rem ;
 }
 
 .form__input:focus {
@@ -312,9 +322,30 @@ html:focus-within {
 }
 
 .form__btn {
-  display: none;
+  border: none;
+  cursor: pointer;
+  font-family: var(--ff-primary);
+  transition: all 0.3s;
+  text-transform: uppercase;
+  letter-spacing: .5rem;
+  font-size: 1rem;
+  font-family: inherit;
+  font-weight: 900;
+  color: #fff;
+  border: none;
+  border-radius: 0.5rem;
+  padding: 1.2rem 2.4rem;
+  background-color: var(--clr-primary-400);
+  box-shadow: inset 0 1px 2px rgba(0,0,0,0.1);
+  grid-column: 1 / -1;
+  margin-left: auto;
+  margin-top: 0.5rem;
+  width: 100%;
 }
 
+.form__btn:hover{
+  background-color: #2C7A7B;
+}
 /**************************/
 /* CARDS */
 /**************************/
@@ -637,23 +668,23 @@ li:nth-child(2) {
 }
 
 @media screen and (min-width: 40em) {
-#map{
-  border-bottom-right-radius: 1.2rem;
-  border-top-right-radius: 1.2rem;
-  border-bottom-left-radius: 0rem;
-}
+  #map{
+    border-bottom-right-radius: 1.2rem;
+    border-top-right-radius: 1.2rem;
+    border-bottom-left-radius: 0rem;
+  }
 }
 
 /* Popup width is defined in JS using options */
 .leaflet-popup .leaflet-popup-content-wrapper {
-background-color: var(--clr-dark--1);
-color: var(--clr-light--2);
-border-radius: 5px;
-padding-right: 0.6rem;
+  background-color: var(--clr-dark--1);
+  color: var(--clr-light--2);
+  border-radius: 5px;
+  padding-right: 0.6rem;
 }
 
 .leaflet-popup .leaflet-popup-content {
-font-size: 1.5rem;
+  font-size: 1.5rem;
 }
 
 .trip-popup .leaflet-popup-content-wrapper {
@@ -821,8 +852,8 @@ a.leaflet-control-layers-toggle {
 
 .leaflet-routing-container{
   filter: invert(100%); 
-  z-index: 0;
   cursor: pointer;
+  z-index: 0;
 }
 
 /* Pulse marker */
