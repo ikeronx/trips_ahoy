@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+    <!-- GOOGLE FONTS -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@400;500;600;700&family=Rubik:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+
+    <!-- ION ICONS -->
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+
+    <!-- BOOTSTRAP -->
+    <link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+    integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
+    crossorigin="anonymous"
+    />  
+ 
+    <script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+    crossorigin="anonymous">
+    </script>
+
+    <!-- LEAFLET MAP CSS-->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.2/dist/leaflet.css"
+    integrity="sha256-sA+zWATbFveLLNqWO2gtiw3HL/lh1giY/Inf1BJ0z14="
+    crossorigin=""/>
+
+    <!-- LEAFLET MAP SCRIPT-->
+    <script src="https://unpkg.com/leaflet@1.9.2/dist/leaflet.js"
+      integrity="sha256-o9N1jGDZrf5tS+Ft4gbIK7mYMipq9lqpVJ91xHSyKhg="
+      crossorigin=""></script>
+
+    <!-- LOAD LEAFLET ROUTING MACHINE-->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet-routing-machine@3.2.12/dist/leaflet-routing-machine.css" />
+    <script src="https://unpkg.com/leaflet-routing-machine@3.2.12/dist/leaflet-routing-machine.js"></script>
+    
+    <!-- LOAD LEAFLET GEOCODER-->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css" />
+    <script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
+    
+    
+    <!-- - LOAD ESRI LEAFLET FROM CDN -->
+    <script src="https://unpkg.com/esri-leaflet@^3.0.8/dist/esri-leaflet.js"></script>
+    <script src="https://unpkg.com/esri-leaflet-vector@4.0.0/dist/esri-leaflet-vector.js"></script>
+
+    <!-- LOAD ESRI LEAFLET GEOCODER PLUGIN FROM CDN -->
+    <link rel="stylesheet" href="https://unpkg.com/esri-leaflet-geocoder@2.2.13/dist/esri-leaflet-geocoder.css"
+    integrity="sha512-v5YmWLm8KqAAmg5808pETiccEohtt8rPVMGQ1jA6jqkWVydV5Cuz3nJ9fQ7ittSxvuqsvI9RSGfVoKPaAJZ/AQ=="
+    crossorigin="">
+    <script src="https://unpkg.com/esri-leaflet-geocoder@^3.1.3/dist/esri-leaflet-geocoder.js"></script>
+    
+    <!-- LOAD ARCGIS REST JS FROM CDN -->
+    <script src="https://unpkg.com/@esri/arcgis-rest-request@4.0.0/dist/bundled/request.umd.js"></script>
+    <script src="https://unpkg.com/@esri/arcgis-rest-routing@4.0.0/dist/bundled/routing.umd.js"></script>
+
+    <!-- PULSE ICON CDN -->
+    <script src="https://rawgit.com/mapshakers/leaflet-icon-pulse/master/src/L.Icon.Pulse.js"></script>
+    <link rel="stylesheet" href="https://rawgit.com/mapshakers/leaflet-icon-pulse/master/src/L.Icon.Pulse.css" />
+
+    <!-- MAPBOX FULLSCREEN PLUGIN -->
+    <script src='https://api.mapbox.com/mapbox.js/plugins/leaflet-fullscreen/v1.0.1/Leaflet.fullscreen.min.js'></script>
+    <link href='https://api.mapbox.com/mapbox.js/plugins/leaflet-fullscreen/v1.0.1/leaflet.fullscreen.css' rel='stylesheet' />
+
+    <!-- UNIQUE ID -->
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/uuid/8.3.2/uuid.min.js"></script>
+
+    <!--    MY SCRIPT & CSS -->
+    
+    
+    <title>Trips Ahoy! &mdash; Where have you been?</title>
+    <script type="module" crossorigin src="/trips_ahoy/assets/index.82b02793.js"></script>
+    <link rel="stylesheet" href="/trips_ahoy/assets/index.cc66aa95.css">
+    <script type="module">try{import.meta.url;import("_").catch(()=>1);}catch(e){}window.__vite_is_modern_browser=true;</script>
+    <script type="module">!function(){if(window.__vite_is_modern_browser)return;console.warn("vite: loading legacy build because dynamic import or import.meta.url is unsupported, syntax error above should be ignored");var e=document.getElementById("vite-legacy-polyfill"),n=document.createElement("script");n.src=e.src,n.onload=function(){System.import(document.getElementById('vite-legacy-entry').getAttribute('data-src'))},document.body.appendChild(n)}();</script>
+  </head>
+  <body>
+      <div class="sidebar">
+        <div class="logo_box">
+          <div>
+            <img class="logo_img" src="/trips_ahoy/assets/globe.df7dafad.svg" alt="Logo"/>
+            <span class="logo__title">Trips Ahoy!</span>
+          </div>
+          <div class="cta">
+            <select onChange="window.location.href = this.value, '_blank'" name="countries-menu" class="book-flight-btn__select" placeholder="Lookup flights">
+              <option disabled selected value>Book trip</option>
+            </select>
+          </div>
+        </div>
+    
+        <ul class="trips" role="list">
+          <form class="form hidden">
+            <div class="form__row">
+              <label class="form__label">Title</label>
+              <input class="form__input form__input--title" 
+              type='text' 
+              placeholder="" 
+              required/>
+            </div>
+            <div class="form__row">
+              <label class="form__label">Rating</label>
+              <input class="form__input form__input--rating" 
+              type='number' 
+              min='1' max="5" 
+              placeholder="1 - 5" 
+              maxlength="20"
+              required/>
+            </div>
+            <div class="form__row">
+              <label class="form__label">Start Date</label>
+              <input
+                class="form__input form__input--start-date"
+                type="date"
+                placeholder=""
+                required
+              />
+            </div>
+  
+            <div class="form__row">
+              <label class="form__label">End Date</label>
+              <input
+                class="form__input form__input--end-date"
+                type="date"
+                placeholder=""
+                required
+              />
+            </div>
+            <div class="form__row form__row--desc">
+              <label class="form__label--desc">Description</label>
+              <textarea
+                class="form__input form__input--desc"
+                placeholder="write a short review..."
+                cols='3'
+                rows='3'
+                maxlength="93"    
+                required
+              ></textarea>  
+            </div>
+            <button class="form__btn">ADD TRIP</button>
+          </form>
+
+          <!-- <li class="trip card card-box" data-id='${trip.id}'>
+            <aside class="card__aside">
+                <figure class="card__figure">
+                    <img class="card__image" src='https://images.unsplash.com/photo-1624483275193-33b8acc6e32f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1674&q=80%20%20https://images.unsplash.com/photo-1592945843838-c69fc7dacb08?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2940&q=80%20https://images.unsplash.com/photo-1626292730004-0b3373283151?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2864&q=80' alt="picture of a hand holding a beer outstretched towards a lake" />
+                </figure>
+            </aside>
+            <header class="card__header card-textbox">
+                <div class="card-textbox__location-box">
+                    <div class="card-textbox__country">
+                        <p class="card__flag">🇯🇲</p>
+                        <p class="card__country">JM</p>  
+                        <p class="card__map-marker">📍</p>
+                        <div class="card__weather-icon-div card__country">Montego Bay
+                            <img class="card__weather-icon" src='https://openweathermap.org/img/wn/01d@2x.png'/>
+                        </div>
+                    </div>
+                    <div>
+                        <ion-icon class="card__drop-down--icon" data-bs-toggle="dropdown" type="div" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" name="ellipsis-horizontal"></ion-icon>
+                        <div class="card__dropdown-menu--styling  dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <div class="dropdown-item card__dropdown-item--styling editBtn"><ion-icon name="create-outline"></ion-icon>Edit</div>
+                            <div class="dropdown-item card__dropdown-item--styling deleteBtn"><ion-icon name="trash-outline"></ion-icon>Delete</div>
+                        </div>
+                    </div>
+                </div>
+                <h2 class="card__title">Bottoms Up In Mo'Bay</h2>
+                <div class="card__body">
+                    <div class = 'card__date-rating-box'>
+                        <p class="card__date">Mar 13, 2022 - May 15, 2022</p>
+                        <p  class="card__rating">⭐️⭐️⭐️⭐️⭐️</p>
+                    </div>
+                    <p class="card__description">Montego Bay has duty-free shopping, vibrant nightlife, & calm waters. I can't wait to return!</p>
+                </div>
+            </header>
+          </li>
+
+
+          <li class="trip card card-box" data-id='${trip.id}'>
+            <aside class="card__aside">
+                <figure class="card__figure">
+                    <img class="card__image" src='https://images.unsplash.com/photo-1641463594370-68593b56552c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80' alt="picture of a hand holding a beer outstretched towards a lake" />
+                </figure>
+            </aside>
+            <header class="card__header card-textbox">
+                <div class="card-textbox__location-box">
+                    <div class="card-textbox__country">
+                        <p class="card__flag">🇰🇷</p>
+                        <p class="card__country">SK</p>  
+                        <p class="card__map-marker">📍</p>
+                        <div class="card__weather-icon-div card__country">Seoul
+                            <img class="card__weather-icon" src='http://openweathermap.org/img/wn/11d@2x.png'/>
+                        </div>
+                    </div>
+                    <div>
+                        <ion-icon class="card__drop-down--icon" data-bs-toggle="dropdown" type="div" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" name="ellipsis-horizontal"></ion-icon>
+                        <div class="card__dropdown-menu--styling  dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <div class="dropdown-item card__dropdown-item--styling editBtn"><ion-icon name="create-outline"></ion-icon>Edit</div>
+                            <div class="dropdown-item card__dropdown-item--styling deleteBtn"><ion-icon name="trash-outline"></ion-icon>Delete</div>
+                        </div>
+                    </div>
+                </div>
+                <h2 class="card__title">Bon Voyage 🛩</h2>
+                <div class="card__body">
+                    <div class = 'card__date-rating-box'>
+                        <p class="card__date">Feb 21, 2023 - July 29, 2023</p>
+                        <p  class="card__rating">⭐️⭐️⭐️⭐️☆</p>
+                    </div>
+                    <p class="card__description">From modern skyscrapers to neon lights, palaces, Seoul is a fascinating mix of old and new.</p>
+                </div>
+            </header>
+          </li> -->
+        </ul>
+  
+        <p class="copyright">Copyright &copy; <span class="year">&nbsp;</span>
+          Built and Designed by
+          <a
+            class="portfolio-link"
+            target="_blank"
+            href="https://ikeronx.github.io/portfolio-v2/"
+            >Keron Williams</a
+          >
+        </p> 
+      </div>
+  
+      <div id="map" class="map"></div>
+    <script nomodule>!function(){var e=document,t=e.createElement("script");if(!("noModule"in t)&&"onbeforeload"in t){var n=!1;e.addEventListener("beforeload",(function(e){if(e.target===t)n=!0;else if(!e.target.hasAttribute("nomodule")||!n)return;e.preventDefault()}),!0),t.type="module",t.src=".",e.head.appendChild(t),t.remove()}}();</script>
+    <script nomodule crossorigin id="vite-legacy-polyfill" src="/trips_ahoy/assets/polyfills-legacy.58790516.js"></script>
+    <script nomodule crossorigin id="vite-legacy-entry" data-src="/trips_ahoy/assets/index-legacy.ceefc36c.js">System.import(document.getElementById('vite-legacy-entry').getAttribute('data-src'))</script>
+  </body>
+</html>
