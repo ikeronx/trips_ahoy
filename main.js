@@ -467,7 +467,7 @@ const loadMap = async () => {
                         position: 'topright',
                         show: false,
                         waypoints: [
-                                null
+                                null,
                                 // L.latLng(42.3606316223, -71.071416656),
                                 // L.latLng(42.350451, -71.0795),
                         ],
@@ -685,5 +685,5 @@ const newWorkout = async (e) => {
         });
         containerTrips.addEventListener('click', moveToPopup);
         document.createElement('canvas').getContext('2d', { willReadFrequently: true });
-        document.querySelector('.year').textContent = new Date().getFullYear()
+        document.querySelector('.year').textContent = new Date().getFullYear();
 })();

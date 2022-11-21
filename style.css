@@ -142,7 +142,7 @@ html:focus-within {
 /* SIDEBAR */
 /**************************/
 .sidebar {
-  flex-basis: 40rem;
+  flex-basis: 70rem;
   background-color: #272a2c; /* 50% shade */
   background-color:#1f2223; /* 60% shade  */
   padding: 3rem 3rem 4rem 3rem;
