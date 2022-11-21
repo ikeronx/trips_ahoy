@@ -10,7 +10,7 @@
 
 <img src="https://64.media.tumblr.com/7bb70c21ed770be463f7dcab004f2428/7a304604733b3e51-23/s1280x1920/c8ef2f6a727210718014788786062a2c71f42937.pnj" target="_blank"/>
 
-<p float="left">
+<p align="left">
   <img src="https://64.media.tumblr.com/8dae75ce7556aa4302520e2456e63dec/7a304604733b3e51-7f/s2048x3072/2bb0d169d276cd05a9a30b308c58edd78d8e0ff0.pnj" width="400" />
   <img src="https://64.media.tumblr.com/c9ff97afa4eba4a9d2d3c8ff800896be/7a304604733b3e51-73/s2048x3072/ee2179692ae6564176bf2344f998f7e2fe976ecf.pnj" width="400" /> 
 </p>
