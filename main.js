@@ -80,15 +80,14 @@ const showForm = (mapE) => {
         form.classList.remove('hidden');
         inputTitle.focus();
 
-        // mapE = MP EVENT TO GET LOCATION FROM LEAFLET MAP
         mapEvent = mapE; // reassigns the value that is received from leaflet map.on() method to the global 'mapEvent' variable.. other functions will will get access to that value (latLng / coords)
 };
 
 const hideForm = () => {
-        // EMPTY INPUTS
+        // Empty inputs
         form.reset();
 
-        // TRICK TO PREVENT ANIMATION
+        // Trick to prevent animation
         form.style.display = 'none';
         form.classList.add('hidden');
         setTimeout(() => (form.style.display = 'grid'), 1000);
@@ -254,7 +253,6 @@ const loadMap = async () => {
                                 📌 Change map style. <br>
                                 `
                         )
-                        // .openPopup()
                         .bindTooltip(` Click to learn more about Trips Ahoy!`, {
                                 // permanent: true,
                                 direction: 'right',
@@ -452,10 +450,10 @@ const loadMap = async () => {
                         }
                 });
 
-                // disables the first option from the find places select dropdown menu
+                // Disables the first option from the find places select dropdown menu
                 document.querySelector('#optionsSelect option').disabled = true;
 
-                // STOPS EVENT FROM BUBBLING UP TO THE PARENT ELEMENT (#MAP) WHICH TRIGGERS ITS CLICK EVENT CAUSING THE SELECT MENU TO CLOSE
+                // Stops event from bubbling up to the parent element (#map) which triggers its click event causing the select menu to close
                 select.addEventListener('click', (e) => {
                         e.stopPropagation();
                 });
@@ -680,9 +678,7 @@ const newWorkout = async (e) => {
 // EVENT LISTENERS
 (() => {
         form.addEventListener('submit', newWorkout);
-        document.querySelector('.form__btn').addEventListener('click', (e) => {
-                e.stopPropagation();
-        });
+        document.querySelector('.form__btn').addEventListener('click', (e) => e.stopPropagation());
         containerTrips.addEventListener('click', moveToPopup);
         document.createElement('canvas').getContext('2d', { willReadFrequently: true });
         document.querySelector('.year').textContent = new Date().getFullYear();
