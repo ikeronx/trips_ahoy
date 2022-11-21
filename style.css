@@ -143,7 +143,6 @@ html:focus-within {
 /**************************/
 .sidebar {
   flex-basis: 40rem;
-  /* background-color: var(--clr-dark--1); */
   background-color: #272a2c; /* 50% shade */
   background-color:#1f2223; /* 60% shade  */
   padding: 3rem 3rem 4rem 3rem;
@@ -854,6 +853,7 @@ a.leaflet-control-layers-toggle {
   filter: invert(100%); 
   cursor: pointer;
   z-index: 0;
+  /* transform: translateY(15px); */
 }
 
 /* Pulse marker */

@@ -424,14 +424,13 @@ const loadMap = async () => {
                                                 })
                                                         .on('click', function () {
                                                                 this.bounce(1);
-                                                                flyToLocation(searchResult.latlng, 17);
                                                         })
                                                         .addTo(layerGroup)
                                                         .bindPopup(
                                                                 L.popup({
                                                                         maxWidth: 300,
                                                                         minWidth: 30,
-                                                                        autoClose: true,
+                                                                        autoClose: false,
                                                                         closeOnClick: false,
                                                                         className: 'trip-popup',
                                                                 })
@@ -440,7 +439,7 @@ const loadMap = async () => {
                                                                 `<strong class='places'>${searchResult.properties.PlaceName}</strong></br>${searchResult.properties.Place_addr}`
                                                         )
                                                         .openPopup()
-                                                        .bounce(1)
+                                                        .bounce(3)
                                                         ._icon.classList.add('hueChangeTeal');
                                         });
                                 });
@@ -468,19 +467,19 @@ const loadMap = async () => {
                         position: 'topright',
                         show: false,
                         waypoints: [
-                                null,
+                                null
                                 // L.latLng(42.3606316223, -71.071416656),
                                 // L.latLng(42.350451, -71.0795),
                         ],
                         showAlternatives: true,
                         lineOptions: {
-                                styles: [{ color: '#319795', opacity: 1, weight: 2 }],
+                                styles: [{ color: '#319795', opacity: 1, weight: 3 }],
                         },
                         altLineOptions: {
                                 styles: [
                                         { color: '#D68C45', opacity: 0.15, weight: 9 },
                                         { color: 'white', opacity: 0, weight: 3 },
-                                        { color: '#D68C45', opacity: 1, weight: 2 },
+                                        { color: '#D68C45', opacity: 1, weight: 3 },
                                 ],
                         },
                         createMarker: (i, wp) => {
@@ -686,4 +685,5 @@ const newWorkout = async (e) => {
         });
         containerTrips.addEventListener('click', moveToPopup);
         document.createElement('canvas').getContext('2d', { willReadFrequently: true });
+        document.querySelector('.year').textContent = new Date().getFullYear()
 })();
