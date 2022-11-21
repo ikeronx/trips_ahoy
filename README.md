@@ -1,6 +1,6 @@
 
 # Trips Ahoy! 
-<strong>Déjà Brew</strong>is a contemporary cafe website which features a full tab menu, testimonial carousel , reservation functionality and a custom map. 
+<strong>Trips Ahoy!</strong> is a travel companion app that allow users to plan and organize trips and document the experience they had during the trip.
 
 👉 [Live Site](https://ikeronx.github.io/trips_ahoy/) 
 
