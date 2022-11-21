@@ -154,7 +154,7 @@ const renderTrip = (trip) => {
                 </header>
         </li>
 `;
-containerTrips.insertAdjacentHTML('beforeend', html);
+        form.insertAdjacentHTML('afterend', html);
 };
 
 const getLocalStorage = () => {
