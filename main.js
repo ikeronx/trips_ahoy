@@ -29,21 +29,6 @@ const zoomLevel = 3;
 // DATA
 let trips = [
         {
-                id: 'coki45#2!',
-                title: "Bottoms Up In Mo'Bay",
-                rating: '⭐️⭐️⭐️⭐️⭐️',
-                startDate: 'Mar 12, 2022',
-                endDate: 'June 01, 2022',
-                desc: "Montego Bay has duty-free shopping, vibrant nightlife, & calm waters. I can't wait to return!",
-                coords: [18.47163118420902, -77.92087554931642],
-                countryCode: 'JM',
-                countryFlag: '🇯🇲',
-                city: 'Montego Bay',
-                cityWeaIconPath: 'https://openweathermap.org/img/wn/01d@2x.png',
-                cityWeaDesc: 'clear sky',
-                tripImg: 'https://images.unsplash.com/photo-1624483275193-33b8acc6e32f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1674&q=80%20%20https://images.unsplash.com/photo-1592945843838-c69fc7dacb08?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2940&q=80%20https://images.unsplash.com/photo-1626292730004-0b3373283151?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2864&q=80',
-        },
-        {
                 id: '658#@#45#2!',
                 title: 'Bon Voyage 🛩',
                 rating: '⭐️⭐️⭐️⭐️☆',
@@ -73,6 +58,21 @@ let trips = [
                 cityWeaDesc: 'few clouds',
                 tripImg: 'https://images.unsplash.com/photo-1536323760109-ca8c07450053?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=930&q=80',
         },
+        {
+                id: 'coki45#2!',
+                title: "Bottoms Up In Mo'Bay",
+                rating: '⭐️⭐️⭐️⭐️⭐️',
+                startDate: 'Mar 12, 2022',
+                endDate: 'June 01, 2022',
+                desc: "Montego Bay has duty-free shopping, vibrant nightlife, & calm waters. I can't wait to return!",
+                coords: [18.47163118420902, -77.92087554931642],
+                countryCode: 'JM',
+                countryFlag: '🇯🇲',
+                city: 'Montego Bay',
+                cityWeaIconPath: 'https://openweathermap.org/img/wn/01d@2x.png',
+                cityWeaDesc: 'clear sky',
+                tripImg: 'https://images.unsplash.com/photo-1624483275193-33b8acc6e32f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1674&q=80%20%20https://images.unsplash.com/photo-1592945843838-c69fc7dacb08?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2940&q=80%20https://images.unsplash.com/photo-1626292730004-0b3373283151?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2864&q=80',
+        }
 ];
 
 // APP
