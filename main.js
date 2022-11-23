@@ -428,7 +428,7 @@ const loadMap = async () => {
                                                                 L.popup({
                                                                         maxWidth: 300,
                                                                         minWidth: 30,
-                                                                        autoClose: false,
+                                                                        autoClose: true,
                                                                         closeOnClick: false,
                                                                         className: 'trip-popup',
                                                                 })

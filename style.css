@@ -142,7 +142,7 @@ html:focus-within {
 /* SIDEBAR */
 /**************************/
 .sidebar {
-  flex-basis: 70rem;
+  flex-basis: 30rem;
   background-color: #272a2c; /* 50% shade */
   background-color:#1f2223; /* 60% shade  */
   padding: 3rem 3rem 4rem 3rem;
@@ -960,6 +960,18 @@ img.hueChangeOrangeTint { filter: brightness(0) saturate(100%) invert(77%) sepia
 .portfolio-link:active {
   color: var(--clr-light--2);
 }
+
+.copyright--hidden{
+  display: none;
+}
+
+@media screen and (min-width: 30em) {
+  .copyright--hidden{
+    display: block;
+}
+}
+
+
 
 /*
 SPACING SYSTEM (px)
