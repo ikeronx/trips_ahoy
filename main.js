@@ -81,6 +81,15 @@ const showForm = (mapE) => {
         inputTitle.focus();
 
         mapEvent = mapE; // reassigns the value that is received from leaflet map.on() method to the global 'mapEvent' variable.. other functions will will get access to that value (latLng / coords)
+        /// A popup that let's the user know where they are adding a trip each time they click on the map
+        L.popup({
+                autoClose: true,
+                closeOnClick: true,
+                className: 'leaflet-pop--addTrip',
+        })
+                .setLatLng(mapE.latlng)
+                .setContent('<p>Add a trip here</p>')
+                .openOn(map);
 };
 
 const hideForm = () => {
