@@ -1,6 +1,6 @@
 
 # Trips Ahoy! 
-<strong>Trips Ahoy!</strong> is a travel companion app that allow users to plan and organize trips and document the experience they had during the trip.
+<strong>Trips Ahoy!</strong> is a travel companion app that allow users to plan and organize trips and document the experience they had from a trip.
 
 👉 [Live Site](https://ikeronx.github.io/trips_ahoy/) 
 
