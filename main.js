@@ -88,7 +88,7 @@ const showForm = (mapE) => {
                 className: 'leaflet-pop--addTrip',
         })
                 .setLatLng(mapE.latlng)
-                .setContent('<p>Add a trip here</p>')
+                .setContent('<p>Add a trip here.</p>')
                 .openOn(map);
 };
 
@@ -121,7 +121,7 @@ const renderTripMarker = (trip) => {
                                 className: `trip-popup`,
                         })
                 )
-                .setPopupContent(`${trip.countryFlag}${trip.countryCode.toUpperCase()}\xa0\xa0\xa0📍${trip.city}`)
+                .setPopupContent(`${trip.countryFlag} ${trip.countryCode.toUpperCase()}\xa0\xa0\xa0📍${trip.city}`)
                 .openPopup();
 };
 
@@ -304,6 +304,7 @@ const loadMap = async () => {
                         const resultCoords = [data.results[0].latlng.lat, data.results[0].latlng.lng];
 
                         const resultCurWeather = await utilAsync._getCiCurWea(resultCoords[0], resultCoords[1]);
+                        const resultGeoData = await utilAsync._getGeoData(resultCoords[0], resultCoords[1]);
 
                         // 3. Create a loop that adds the coordinates of a selected search       results to a Marker.
                         for (let i = data.results.length - 1; i >= 0; i--) {
@@ -337,12 +338,16 @@ const loadMap = async () => {
                                 }`;
                                 marker.bindPopup(
                                         L.popup({
-                                                autoClose: false,
+                                                autoClose: true,
                                                 closeOnClick: false,
                                                 className: `search-popup`,
                                         })
                                 ).setPopupContent(
-                                        `<p><strong>${data.results[i].properties.LongLabel}</strong><br>☁️ ${resultCurWeather[2]}<i> ${resultCurWeather[1]}</i></p>`
+                                        `<p>${resultGeoData.flag} <strong>${data.results[i].properties.LongLabel}</strong>
+                                        <br>☁️ ${resultCurWeather[2]}<i> ${resultCurWeather[1]}</i>
+                                        <br><span>🗣</span> ${resultGeoData.language} 
+                                        <br><span>💸</span> ${resultGeoData.currency} 
+                                        </p>`
                                 );
                                 results.addLayer(pulseMarker);
                                 results.addLayer(marker);
@@ -437,7 +442,7 @@ const loadMap = async () => {
                                                                 L.popup({
                                                                         maxWidth: 300,
                                                                         minWidth: 30,
-                                                                        autoClose: true,
+                                                                        autoClose: false,
                                                                         closeOnClick: false,
                                                                         className: 'trip-popup',
                                                                 })

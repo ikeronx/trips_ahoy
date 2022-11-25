@@ -196,6 +196,7 @@ html:focus-within {
   position: absolute;
   right: 0; 
   transform: translateX(100%);
+
   transition: all 0.3s ease-in;
 }
 
@@ -679,7 +680,6 @@ li:nth-child(2) {
   background-color: var(--clr-dark--1);
   color: var(--clr-light--2);
   border-radius: 5px;
-  padding-right: 0.6rem;
 }
 
 .leaflet-popup .leaflet-popup-content {

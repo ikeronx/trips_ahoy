@@ -33,14 +33,19 @@ const getGeoLocationJSON = async (lat, lng) => {
                 const countryName = data[0]?.name?.common ?? 'Unavailable';
                 const city = dataGeo.results[0]?.city ?? 'Unavailable';
                 const flag = data[0]?.flag ?? 'Unavailable';
+                const language = Object.values(data[0]?.languages ?? 'Unavailable').join(', ');
+                const currency = Object.values(data[0]?.currencies ?? 'Unavailable').map(
+                        (cur) => `${cur?.name} ${cur?.symbol}`
+                )[0];
                 const latitude = lat;
                 const longitude = lng;
 
-                return { countryAbbrev, countryName, city, flag, latitude, longitude }; // returns an object
+                return { countryAbbrev, countryName, city, flag, latitude, longitude, currency, language }; // returns an object
         } catch (err) {
                 return 'Unavailable';
         }
 };
+// await getGeoLocationJSON(37.5326, 127.024612);
 
 // CITY CUR WEATHER
 const getCityCurWeather = async (lat, lng) => {
