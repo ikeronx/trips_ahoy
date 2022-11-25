@@ -338,7 +338,7 @@ const loadMap = async () => {
                                 }`;
                                 marker.bindPopup(
                                         L.popup({
-                                                autoClose: true,
+                                                autoClose: false,
                                                 closeOnClick: false,
                                                 className: `search-popup`,
                                         })
@@ -442,7 +442,7 @@ const loadMap = async () => {
                                                                 L.popup({
                                                                         maxWidth: 300,
                                                                         minWidth: 30,
-                                                                        autoClose: false,
+                                                                        autoClose: true,
                                                                         closeOnClick: false,
                                                                         className: 'trip-popup',
                                                                 })
