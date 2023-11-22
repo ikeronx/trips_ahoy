@@ -12,62 +12,78 @@ const getPosition = () =>
 // REVERSE GEO CODING LOCATION OBJECT - FIRST CLASS FUNCTION
 const getGeoLocationJSON = async (lat, lng) => {
         try {
-                const key = '528c5dcffdab43848fa6c11bfb7a2545';
+        const key = "528c5dcffdab43848fa6c11bfb7a2545";
 
-                // Reverse Geocoding
-                const resGeo = await fetch(
-                        `https://api.geoapify.com/v1/geocode/reverse?lat=${lat}&lon=${lng}&format=json&apiKey=${key}`
-                );
-                if (!resGeo.ok) throw new Error(`Problem getting location data`); // ⛔️🎅🏽 Guard clause
-                const dataGeo = await resGeo.json();
+        // Reverse Geocoding
+        const resGeo = await fetch(
+        `https://api.geoapify.com/v1/geocode/reverse?lat=37.5326&lon=127.024612&format=json&apiKey=${key}`
+        );
+        if (!resGeo.ok) throw new Error(`Problem getting location data`); // ⛔️🎅🏽 Guard clause
+        const dataGeo = await resGeo.json();
 
-                // Country code
-                const countryCode = dataGeo.results[0]?.country_code ?? 'Unavailable';
+        // Country code
+        const countryCode = dataGeo.results[0]?.country_code ?? "Unavailable";
 
-                // Fetch location data and create an object with the data then return it
-                const res = await fetch(`https://restcountries.com/v3.1/alpha/${countryCode}`);
-                if (!res.ok) throw new Error(`Problem getting country data`);
-                const data = await res.json();
+        // Fetch location data and create an object with the data then return it
+        const res = await fetch(
+        `https://restcountries.com/v3.1/alpha/${countryCode}`
+        );
+        if (!res.ok) throw new Error(`Problem getting country data`);
+        const data = await res.json();
 
-                const countryAbbrev = countryCode;
-                const countryName = data[0]?.name?.common ?? 'Unavailable';
-                const city = dataGeo.results[0]?.city ?? 'Unavailable';
-                const flag = data[0]?.flag ?? 'Unavailable';
-                const language = Object.values(data[0]?.languages ?? 'Unavailable').join(', ');
-                const currency = Object.values(data[0]?.currencies ?? 'Unavailable').map(
-                        (cur) => `${cur?.name} ${cur?.symbol}`
-                )[0];
-                const latitude = lat;
-                const longitude = lng;
+        const countryAbbrev = countryCode;
+        const countryName = data[0]?.name?.common ?? "Unavailable";
+        const city = dataGeo.results[0]?.city ?? "Unavailable";
+        const flag = data[0]?.flag ?? "Unavailable";
+        const language = Object.values(data[0]?.languages ?? "Unavailable").join(
+        ", "
+        );
+        const currency = Object.values(data[0]?.currencies ?? "Unavailable").map(
+        (cur) => `${cur?.name} ${cur?.symbol}`
+        )[0];
+        const latitude = lat;
+        const longitude = lng;
 
-                return { countryAbbrev, countryName, city, flag, latitude, longitude, currency, language }; // returns an object
+        return {
+        countryAbbrev,
+        countryName,
+        city,
+        flag,
+        latitude,
+        longitude,
+        currency,
+        language,
+        }; // returns an object
         } catch (err) {
-                return 'Unavailable';
+        return "Unavailable";
         }
 };
-// await getGeoLocationJSON(37.5326, 127.024612);
+// console.log(await getGeoLocationJSON(37.5326, 127.024612));
 
 // CITY CUR WEATHER
 const getCityCurWeather = async (lat, lng) => {
         try {
-                const geoData = await getGeoLocationJSON(lat, lng);
+        const geoData = await getGeoLocationJSON(lat, lng);
 
-                const myKey = '1db6ec5257aa7458bd25e359a7102c19';
+        const myKey = "1db6ec5257aa7458bd25e359a7102c19";
 
-                const resWeather = await fetch(
-                        `https://api.openweathermap.org/data/3.0/onecall?lat=${geoData.latitude}&lon=${geoData.longitude}&appid=${myKey}`
-                );
-                if (!resWeather.ok) throw new Error(`Problem getting location data`);
-                const dataWeather = await resWeather.json();
-                if (!dataWeather) return;
-
-                return [
-                        `https://openweathermap.org/img/wn/${dataWeather.current.weather[0].icon}@2x.png`,
-                        `${dataWeather.current.weather[0].description}`,
-                        `${utilNum._ct(dataWeather.current.temp)}°`,
-                ];
+        const resWeather = await fetch(
+        `https://api.openweathermap.org/data/3.0/onecall?lat=${geoData.latitude}&lon=${geoData.longitude}&appid=${myKey}`
+        );
+        if (!resWeather.ok) throw new Error(`Problem getting location data`);
+        const dataWeather = await resWeather.json();
+        if (!dataWeather) return;
+        console.log(dataWeather);
+        console.log(
+        `https://openweathermap.org/img/wn/${dataWeather.current.weather[0].icon}@2x.png`
+        );
+        return [
+        `https://openweathermap.org/img/wn/${dataWeather.current.weather[0].icon}@2x.png`,
+        `${dataWeather.current.weather[0].description}`,
+        `${utilNum._ct(dataWeather.current.temp)}°`,
+        ];
         } catch (err) {
-                return 'Unavailable';
+        return "Unavailable";
         }
 };
 
