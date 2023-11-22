@@ -39,7 +39,7 @@ let trips = [
                 countryCode: 'SK',
                 countryFlag: '🇰🇷',
                 city: 'Seoul',
-                cityWeaIconPath: 'http://openweathermap.org/img/wn/11d@2x.png',
+                cityWeaIconPath: 'https://openweathermap.org/img/wn/11d@2x.png',
                 cityWeaDesc: 'light rain',
                 tripImg: 'https://images.unsplash.com/photo-1641463594370-68593b56552c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80',
         },
